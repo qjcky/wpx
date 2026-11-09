@@ -2117,6 +2117,11 @@ async fn rebuild_route(st: &Store, x: &Server, log: Option<&Log>) -> Result<(Opt
         if !pipes.is_empty() {
             let hop = pipes[0].hop.as_deref().and_then(|h| st.servers.iter().find(|s| s.id == h)).map(|m| format!("{} → ", m.name)).unwrap_or_default();
             via_pipes.extend(endpoints(x, &xsec, &e.host, Ports::via(x, &pipes), &format!("{} → {hop}{}", e.name, x.name), Some(&e.id)));
+            // Каскад до своих ключей путей: AmneziaWG через вход пропущен — сказать как вернуть.
+            let no_key = x.awg.is_some() && Ports::via(x, &pipes).awg.is_some() && !x.awg_paths.iter().any(|p| p.via == e.id);
+            if let (true, Some(l)) = (no_key, log) {
+                l("warn", format!("AmneziaWG через «{}» не вошёл: нужен свой ключ пути — запустите «Каскад» {} → {} ещё раз (труба останется, на «{}» добавится только ключ)", e.name, e.name, x.name, x.name));
+            }
         }
     }
     let mut ps = profiles::load();

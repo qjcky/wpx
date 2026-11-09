@@ -1520,7 +1520,8 @@
   "Туннель выключится — интернет пойдёт напрямую, без VPN, до повторного запуска.": "The tunnel will turn off — internet goes direct, without VPN, until you start it again.",
   "Программы получают настоящие адреса сайтов, а адрес сайта, который идёт через VPN, узнаётся через туннель. Выключено — wpx отдаёт временные адреса (198.18.x.x): ускорители игр (ExitLag и т.п.) и некоторые античиты с ними не работают": "Programs get real site addresses, and the address of a site that goes through the VPN is looked up through the tunnel. Off — wpx hands out temporary addresses (198.18.x.x): game boosters (ExitLag etc.) and some anti-cheats don't work with them",
   "закрыто": "blocked",
-  "через VPN и прокси": "via VPN and proxy"
+  "через VPN и прокси": "via VPN and proxy",
+  "AmneziaWG через вход: свой ключ пути на выходе": "AmneziaWG via an entry: its own path key on the exit"
  },
  "patterns": [
   [
@@ -3754,6 +3755,14 @@
   [
    "{} через {}",
    "{} via {}"
+  ],
+  [
+   "AmneziaWG через «{}» не вошёл: нужен свой ключ пути — запустите «Каскад» {} → {} ещё раз (труба останется, на «{}» добавится только ключ)",
+   "AmneziaWG via “{}” left out: the path needs its own key — run “Cascade” {} → {} again (the pipe stays, only a key is added on “{}”)"
+  ],
+  [
+   "AmneziaWG через «{}»: ключ пути на «{}» не добавлен ({}) — путь пойдёт без AmneziaWG",
+   "AmneziaWG via “{}”: the path key wasn’t added on “{}” ({}) — the path goes without AmneziaWG"
   ]
  ]
 }
