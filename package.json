@@ -1,0 +1,25 @@
+{
+  "name": "wpx",
+  "private": true,
+  "version": "0.1.0",
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "scripts": {
+    "postinstall": "node scripts/fetch-mihomo.mjs",
+    "fetch-mihomo": "node scripts/fetch-mihomo.mjs",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "typecheck": "tsc --noEmit",
+    "tauri": "tauri",
+    "lab": "tauri build --no-bundle --features lab --config src-tauri/tauri.lab.conf.json"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2",
+    "typescript": "~5.8.3",
+    "vite": "^7.0.4"
+  },
+  "description": "Tunnel manager for your PC and your own VPN servers"
+}

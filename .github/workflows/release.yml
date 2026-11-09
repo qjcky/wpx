@@ -1,0 +1,86 @@
+name: Release
+
+# Push a tag like v0.2.0 → installers for Windows and Linux, signed for the
+# auto-updater, in a draft release with latest.json. See docs/releasing.md.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Linux build dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev libxdo-dev
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: src-tauri
+
+      - run: npm ci
+
+      - uses: tauri-apps/tauri-action@84b9d35b5fc46c1e45415bdb6144030364f7ebc5 # v0.6.2
+        id: tauri
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: wpx ${{ github.ref_name }}
+          releaseBody: See CHANGELOG.md.
+          releaseDraft: true
+          includeUpdaterJson: true
+          # Подписанные архивы для автообновления — только в релизе (нужен ключ).
+          args: --config src-tauri/tauri.release.conf.json
+
+      # Installers are not code-signed yet: publish SHA-256 so users can check what they downloaded.
+      # Uploaded by release id: the release is still a draft, and drafts are not found by tag.
+      - name: Checksums
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UPLOAD: https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.tauri.outputs.releaseId }}/assets
+        run: |
+          name="SHA256SUMS-${{ runner.os }}.txt"
+          (
+            cd src-tauri/target/release/bundle
+            for f in nsis/*-setup.exe deb/*.deb appimage/*.AppImage; do
+              if [ -f "$f" ]; then sha256sum "$f" | sed 's|  .*/|  |'; fi
+            done
+          ) > "$name"
+          cat "$name"
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Content-Type: text/plain"             --data-binary @"$name" "$UPLOAD?name=$name" > /dev/null
+
+      # mihomo ships with wpx under GPL-3.0: attach its corresponding source.
+      - name: mihomo source
+        if: runner.os == 'Linux'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UPLOAD: https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.tauri.outputs.releaseId }}/assets
+        run: |
+          v=$(grep -oP 'const VERSION = "\K[^"]+' scripts/fetch-mihomo.mjs)
+          name="mihomo-$v-source.tar.gz"
+          curl -fsSL -o "$name" "https://github.com/MetaCubeX/mihomo/archive/refs/tags/$v.tar.gz"
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Content-Type: application/gzip"             --data-binary @"$name" "$UPLOAD?name=$name" > /dev/null

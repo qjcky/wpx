@@ -1,0 +1,3759 @@
+{
+ "name": "English",
+ "exact": {
+  "Проверить сейчас": "Check now",
+  "Вырез сверху экрана": "Top-of-screen notch",
+  "Свернуть": "Minimize",
+  "Спрятать в трей": "Hide to tray",
+  "Разделы": "Sections",
+  "Настройки и оформление": "Settings and appearance",
+  "Проверить путь до своего сервера: ПК → сервер → его интернет → протоколы": "Check the path to your server: PC → server → its internet → protocols",
+  "Маршрут трафика": "Traffic route",
+  "Окно графика": "Chart window",
+  "IP, выход мимо туннеля, IPv6, DNS, WebRTC": "IP, bypassing the tunnel, IPv6, DNS, WebRTC",
+  "Вид": "View",
+  "Проверить все точки сейчас": "Check all endpoints now",
+  "~25 МБ вниз и ~6 МБ вверх через профиль": "~25 MB down and ~6 MB up through the profile",
+  "vless://…\nhysteria2://…\nvpn://… (AmneziaVPN → «Поделиться»)": "vless://…\nhysteria2://…\nvpn://… (AmneziaVPN → “Share”)",
+  "Например, Амстердам": "For example, Amsterdam",
+  "Проверить каждую точку в песочнице и расставить по скорости": "Test each endpoint in a sandbox and sort by speed",
+  "Поменять вход и выход местами": "Swap entry and exit",
+  "Например, Сингапур → Хельсинки": "For example, Singapore → Helsinki",
+  "Проверить вход отдельно и выход через вход — в песочнице, систему не трогает": "Test the entry alone and the exit through the entry — in a sandbox, the system is untouched",
+  "Например, Хельсинки — все пути": "For example, Helsinki — all paths",
+  "Проверить каждого отмеченного участника в песочнице": "Test each selected member in a sandbox",
+  "Проверить сохранённые точки в песочнице и расставить по скорости": "Test saved endpoints in a sandbox and sort by speed",
+  "Показать пароль": "Show password",
+  "mihomo -t для конфига с этими правилами — систему не меняет": "mihomo -t on a config with these rules — doesn’t change the system",
+  "Сохранить — движок возьмёт при следующем перезапуске": "Save — the engine picks it up on the next restart",
+  "Сохранить и перезапустить движок — с откатом": "Save and restart the engine — with rollback",
+  "Приложение, сайт или набор — начните вводить или выберите ниже": "App, site or set — start typing or pick below",
+  "Вход пересылает трафик на выход, ключей не знает": "The entry forwards traffic to the exit and doesn’t know the keys",
+  "по городу сервера": "from the server’s city",
+  "IP для сайтов, выход мимо туннеля, IPv6, DNS, WebRTC": "IP seen by sites, bypassing the tunnel, IPv6, DNS, WebRTC",
+  "Текстовый файл в «Загрузках»: версия, движок, профили без ключей, защита, события, простои, утечки, ошибки движка": "A text file in Downloads: version, engine, profiles without keys, protection, events, outages, leaks, engine errors",
+  "Песочница мимо туннеля через физический адаптер — как ПК будет ходить к серверу": "Sandbox bypassing the tunnel via the physical adapter — the way the PC will reach the server",
+  "Обзор": "Overview",
+  "Трафик": "Traffic",
+  "Профили": "Profiles",
+  "Правила": "Rules",
+  "Серверы": "Servers",
+  "Движок": "Engine",
+  "Настройки": "Settings",
+  "Проверяем связь": "Checking connection",
+  "Первые замеры через пару секунд": "First measurements in a couple of seconds",
+  "Где рвётся?": "Where does it break?",
+  "Перезапустить": "Restart",
+  "Сетевой маршрут": "Network route",
+  "Задержка": "Latency",
+  "мс": "ms",
+  "15 мин": "15 min",
+  "1 час": "1 hour",
+  "Скачивание": "Download",
+  "Отправка": "Upload",
+  "Защита": "Protection",
+  "Выход для сайтов": "Exit seen by sites",
+  "Подробности": "Details",
+  "Пути": "Paths",
+  "утечки": "leaks",
+  "Лента": "Feed",
+  "журнал": "log",
+  "Ошибки движка": "Engine errors",
+  "в минуту, 3 часа": "per minute, 3 hours",
+  "Простои": "Outages",
+  "Скорость через туннель": "Speed through the tunnel",
+  "Cloudflare · ~30 с · до ~30 МБ трафика прокси": "Cloudflare · ~30 s · up to ~30 MB of proxy traffic",
+  "загрузка ↓": "download ↓",
+  "Мбит/с": "Mbit/s",
+  "отдача ↑": "upload ↑",
+  "отклик": "ping",
+  "Запустить тест": "Run test",
+  "Кто ест туннель": "Who’s using the tunnel",
+  "приложения": "apps",
+  "адреса": "hosts",
+  "кто": "who",
+  "соед.": "conn.",
+  "↓ сейчас": "↓ now",
+  "↑ сейчас": "↑ now",
+  "↓ всего": "↓ total",
+  "↑ всего": "↑ total",
+  "Добавить профиль": "Add profile",
+  "Куда выходит ПК: VPN, каскад или прокси.": "Where the PC goes out: VPN, cascade or proxy.",
+  "Пробный запуск": "Trial run",
+  "Проверить точки": "Check endpoints",
+  "Тест скорости": "Speed test",
+  "Открыть браузер через профиль": "Open browser through the profile",
+  "Остановить": "Stop",
+  "Что добавить?": "What to add?",
+  "Закрыть": "Close",
+  "VPN по ссылке или конфигу": "VPN from a link or config",
+  "vless://, hysteria2://, trojan://, ss://, ссылка vpn:// из AmneziaVPN или конфиг AmneziaWG (.conf)": "vless://, hysteria2://, trojan://, ss://, a vpn:// link from AmneziaVPN or an AmneziaWG config (.conf)",
+  "Свой сервер": "Your own server",
+  "Каскад из двух профилей": "Cascade of two profiles",
+  "Маршрут из нескольких профилей": "Route of several profiles",
+  "HTTP / SOCKS5-прокси": "HTTP / SOCKS5 proxy",
+  "vless:// hysteria2:// trojan:// ss:// · vpn:// из AmneziaVPN · конфиг AmneziaWG": "vless:// hysteria2:// trojan:// ss:// · vpn:// from AmneziaVPN · AmneziaWG config",
+  "Проверять мимо туннеля": "Test bypassing the tunnel",
+  "Название профиля": "Profile name",
+  "Как выбирать точку": "How to pick an endpoint",
+  "самая быстрая (автоподбор)": "fastest (auto-select)",
+  "умная — по истории и времени суток": "smart — by history and time of day",
+  "по порядку, следующая при сбое": "in order, next one on failure",
+  "Подобрать": "Pick best",
+  "Отмена": "Cancel",
+  "Сохранить профиль": "Save profile",
+  "Каскад": "Cascade",
+  "ПК → вход → выход → интернет": "PC → entry → exit → internet",
+  "ПК": "PC",
+  "Вход — до него ПК достаёт сам": "Entry — the PC reaches it directly",
+  "Выход — его IP увидят сайты": "Exit — sites will see its IP",
+  "интернет": "internet",
+  "Название каскада": "Cascade name",
+  "Проверить": "Check",
+  "Сохранить каскад": "Save cascade",
+  "Маршрут": "Route",
+  "несколько путей — движок держит лучший живой": "several paths — the engine keeps the best live one",
+  "Название": "Name",
+  "Как выбирать путь": "How to pick a path",
+  "самый быстрый из живых": "fastest live one",
+  "по порядку, следующий при сбое": "in order, next one on failure",
+  "Профили-участники — отметьте и расставьте по порядку": "Member profiles — tick them and put them in order",
+  "Проверить участников": "Check members",
+  "Сохранить маршрут": "Save route",
+  "VPN-профиль": "VPN profile",
+  "Точки подключения — сверху вниз по приоритету": "Endpoints — top to bottom by priority",
+  "Добавить точки — ссылки или конфиг AWG (необязательно)": "Add endpoints — links or an AWG config (optional)",
+  "Сохранить": "Save",
+  "Профиль": "Profile",
+  "Сервер (IPv4)": "Server (IPv4)",
+  "Порт HTTP": "HTTP port",
+  "Порт HTTPS": "HTTPS port",
+  "Порт SOCKS5": "SOCKS5 port",
+  "HTTPS — порт HTTP по TLS": "HTTPS — HTTP port over TLS",
+  "Имя для сертификата (SNI)": "Certificate name (SNI)",
+  "Не проверять сертификат": "Don’t verify certificate",
+  "только для своего прокси с самоподписанным сертификатом": "only for your own proxy with a self-signed certificate",
+  "Логин": "Login",
+  "Пароль": "Password",
+  "Основной выход": "Primary exit",
+  "Второй протокол — резерв": "Second protocol as backup",
+  "не применено": "not applied",
+  "Применить": "Apply",
+  "Приложение или сайт — через нужный профиль, напрямую или в блок.": "An app or site — through a chosen profile, direct or blocked.",
+  "← выбрать другое": "← choose another",
+  "сверху вниз — первое совпавшее решает": "top to bottom — the first match wins",
+  "Всё остальное": "Everything else",
+  "через рабочий профиль": "through the active profile",
+  "напрямую": "direct",
+  "Свои серверы": "Your servers",
+  "Добавить сервер": "Add server",
+  "wpx сам ставит VPN на ваш сервер по SSH и создаёт профиль.": "wpx installs a VPN on your server over SSH and creates a profile.",
+  "Новый сервер": "New server",
+  "Debian или Ubuntu, вход под root": "Debian or Ubuntu, root login",
+  "IP-адрес": "IP address",
+  "Порт SSH": "SSH port",
+  "Вход": "Entry",
+  "Файл ключа": "Key file",
+  "Пароль — нужен один раз и нигде не сохраняется": "Password — needed once and never stored",
+  "Файл ключа OpenSSH (без парольной фразы)": "OpenSSH key file (no passphrase)",
+  "Как подключаться": "How to connect",
+  "Подключить": "Connect",
+  "Путь к выходу через вход": "Path to the exit through an entry",
+  "Вход — к нему подключается ПК": "Entry — the PC connects to it",
+  "Добавить путь": "Add path",
+  "Управление": "Control",
+  "Запустить": "Start",
+  "Запускать туннель при включении ПК": "Start the tunnel when the PC boots",
+  "Самовосстановление": "Self-healing",
+  "Глубокая проверка": "Deep check",
+  "Проверка и поддержка": "Checks and support",
+  "ничего не меняет в системе": "changes nothing in the system",
+  "Проверить утечки": "Check for leaks",
+  "Отчёт для поддержки": "Support report",
+  "Скрыть в отчёте адреса и сайты": "Hide addresses and sites in the report",
+  "Правила роутера": "Router rules",
+  "Проверить, что роутер пускает": "Check that the router lets it through",
+  "Что куда идёт": "What goes where",
+  "Открыть «Правила»": "Open Rules",
+  "Сеть движка": "Engine network",
+  "применяется перезапуском движка": "applied by restarting the engine",
+  "Конфиг движка устарел: блок телеметрии и имена приложений в «Трафике» заработают после «Сохранить и применить».": "The engine config is outdated: telemetry blocking and app names in Traffic will work after “Save and apply”.",
+  "Физический адаптер": "Physical adapter",
+  "UDP (звонки, игры, QUIC)": "UDP (calls, games, QUIC)",
+  "всегда блокировать": "always block",
+  "всегда пропускать": "always allow",
+  "Блокировать телеметрию": "Block telemetry",
+  "Локальные сети — напрямую": "Local networks — direct",
+  "Сохранить и применить": "Save and apply",
+  "Старая система": "Old system",
+  "Подключено": "Connected",
+  "Связь замедлена": "Connection is slow",
+  "Нет связи": "No connection",
+  "Движок остановлен": "Engine stopped",
+  "Проверяем": "Checking",
+  "Стабильно": "Stable",
+  "Медленно": "Slow",
+  "Нет ответа": "No response",
+  "нет ответа": "no response",
+  "Движок стоит": "Engine idle",
+  "Работаем через резерв": "Running on backup",
+  "сервер не задан": "no server set",
+  "Личный VPN": "Personal VPN",
+  "Прокси": "Proxy",
+  "Профиль:": "Profile:",
+  "пробный запуск": "trial run",
+  "Движок сам перейдёт на живую точку, если эта перестанет отвечать": "The engine switches to a live endpoint on its own if this one stops responding",
+  "ещё 1 точка": "+1 endpoint",
+  "Если VPN не отвечает, движок за секунды уходит на этот профиль и сам возвращается": "If the VPN doesn’t respond, the engine moves to this profile within seconds and comes back on its own",
+  "Протокол:": "Protocol:",
+  "Туннель не пропускает трафик": "The tunnel isn’t passing traffic",
+  "рукопожатие с прокси": "handshake with the proxy",
+  "путь через движок · TCP — прямой коннект": "path through the engine · TCP — direct connect",
+  "ещё не проверялся": "not checked yet",
+  "ещё не проверялась": "not checked yet",
+  "ошибка": "error",
+  "в работе": "active",
+  "точек пока нет": "no endpoints yet",
+  "проверяем…": "checking…",
+  "Активна": "Active",
+  "ещё не узнали": "not known yet",
+  "этот IP видят сайты": "sites see this IP",
+  "⚠ не тот адрес, что ждали": "⚠ not the expected address",
+  "событий нет — и это хорошо": "no events — and that’s good",
+  "пока не было": "none so far",
+  "медиана": "median",
+  "потери": "loss",
+  "замеров": "samples",
+  "Акцент": "Accent",
+  "Свой цвет": "Custom color",
+  "Свой цвет акцента": "Custom accent color",
+  "Фон": "Background",
+  "Тон фона": "Background tone",
+  "Грани": "Facets",
+  "ярко": "bright",
+  "мягко": "soft",
+  "выключить": "off",
+  "График задержки": "Latency chart",
+  "Анимация": "Animation",
+  "Сцены, бегущий свет по маршруту, переходы. В RDP Windows просит анимацию выключить — «всегда» её оставит": "Scenes, light running along the route, transitions. Over RDP Windows asks to turn animation off — “always” keeps it on",
+  "Как было по умолчанию": "Reset to defaults",
+  "Тема": "Theme",
+  "Оформление": "Appearance",
+  "Запуск и вырез": "Startup and notch",
+  "Связь": "Connection",
+  "Уведомления о сбоях": "Failure notifications",
+  "«нет соединения» и «восстановлено» с длительностью простоя": "“no connection” and “restored” with the outage duration",
+  "Вырез сверху — на каком экране": "Top notch — which screen",
+  "чёрная капсула у верхнего края: связь, профили, правила; при наведении раскрывается": "a black capsule at the top edge: connection, profiles, rules; expands on hover",
+  "Вырез поверх всех окон": "Notch above all windows",
+  "выключите — вырез будет под развёрнутыми окнами": "turn off — the notch goes under maximized windows",
+  "Порог «медленно», мс": "“Slow” threshold, ms",
+  "выше этой задержки статус становится жёлтым": "above this latency the status turns yellow",
+  "Разделы настроек": "Settings sections",
+  "Не сохранилось": "Not saved",
+  "Понятно": "Got it",
+  "Перезапустить движок": "Restart engine",
+  "Движок перезапустится с текущим конфигом.": "The engine will restart with the current config.",
+  "Перейти": "Switch",
+  "Лабораторная сборка: систему не меняет": "Lab build: doesn’t change the system",
+  "Проверка сервера напрямую и сборка конфига (mihomo -t)": "Checking the server directly and building the config (mihomo -t)",
+  "Свой движок: копия mihomo, задача wpx-engine, правила kill switch": "Own engine: mihomo copy, wpx-engine task, kill switch rules",
+  "Весь ПК начнёт выходить через": "The whole PC will go out through",
+  "Перенести туннель в wpx": "Move the tunnel to wpx",
+  "Перенести": "Move",
+  "Переключить": "Switch",
+  "Профилей пока нет": "No profiles yet",
+  "Добавьте подключение кнопкой «Добавить профиль»: по ссылке, свой сервер или прокси": "Add a connection with the “Add profile” button: from a link, your own server or a proxy",
+  "по порядку": "in order",
+  "самый быстрый путь": "fastest path",
+  "ПК →": "PC →",
+  "→ интернет": "→ internet",
+  "→": "→",
+  "резерв вкл": "backup on",
+  "маршрут": "route",
+  "каскад": "cascade",
+  "прокси": "proxy",
+  "каскад своих серверов": "cascade of your servers",
+  "свой сервер": "your server",
+  "Создан на вкладке «Серверы»": "Created on the Servers tab",
+  "Сделать рабочим": "Make active",
+  "Пробный запуск без TUN: система не меняется": "Trial run without TUN: the system isn’t changed",
+  "Попробовать": "Try",
+  "Ещё действия": "More actions",
+  "Изменить": "Edit",
+  "⇄ Поменять": "⇄ Swap",
+  "Удалить": "Remove",
+  "Новый HTTP(S)/SOCKS5-прокси": "New HTTP(S)/SOCKS5 proxy",
+  "•••• сохранён": "•••• saved",
+  "Оставьте пустым, чтобы не менять": "Leave empty to keep it unchanged",
+  "проверяю…": "checking…",
+  "Проверяю…": "Checking…",
+  "не распознано": "not recognized",
+  "самая быстрая": "fastest",
+  "умная — по истории": "smart — by history",
+  "создан на вкладке «Серверы»: «Изменить VPN» там пересоберёт точки": "created on the Servers tab: “Edit VPN” there rebuilds the endpoints",
+  "Выше": "Up",
+  "Ниже": "Down",
+  "Убрать точку": "Remove endpoint",
+  "Нет точек — добавьте ссылки ниже": "No endpoints — add links below",
+  "Сохранено": "Saved",
+  "Профиль сейчас в работе — изменения вступят в силу после перезапуска движка.": "The profile is active — changes take effect after the engine restarts.",
+  "Новый маршрут": "New route",
+  "Пробный запуск остановлен": "Trial run stopped",
+  "самая быстрая точка": "fastest endpoint",
+  "умный выбор по истории": "smart choice by history",
+  "вх": "in",
+  "жива": "alive",
+  "активна": "active",
+  "запускаю движок и проверяю точки…": "starting the engine and checking endpoints…",
+  "Меряю…": "Measuring…",
+  "Открываю…": "Opening…",
+  "пинг": "ping",
+  "↓": "↓",
+  "↑": "↑",
+  "через профиль, мимо рабочего туннеля": "through the profile, bypassing the active tunnel",
+  "Новый каскад": "New cascade",
+  "Вход и выход — один и тот же профиль": "Entry and exit are the same profile",
+  "Песочница": "Sandbox",
+  "вход отдельно, затем выход через вход": "entry alone, then exit through the entry",
+  "Выход через вход": "Exit through entry",
+  "Выход": "Exit",
+  "Не поменялось": "Not swapped",
+  "Удалить каскад?": "Delete cascade?",
+  "Удалить профиль?": "Delete profile?",
+  "Не удалилось": "Not deleted",
+  "Настройки сохранены. Применятся при следующем перезапуске движка или смене профиля.": "Settings saved. They apply on the next engine restart or profile switch.",
+  "Применить сетевые настройки": "Apply network settings",
+  "Движок перезапустится с новыми настройками сети.": "The engine will restart with the new network settings.",
+  "Туннелем управляет wpx": "The tunnel is managed by wpx",
+  "wpx только наблюдает. Чтобы всё работало через wpx — перенесите движок.": "wpx is only watching. To run everything through wpx, move the engine.",
+  "wpx заводит свой движок: копия mihomo в C:\\ProgramData\\wpx, задача wpx-engine со стартом при включении ПК": "wpx sets up its own engine: a copy of mihomo in C:\\ProgramData\\wpx, a wpx-engine task that starts when the PC boots",
+  "Перенести в wpx": "Move to wpx",
+  "задача wpx-engine": "wpx-engine task",
+  "mihomo остановлен": "mihomo stopped",
+  "1.1.1.1:443 напрямую — закрыто": "1.1.1.1:443 direct — blocked",
+  "8.8.8.8:443 напрямую — закрыто": "8.8.8.8:443 direct — blocked",
+  "IPv6 напрямую — закрыт": "IPv6 direct — blocked",
+  "DNS 8.8.8.8 напрямую — закрыт": "DNS 8.8.8.8 direct — blocked",
+  "сервер доступен": "server reachable",
+  "✓ 1.1.1.1:443 напрямую — закрыто": "✓ 1.1.1.1:443 direct — blocked",
+  "✗ 1.1.1.1:443 напрямую — закрыто": "✗ 1.1.1.1:443 direct — blocked",
+  "✓ 8.8.8.8:443 напрямую — закрыто": "✓ 8.8.8.8:443 direct — blocked",
+  "✗ 8.8.8.8:443 напрямую — закрыто": "✗ 8.8.8.8:443 direct — blocked",
+  "✓ IPv6 напрямую — закрыт": "✓ IPv6 direct — blocked",
+  "✗ IPv6 напрямую — закрыт": "✗ IPv6 direct — blocked",
+  "✓ DNS 8.8.8.8 напрямую — закрыт": "✓ DNS 8.8.8.8 direct — blocked",
+  "✗ DNS 8.8.8.8 напрямую — закрыт": "✗ DNS 8.8.8.8 direct — blocked",
+  "✓ сервер доступен": "✓ server reachable",
+  "✗ сервер доступен": "✗ server reachable",
+  "Kill switch держит: мимо туннеля выйти нельзя. Туннель снова работает.": "The kill switch holds: nothing gets out around the tunnel. The tunnel is working again.",
+  "Есть дыры в защите — см. ниже.": "There are holes in the protection — see below.",
+  "Запустить движок": "Start engine",
+  "Туннель поднимется, интернет на ПК вернётся.": "The tunnel comes up and the PC’s internet returns.",
+  "Запуск движка": "Starting the engine",
+  "Проверка туннеля": "Checking the tunnel",
+  "Остановить движок": "Stop engine",
+  "Интернет на этом ПК пропадёт": "Internet on this PC will be cut",
+  "до повторного запуска — kill switch не пустит трафик мимо туннеля. Локальная сеть и SSH-исключения останутся.": "until you start it again — the kill switch won’t let traffic around the tunnel. The local network and SSH exceptions keep working.",
+  "Остановка движка": "Stopping the engine",
+  "Включить автозапуск туннеля": "Turn on tunnel autostart",
+  "Выключить автозапуск туннеля": "Turn off tunnel autostart",
+  "После перезагрузки туннель не поднимется сам —": "After a reboot the tunnel won’t come up on its own —",
+  "интернета не будет": "there will be no internet",
+  ", пока не запустите его из wpx.": "until you start it from wpx.",
+  "Включить": "Turn on",
+  "Выключить": "Turn off",
+  "Включить самовосстановление": "Turn on self-healing",
+  "Выключить самовосстановление": "Turn off self-healing",
+  "Появится системная задача": "A system task",
+  ": раз в минуту она проверяет туннель. Если он не отвечает ~25 секунд, а прокси при этом доступен напрямую, движок перезапускается — без окон и подтверждений. Если не отвечает сам прокси, перезапуск не поможет и не делается. Не чаще раза в 5 минут; остановленный вручную движок не трогает.": "will be added: once a minute it checks the tunnel. If it doesn’t respond for ~25 seconds while the proxy is reachable directly, the engine restarts — no windows or prompts. If the proxy itself doesn’t respond, a restart won’t help and isn’t done. At most once every 5 minutes; an engine you stopped manually is left alone.",
+  "Задача wpx-watchdog будет удалена. Зависший движок придётся перезапускать вручную.": "The wpx-watchdog task will be removed. A hung engine will have to be restarted manually.",
+  "Глубокая проверка kill switch": "Deep kill switch check",
+  "Движок остановится примерно на 15 секунд. За это время wpx попробует выйти в интернет напрямую (IPv4, IPv6, DNS) — всё должно быть закрыто, а серверы рабочего профиля и резерва — доступны (UDP-точки проверит песочница). Потом туннель поднимется сам.": "The engine stops for about 15 seconds. During that time wpx tries to reach the internet directly (IPv4, IPv6, DNS) — everything should be blocked, while the servers of the active profile and the backup stay reachable (a sandbox checks the UDP endpoints). Then the tunnel comes back up on its own.",
+  "Страховка: туннель поднимется в любом случае": "Safety net: the tunnel comes back up no matter what",
+  "Остановка движка и попытки выйти напрямую": "Stopping the engine and trying to get out directly",
+  "Запуск движка и проверка туннеля": "Starting the engine and checking the tunnel",
+  "Убрать": "Remove",
+  "каскад:": "cascade:",
+  "SSH только через этот сервер": "SSH only through this server",
+  "VPN не установлен": "VPN not installed",
+  "Чужие контейнеры — wpx их не трогает": "Other containers — wpx leaves them alone",
+  "маршрут: через": "route: via",
+  ",": ",",
+  "· напрямую — движок держит быстрый живой путь": "· direct — the engine keeps the fastest live path",
+  "— движок держит быстрый живой путь": "— the engine keeps the fastest live path",
+  "Установить VPN": "Install VPN",
+  "Личный доступ для телефона или друга: QR-код и ссылка, срок, отключить в один клик": "Personal access for a phone or a friend: QR code and link, expiry, disable in one click",
+  "Поделиться": "Share",
+  "Ссылка и QR для Telegram": "Link and QR for Telegram",
+  "Где рвётся: ПК → сервер → службы VPN → интернет сервера → протоколы с ПК": "Where it breaks: PC → server → VPN services → server’s internet → protocols from the PC",
+  "Состояние сервера и усиление: BBR, автообновления, защита SSH": "Server status and hardening: BBR, auto-updates, SSH protection",
+  "Обслуживание": "Maintenance",
+  "Изменить VPN": "Edit VPN",
+  "Осмотреть": "Inspect",
+  "Убрать с сервера": "Remove from server",
+  "Забыть": "Forget",
+  "обновления поставлены": "updates installed",
+  "ждёт перезагрузки": "needs a reboot",
+  "автообновления": "auto-updates",
+  "файрвол": "firewall",
+  "не усилен": "not hardened",
+  "— уже включено": "— already on",
+  "Работает": "Uptime",
+  "Трафик с загрузки": "Traffic since boot",
+  "Обновления": "Updates",
+  "всё поставлено": "all installed",
+  "Перезагрузка": "Reboot",
+  "система ждёт перезагрузки после обновлений": "the system is waiting for a reboot after updates",
+  "не установлен": "not installed",
+  "быстрее TCP на дальних и загруженных каналах (VLESS, трубы)": "faster TCP on long and congested links (VLESS, pipes)",
+  "— быстрее TCP на дальних и загруженных каналах (VLESS, трубы)": "— faster TCP on long and congested links (VLESS, pipes)",
+  "Автообновления безопасности": "Automatic security updates",
+  "unattended-upgrades ставит заплатки сам": "unattended-upgrades installs patches on its own",
+  "— unattended-upgrades ставит заплатки сам": "— unattended-upgrades installs patches on its own",
+  "Защита SSH от перебора": "SSH brute-force protection",
+  "fail2ban банит подбор пароля на час; адрес wpx — в исключениях": "fail2ban bans password guessing for an hour; wpx’s address is exempt",
+  "— fail2ban банит подбор пароля на час; адрес wpx — в исключениях": "— fail2ban bans password guessing for an hour; wpx’s address is exempt",
+  "Обновить ядра": "Update cores",
+  "Файрвол": "Firewall",
+  "— включён — снаружи открыты только SSH и VPN. Если после включения wpx не войдёт по SSH, правила снимутся сами через 90 с": "— on — only SSH and VPN are open from outside. If wpx can’t log in over SSH after enabling it, the rules remove themselves after 90 s",
+  "— снаружи открыты только SSH и VPN. Если после включения wpx не войдёт по SSH, правила снимутся сами через 90 с": "— only SSH and VPN are open from outside. If wpx can’t log in over SSH after enabling it, the rules remove themselves after 90 s",
+  "Открыто:": "Open:",
+  "Закрыто (слушает снаружи, но VPN не нужно):": "Closed (listening outside, but not needed for VPN):",
+  "Закроется (слушает снаружи, но VPN не нужно):": "Will be closed (listening outside, but not needed for VPN):",
+  "Вход по паролю не отключаю — им пользуется AmneziaVPN. Правила Docker и контейнеров (AmneziaVPN) файрвол не трогает. Перезагрузку и ручные обновления не делаю — решите сами (обновления безопасности поставит «Автообновления»).": "I don’t disable password login — AmneziaVPN uses it. The firewall doesn’t touch Docker and container rules (AmneziaVPN). I don’t reboot or run manual updates — that’s up to you (security updates are handled by “Automatic security updates”).",
+  "Переезд на другой VPS…": "Move to another VPS…",
+  "— если этот сервер заблокировали или он не устраивает: wpx перенесёт протоколы, ключи и доступы.": "— if this server got blocked or doesn’t suit you: wpx moves the protocols, keys and access.",
+  "Серверов пока нет": "No servers yet",
+  "Арендуйте VPS (Debian или Ubuntu, от 1 ГБ памяти) и нажмите «Добавить сервер»": "Rent a VPS (Debian or Ubuntu, 1 GB RAM or more) and click “Add server”",
+  "выполняю": "working",
+  "Не получилось": "Didn’t work",
+  "Готово": "Done",
+  "Профиль создан или обновлён. Чтобы ПК пошёл через него — «Профили» → «Сделать рабочим»; если движка ещё нет, wpx тут же его установит.": "Profile created or updated. To route the PC through it — Profiles → Make active; if the engine isn’t installed yet, wpx installs it right away.",
+  "Напрямую, мимо туннеля": "Directly, bypassing the tunnel",
+  "в Docker": "in Docker",
+  "служба systemd, бинарник с проверкой sha256": "systemd service, binary with sha256 check",
+  "VLESS + Reality": "VLESS + Reality",
+  "— основной: маскируется под обычный HTTPS к крупному сайту (TCP)": "— primary: disguised as regular HTTPS to a large website (TCP)",
+  "— быстрый на плохих каналах (UDP; у части провайдеров режут)": "— fast on poor links (UDP; some ISPs throttle it)",
+  "— самый стойкий к DPI транспорт: запрос и ответ разными потоками, без рисунка «TLS в TLS» (TCP, Xray)": "— the most DPI-resistant transport: request and response in separate streams, no “TLS in TLS” fingerprint (TCP, Xray)",
+  "— WireGuard с обфускацией, очень быстрый (UDP)": "— WireGuard with obfuscation, very fast (UDP)",
+  "— WireGuard с обфускацией, очень быстрый (UDP) — пока только для x86_64": "— WireGuard with obfuscation, very fast (UDP) — x86_64 only for now",
+  "— WireGuard с обфускацией, очень быстрый (UDP). Docker на сервере нет — wpx поставит его сам": "— WireGuard with obfuscation, very fast (UDP). There’s no Docker on the server — wpx will install it",
+  "MTProxy для Telegram": "MTProxy for Telegram",
+  "— ссылка открывается прямо в Telegram, без VPN-приложения; маскируется под обычный HTTPS (FakeTLS)": "— the link opens right in Telegram, no VPN app needed; disguised as regular HTTPS (FakeTLS)",
+  "Рекомендуемая защита сервера": "Recommended server hardening",
+  "— уже включена": "— already on",
+  "— BBR (быстрее TCP), автообновления безопасности, защита SSH от перебора": "— BBR (faster TCP), automatic security updates, SSH brute-force protection",
+  "Снятая галочка у уже установленного протокола — он будет убран. Потом wpx проверит всё с этого ПК и поставит в профиле первым то, что лучше проходит.": "Unticking an installed protocol removes it. Then wpx tests everything from this PC and puts whatever gets through best first in the profile.",
+  "Установить": "Install",
+  "Нужно два сервера": "Two servers are needed",
+  "Вход и выход — один и тот же сервер": "Entry and exit are the same server",
+  "в сети": "online",
+  "бессрочно": "no expiry",
+  "1 день": "1 day",
+  "неделя": "1 week",
+  "месяц": "1 month",
+  "3 месяца": "3 months",
+  "год": "1 year",
+  "отключён": "disabled",
+  "срок истёк — отключу в ближайшие минуты": "expired — will be disabled within minutes",
+  "ещё не подключался": "hasn’t connected yet",
+  "вход": "entry",
+  "QR и ссылки": "QR and links",
+  "Отключить": "Disable",
+  "Удалить доступ и его ключи": "Delete access and its keys",
+  "Кому": "For whom",
+  "Например: iPhone, Маша": "For example: iPhone, Masha",
+  "Срок": "Expiry",
+  "— проще всего для телефона: приложение AmneziaWG, «+» → QR-код": "— easiest for a phone: the AmneziaWG app, “+” → QR code",
+  "проще всего для телефона: приложение AmneziaWG, «+» → QR-код": "easiest for a phone: the AmneziaWG app, “+” → QR code",
+  "— быстрый на плохих каналах (UDP)": "— fast on poor links (UDP)",
+  "быстрый на плохих каналах (UDP)": "fast on poor links (UDP)",
+  "Путь": "Path",
+  "Создать доступ": "Create access",
+  "Выберите хотя бы один протокол": "Choose at least one protocol",
+  "Телефон: AmneziaWG → «+» → «Создать из QR-кода». ПК и Mac: AmneziaWG или AmneziaVPN → импорт файла .conf.": "Phone: AmneziaWG → “+” → “Create from QR code”. PC and Mac: AmneziaWG or AmneziaVPN → import the .conf file.",
+  "Приложение AmneziaWG этот QR не примет. iPhone и Android: v2RayTun, Happ или Streisand (бесплатно) → «+» → «Сканировать QR» или «Из буфера» после копирования.": "The AmneziaWG app won’t accept this QR. iPhone and Android: v2RayTun, Happ or Streisand (free) → “+” → “Scan QR” or “From clipboard” after copying.",
+  "Приложение AmneziaWG этот QR не примет. Hiddify, Streisand, Happ или Shadowrocket → «+» → «Сканировать QR» или «Из буфера».": "The AmneziaWG app won’t accept this QR. Hiddify, Streisand, Happ or Shadowrocket → “+” → “Scan QR” or “From clipboard”.",
+  "Для": "For",
+  "Каждый QR — для своего приложения: AmneziaWG — в приложении AmneziaWG, VLESS и Hysteria2 — в v2RayTun, Happ, Streisand.": "Each QR is for its own app: AmneziaWG — in the AmneziaWG app, VLESS and Hysteria2 — in v2RayTun, Happ, Streisand.",
+  "Копировать конфиг": "Copy config",
+  "Копировать ссылку": "Copy link",
+  "Сохранить .conf": "Save .conf",
+  "Это личный ключ: у кого QR — тот и подключится. Отключить можно в любой момент здесь же.": "This is a personal key: whoever has the QR can connect. You can disable it here at any time.",
+  "Скопировано": "Copied",
+  "Срок прошлого доступа истёк. На сколько включить?": "The previous access has expired. Enable it for how long?",
+  "Скопировать ссылку": "Copy link",
+  "Ссылка одна на всех: кому дали — у того работает. Чтобы отозвать, снимите и снова поставьте MTProxy в «Изменить VPN» — секрет сменится.": "One link for everyone: whoever has it can use it. To revoke it, untick and re-tick MTProxy in “Edit VPN” — the secret will change.",
+  "Telegram": "Telegram",
+  "Удалить доступ?": "Delete access?",
+  "Что сделать": "What to do",
+  "SSH, службы VPN на сервере, его интернет, протоколы с ПК (с проверкой на заморозку) — до 30 секунд": "SSH, VPN services on the server, its internet, protocols from the PC (with a stall check) — up to 30 seconds",
+  "Если сервер просто заблокировали — можно не переезжать, а пустить через вход:": "If the server is just blocked, you don’t have to move — you can route through an entry:",
+  "Нужен новый сервер: «Добавить сервер» → IP и пароль. Установку VPN на нём можно пропустить — при переезде wpx поставит всё сам, с прежними ключами.": "You need a new server: “Add server” → IP and password. You can skip installing VPN on it — wpx installs everything during the move, with the same keys.",
+  "Куда": "Where to",
+  "Составляю план…": "Making a plan…",
+  "Убрать всё со старого сервера": "Remove everything from the old server",
+  "после переезда (если он доступен); иначе он продолжит работать, как работал": "after the move (if it’s reachable); otherwise it keeps running as before",
+  "Переехать": "Move",
+  "Убрать с сервера?": "Remove from server?",
+  "Забыть сервер?": "Forget server?",
+  "Убрать каскад?": "Remove cascade?",
+  "Убираю каскад": "Removing cascade",
+  "Убираю прежний каскад": "Removing the previous cascade",
+  "Проверяет сам wpx, без сторонних сайтов проверки: IP — запросом к Cloudflare, DNS — запросом к 8.8.8.8, WebRTC — STUN-запросом, как это делает браузер.": "wpx checks this itself, without third-party test sites: IP — with a request to Cloudflare, DNS — with a query to 8.8.8.8, WebRTC — with a STUN request, the way a browser does.",
+  "Проверка утечек": "Leak check",
+  "IP, выход мимо туннеля, IPv6, DNS, WebRTC — до 10 секунд": "IP, bypassing the tunnel, IPv6, DNS, WebRTC — up to 10 seconds",
+  "Есть утечка": "Leak found",
+  "Собираю отчёт (вместе с проверкой утечек)…": "Building the report (including a leak check)…",
+  "данные не идут": "no data flowing",
+  "Пинг проходит, а загрузка встаёт — похоже на заморозку ТСПУ. Такая точка ставится в конец.": "Ping gets through but downloads stall — looks like DPI throttling (TSPU). Such an endpoint is moved to the end.",
+  "Страховка: автоматический откат, если что-то пойдёт не так": "Safety net: automatic rollback if anything goes wrong",
+  "Перезапуск движка — интернет пропадёт на 2–5 с": "Restarting the engine — internet drops for 2–5 s",
+  "Проверка туннеля, при неудаче — откат": "Checking the tunnel, rollback on failure",
+  "Выполняю…": "Working…",
+  "Отменено": "Cancelled",
+  "Откатил изменения": "Changes rolled back",
+  "−3ч": "−3h",
+  "Аметист": "Amethyst",
+  "Лаванда": "Lavender",
+  "Индиго": "Indigo",
+  "Небо": "Sky",
+  "Мята": "Mint",
+  "Роза": "Rose",
+  "Платина": "Platinum",
+  "Графит": "Graphite",
+  "Полночь": "Midnight",
+  "Слива": "Plum",
+  "как акцент": "like accent",
+  "голубой": "cyan",
+  "цвет состояния": "status color",
+  "всегда": "always",
+  "Весь остальной трафик ПК идёт через рабочий профиль. Упал профиль — интернета нет: ничего не уходит мимо.": "All other PC traffic goes through the active profile. If the profile goes down, there’s no internet: nothing leaks around it.",
+  "Всё, что не попало в правила, идёт напрямую. Если на роутере kill switch, он прямой трафик не выпустит — тогда выберите «через рабочий профиль».": "Anything not covered by rules goes direct. If your router has a kill switch, it won’t let direct traffic out — then choose “through the active profile”.",
+  "Выше — проверяется раньше": "Up — checked earlier",
+  "Убрать правило": "Remove rule",
+  "Правил пока нет — всё идёт по «Всё остальное». Выберите приложение или сайт выше.": "No rules yet — everything follows “Everything else”. Pick an app or site above.",
+  "новое приложение": "new app",
+  "новый сайт": "new site",
+  "→ рабочий": "→ active",
+  "Ничего не нашлось. Введите имя программы (telegram.exe) или адрес сайта (chatgpt.com).": "Nothing found. Enter a program name (telegram.exe) or a site address (chatgpt.com).",
+  "Приложения в сети": "Apps online",
+  "Сайты из текущих соединений": "Sites from current connections",
+  "Готовые наборы": "Ready-made sets",
+  "Сейчас никто не ходит в сеть — введите имя программы или адрес сайта.": "Nothing is using the network right now — enter a program name or a site address.",
+  "приложение": "app",
+  "сайт": "site",
+  "набор": "set",
+  "список": "list",
+  "— куда пустить?": "— where to send it?",
+  "как всё остальное": "like everything else",
+  "Правила сохранены": "Rules saved",
+  "Движок возьмёт их при следующем перезапуске. Применить сразу — кнопка «Применить».": "The engine picks them up on the next restart. To apply now, click “Apply”.",
+  "Применить правила": "Apply rules",
+  "Движок перезапустится с новыми правилами. Если туннель не поднимется — всё вернётся как было.": "The engine will restart with the new rules. If the tunnel doesn’t come up, everything goes back as it was.",
+  "Рабочий профиль": "Active profile",
+  "Постоянный IP": "Fixed IP",
+  "Напрямую": "Direct",
+  "мимо VPN": "bypassing VPN",
+  "Блокировать": "Block",
+  "без доступа": "no access",
+  "рабочий": "active",
+  "тестов ещё не было": "no tests yet",
+  "Идёт тест…": "Testing…",
+  "Тест не удался": "Test failed",
+  "Имена приложений появятся после «Сохранить и применить» на вкладке «Движок» (нужно включить определение процессов в движке).": "App names will appear after “Save and apply” on the Engine tab (process detection has to be enabled in the engine).",
+  "соединений нет": "no connections",
+  "Закрыть эти соединения": "Close these connections",
+  "Куда пускать: правило для приложения": "Where to send it: a rule for the app",
+  "Куда пускать: правило для сайта": "Where to send it: a rule for the site",
+  "→ правило": "→ rule",
+  "Закрыть все соединения": "Close all connections",
+  "нет": "down",
+  "wpx · вырез": "wpx · notch",
+  "Протокол в работе": "Active protocol",
+  "Поверх всех окон": "Always on top",
+  "На другой экран": "To another screen",
+  "Открыть wpx": "Open wpx",
+  "Убрать вырез": "Hide notch",
+  "приложение или сайт": "app or site",
+  "Назад": "Back",
+  "Дальше": "Next",
+  "Загрузка": "Download",
+  "Отдача": "Upload",
+  "~30 с, до ~30 МБ трафика": "~30 s, up to ~30 MB of traffic",
+  "Скорость": "Speed",
+  "IP, мимо туннеля, IPv6, DNS, WebRTC": "IP, bypassing the tunnel, IPv6, DNS, WebRTC",
+  "Утечки": "Leaks",
+  "Пульс": "Pulse",
+  "Точки": "Endpoints",
+  "туннель не пропускает трафик": "the tunnel isn’t passing traffic",
+  "трафик не идёт": "no traffic flowing",
+  "Связь восстановлена": "Connection restored",
+  "задержка в норме": "latency back to normal",
+  "VPN не отвечает — вернусь сам": "VPN isn’t responding — I’ll switch back on my own",
+  "Снова через VPN": "Back on VPN",
+  "Похоже на замедление": "Looks like throttling",
+  "нет связи": "no connection",
+  "стоп": "stopped",
+  "резерв": "backup",
+  "Туннель": "Tunnel",
+  "Интернет": "Internet",
+  "стабильно": "stable",
+  "медленно": "slow",
+  "движок стоит": "engine idle",
+  "замеров пока нет": "no measurements yet",
+  "наготове": "standby",
+  "загружаю…": "loading…",
+  "профилей нет — добавьте в wpx": "no profiles — add one in wpx",
+  "переключаю…": "switching…",
+  "Не переключилось — всё как было": "Didn’t switch — everything is as before",
+  "Не переключилось": "Didn’t switch",
+  "куда?": "where?",
+  "Рабочий": "Active",
+  "введите имя программы или сайт": "enter a program name or site",
+  "Правила применены": "Rules applied",
+  "Сохранено, движок не перезапущен": "Saved, the engine wasn’t restarted",
+  "тест скорости, ~30 с…": "speed test, ~30 s…",
+  "Проверяю утечки…": "Checking for leaks…",
+  "Утечек нет": "No leaks",
+  "Проверить не удалось": "Couldn’t check",
+  "Поверх всех окон — включено": "Always on top — on",
+  "Поверх всех окон — выключено": "Always on top — off",
+  "сервер прокси не отвечает": "the proxy server doesn’t respond",
+  "Хельсинки": "Helsinki",
+  "Сингапур": "Singapore",
+  "Амстердам": "Amsterdam",
+  "этот компьютер": "this computer",
+  "VPN-туннель": "VPN tunnel",
+  "остановлен": "stopped",
+  "движок не запущен": "engine not running",
+  "Windows": "Windows",
+  "Котики": "Cats",
+  "Кофе": "Coffee",
+  "Мемы и мысли": "Memes and thoughts",
+  "Свет и пространство": "Light and space",
+  "Код и техно": "Code and tech",
+  "Арт и аниме": "Art and anime",
+  "Ретро и пиксели": "Retro and pixels",
+  "Кот": "Cat",
+  "мелом, с нимбом — наш маскот": "in chalk, with a halo — our mascot",
+  "Рамен": "Ramen",
+  "постер: кот ест лапшу, закуски": "poster: a cat eating noodles, snacks",
+  "Дерзкий": "Sassy",
+  "облака, кот и WHAT THE PING": "clouds, a cat and WHAT THE PING",
+  "Фокус": "Focus",
+  "помодоро, план, кот в тишине": "pomodoro, a plan, a cat in silence",
+  "призрак с котом и кружкой": "a ghost with a cat and a mug",
+  "Коробка": "Box of cats",
+  "коробка, полная котов": "a box full of cats",
+  "Формулы": "Formulas",
+  "кот-каракуля на доске": "a doodle cat on a blackboard",
+  "кот лежит, думает и хочет есть": "a cat lying down, thinking and hungry",
+  "Утро": "Morning",
+  "блоб пьёт кофе": "a blob drinking coffee",
+  "энергия = молоко × кофе²": "energy = milk × coffee²",
+  "Элемент": "Element",
+  "CoFFeE — главный элемент": "CoFFeE — the key element",
+  "Офлайн": "Offline",
+  "пиксельные динозавры болтают": "pixel dinosaurs chatting",
+  "Дедлайн": "Deadline",
+  "полоска дня, жнец и TODO": "a day bar, the reaper and a TODO",
+  "негатив летит в корзину": "negativity goes in the bin",
+  "цикл жизни стоит без связи": "the loop of life halts without a connection",
+  "манга и пиксельные буквы": "manga and pixel letters",
+  "Призма": "Prism",
+  "грани и свет у курсора": "facets and light at the cursor",
+  "Сеть": "Mesh",
+  "узлы в объёме, пакеты по трафику": "nodes in 3D, packets follow traffic",
+  "Паутина": "Web",
+  "паучки ловят пакеты-мушки": "little spiders catch packet flies",
+  "Дисперсия": "Dispersion",
+  "чёрный камень, радужный луч": "a black stone, a rainbow beam",
+  "Разлом": "Rift",
+  "трещина в космос, лучи, обломки": "a crack into space, rays, debris",
+  "Луч": "Beam",
+  "свет из поднятой руки": "light from a raised hand",
+  "Руны": "Runes",
+  "светящиеся узоры, дух-вихрь": "glowing patterns, a spirit whirl",
+  "Код": "Code",
+  "поток символов, слова проявляются": "a stream of symbols, words emerge",
+  "Редактор": "Editor",
+  "код печатается с подсветкой": "code types itself with highlighting",
+  "привет на всех языках": "hello in every language",
+  "Кибер-HUD": "Cyber HUD",
+  "пиксельные панели, глобусы": "pixel panels, globes",
+  "Сбой": "Glitch",
+  "помехи от курсора и задержки": "interference from the cursor and latency",
+  "Нет сигнала": "No signal",
+  "вертикальные помехи, ERR_": "vertical noise, ERR_",
+  "Маркировка": "Marks",
+  "XX, мишени, штрихкоды": "XX, targets, barcodes",
+  "Разбитый экран": "Cracked screen",
+  "трещины от щелчка": "cracks on click",
+  "Осколки": "Shards",
+  "квадрат разлетается": "a square shatters",
+  "Голограмма": "Hologram",
+  "стеклянная бабочка в полёте": "a glass butterfly in flight",
+  "Взгляд": "Gaze",
+  "манга-панели, глаза следят": "manga panels, eyes follow you",
+  "Спектр": "Spectrum",
+  "цветной ASCII-силуэт": "a colorful ASCII silhouette",
+  "Постер": "Poster",
+  "Who am I? — размытый силуэт": "Who am I? — a blurred silhouette",
+  "Цветение": "Bloom",
+  "цветы и треснувшая маска": "flowers and a cracked mask",
+  "Чилл": "Chill",
+  "закат, холмы WPX, очки": "sunset, WPX hills, sunglasses",
+  "Сфера": "Sphere",
+  "стена обложек под линзой": "a wall of covers under a lens",
+  "Виджеты": "Widgets",
+  "часы, календарь, листья": "clock, calendar, leaves",
+  "Ретро-ПК": "Retro PC",
+  "BIOS, каркас, синтвейв-пол": "BIOS, wireframe, synthwave floor",
+  "Будь добр": "Be kind",
+  "пиксельная ночь и планета": "a pixel night and a planet",
+  "Соты": "Hex",
+  "плитки переворачиваются": "tiles flip over",
+  "Питомец": "Pet",
+  "LCD-питомец, сытость — это связь": "an LCD pet, being fed means being connected",
+  "тихо и незаметно": "quiet and unnoticed",
+  "Мы не знаем, что у другого": "We don’t know what’s in another’s",
+  "на душе и в канале.": "heart or in their channel.",
+  "Где другие резки —": "Where others are harsh —",
+  "будь светом.": "be the light.",
+  "всё под контролем": "all under control",
+  "お品書き · меню": "お品書き · menu",
+  "醤油ラーメン · шоё": "醤油ラーメン · shoyu",
+  "餃子 · гёдза": "餃子 · gyoza",
+  "卵 · тамаго": "卵 · tamago",
+  "お茶 · чай": "お茶 · tea",
+  "бесплатно": "free",
+  "цены — по пингу, без чаевых": "prices by ping, no tipping",
+  "даже интернет устал": "even the internet is tired",
+  "ну… грузится": "well… it’s loading",
+  "кофе есть, кот есть": "coffee: yes, cat: yes",
+  "ν = 0,38 м/с": "ν = 0,38 m/s",
+  "а вдруг упадёт?": "what if it goes down?",
+  "закрыл ли я порт…": "did I close the port…",
+  "рыбка?": "fish?",
+  "почему так тихо": "why so quiet",
+  "а если пинг…": "what if the ping…",
+  "еда": "food",
+  "надо было спать": "should’ve slept",
+  "{ms} мс?!": "{ms} ms?!",
+  "это DPI?": "is that DPI?",
+  "может, сменить узел": "maybe switch nodes",
+  "всё тормозит": "everything’s lagging",
+  "всё пропало": "all is lost",
+  "кто выключил интернет": "who turned off the internet",
+  "поговорить с людьми?": "talk to people?",
+  "рыбка…": "fish…",
+  "мрр": "purr",
+  "ещё бы рыбки": "more fish, please",
+  "кружка пуста — щёлкни": "mug’s empty — click",
+  "щёлкни — глоток": "click — sip",
+  "c = 0  (нет связи)": "c = 0  (no connection)",
+  "кофеин": "caffeine",
+  "поднять туннель": "bring up the tunnel",
+  "пинг меньше 300 мс": "ping under 300 ms",
+  "не трогать прод": "don’t touch prod",
+  "сдать проект": "ship the project",
+  "+30 мин": "+30 min",
+  "до полуночи": "until midnight",
+  "Пн": "Mo",
+  "Вт": "Tu",
+  "Ср": "We",
+  "Чт": "Th",
+  "Пт": "Fr",
+  "Сб": "Sa",
+  "Вс": "Su",
+  "// alive == false: нет связи": "// alive == false: no connection",
+  "щёлкни строку — запусти": "click a line — run it",
+  "ключ Reality: не 32 байта": "Reality key: not 32 bytes",
+  "ключ AWG: не 32 байта": "AWG key: not 32 bytes",
+  "сертификат Hysteria2 не прочитан": "couldn’t read the Hysteria2 certificate",
+  "контрольная сумма sing-box не совпала — не ставлю": "sing-box checksum mismatch — not installing",
+  "вернул прежний конфиг": "restored the previous config",
+  "нет nftables и не удалось поставить": "no nftables and it couldn’t be installed",
+  "правила смены портов не приняты": "port hopping rules were rejected",
+  "вернул прежний конфиг AWG": "restored the previous AWG config",
+  "нет apt — поставьте Docker вручную": "no apt — install Docker manually",
+  "сервер-посредник удалён из wpx": "the jump server was removed from wpx",
+  "На сервере нет ни Docker, ни systemd — поставить некуда": "The server has neither Docker nor systemd — nowhere to install",
+  "образ Docker (закреплён по digest)": "Docker image (pinned by digest)",
+  "бинарник с проверкой sha256 + служба systemd": "binary with sha256 check + systemd service",
+  "sing-box на месте": "sing-box is in place",
+  "Конфиг: проверка, замена, запуск (при сбое — откат)": "Config: check, replace, start (rollback on failure)",
+  "Проверка с этого ПК через провайдера (песочница, мимо туннеля)": "Testing from this PC via your ISP (sandbox, bypassing the tunnel)",
+  "Уже идёт операция с сервером": "A server operation is already running",
+  "Адрес сервера — IPv4 вида 203.0.113.10": "The server address must be IPv4, like 203.0.113.10",
+  "Нужен пароль или файл ключа": "A password or key file is needed",
+  "сервер-посредник не найден": "jump server not found",
+  "Ставлю отдельный ключ wpx (пароль не сохраняется)": "Installing a separate wpx key (the password isn’t stored)",
+  "Вход по ключу wpx и осмотр сервера": "Logging in with the wpx key and inspecting the server",
+  "Нужен root или пользователь с sudo без пароля (NOPASSWD)": "root or a user with passwordless sudo (NOPASSWD) is required",
+  "Сервер добавлен": "Server added",
+  "сервер не найден": "server not found",
+  "автообновления безопасности": "automatic security updates",
+  "защита SSH от перебора": "SSH brute-force protection",
+  "BBR включён": "BBR enabled",
+  "BBR не включился": "BBR didn’t turn on",
+  "автообновления безопасности включены": "automatic security updates enabled",
+  "автообновления не встали": "auto-updates didn’t install",
+  "fail2ban стережёт SSH (адрес wpx — в исключениях)": "fail2ban guards SSH (wpx’s address is exempt)",
+  "fail2ban не встал": "fail2ban didn’t install",
+  "ядро без BBR": "the kernel has no BBR",
+  "Ничего не выбрано": "Nothing selected",
+  "Подбираю сайт-прикрытие (TLS 1.3 + h2, быстрее всех с сервера)": "Picking a cover site (TLS 1.3 + h2, fastest from the server)",
+  "Для AmneziaWG, XHTTP и MTProxy нужен Docker, а поставить его сам wpx умеет только на Debian/Ubuntu": "AmneziaWG, XHTTP and MTProxy need Docker, and wpx can only install it on Debian/Ubuntu",
+  "Для AmneziaWG, XHTTP и MTProxy нужен Docker — ставлю пакет docker.io из репозитория системы": "AmneziaWG, XHTTP and MTProxy need Docker — installing the docker.io package from the system repository",
+  "Docker установлен": "Docker installed",
+  "нет свободного TCP-порта для VLESS": "no free TCP port for VLESS",
+  "нет свободного UDP-порта для Hysteria2": "no free UDP port for Hysteria2",
+  "Сертификат Hysteria2 (свой, закрепляется в профиле)": "Hysteria2 certificate (self-issued, pinned in the profile)",
+  "Клиент прыгает по портам — блокировка одного порта не рвёт связь": "The client hops across ports — blocking one port won’t break the connection",
+  "Нет свободного диапазона для смены портов — Hysteria2 на одном порту": "No free range for port hopping — Hysteria2 runs on a single port",
+  "VLESS и Hysteria2 не нужны — останавливаю sing-box wpx": "VLESS and Hysteria2 aren’t needed — stopping wpx’s sing-box",
+  "нет свободного UDP-порта для AmneziaWG": "no free UDP port for AmneziaWG",
+  "Убираю AmneziaWG wpx": "Removing wpx’s AmneziaWG",
+  "Защита сервера уже включена: BBR, автообновления, fail2ban": "Server hardening is already on: BBR, auto-updates, fail2ban",
+  "сервер-выход не найден": "exit server not found",
+  "сервер-вход не найден": "entry server not found",
+  "на входе нет свободного порта для трубы": "no free port for the pipe on the entry",
+  "На входе sing-box больше не нужен — останавливаю": "sing-box is no longer needed on the entry — stopping it",
+  "Путь убран": "Path removed",
+  "Удаляю sing-box и /opt/wpx (чужое не трогаю)": "Removing sing-box and /opt/wpx (leaving everything else alone)",
+  "С сервера убрано всё, что ставил wpx": "Everything wpx installed has been removed from the server",
+  "Ключ wpx убран с сервера": "wpx’s key removed from the server",
+  "На сервере ещё нет VPN от wpx — сначала «Установить VPN»": "There’s no wpx VPN on the server yet — click “Install VPN” first",
+  "ПК → сервер (SSH)": "PC → server (SSH)",
+  "сервер отвечает напрямую": "the server responds directly",
+  "sing-box работает": "sing-box is running",
+  "sing-box не установлен": "sing-box isn’t installed",
+  "sing-box остановлен": "sing-box is stopped",
+  "AmneziaWG работает": "AmneziaWG is running",
+  "AmneziaWG не запущен": "AmneziaWG isn’t running",
+  "Службы VPN на сервере": "VPN services on the server",
+  "Перезапустить VPN на сервере (конфиг и ключи прежние)": "Restart VPN on the server (same config and keys)",
+  "Сервер → интернет": "Server → internet",
+  "есть": "OK",
+  "Написать хостеру: на сервере не работает исходящий интернет или DNS": "Contact your hoster: outgoing internet or DNS doesn’t work on the server",
+  "Сервер видит ваш ПК": "The server sees your PC",
+  "не проверить — нет SSH": "can’t check — no SSH",
+  "ПК → VPN (через провайдера)": "PC → VPN (via your ISP)",
+  "Переехать на другой VPS: wpx перенесёт протоколы, ключи и доступы": "Move to another VPS: wpx moves the protocols, keys and access",
+  "Сервер не отвечает — возможно, выключен или у хостера сбой": "The server doesn’t respond — maybe it’s off or the hoster has an outage",
+  "Сервер на связи, но VPN на нём не работает": "The server is reachable, but VPN on it isn’t working",
+  "VPN на сервере работает, но у самого сервера нет интернета": "VPN on the server works, but the server itself has no internet",
+  "Соединение есть, но данные замерзают — похоже на ТСПУ": "There’s a connection, but data stalls — looks like DPI throttling (TSPU)",
+  "Работает, но часть протоколов провайдер режет — wpx держит рабочие": "Works, but your ISP blocks some protocols — wpx keeps the working ones",
+  "Всё работает: сервер, его интернет и путь от ПК": "Everything works: the server, its internet and the path from the PC",
+  "Проверьте сервер в панели хостера (включён ли, не закончилась ли аренда)": "Check the server in your hoster’s panel (is it on, has the rental expired)",
+  "нет свободного TCP-порта для XHTTP": "no free TCP port for XHTTP",
+  "Убираю XHTTP (Xray) wpx": "Removing wpx’s XHTTP (Xray)",
+  "нет свободного TCP-порта для MTProxy": "no free TCP port for MTProxy",
+  "Убираю MTProxy wpx": "Removing wpx’s MTProxy",
+  "MTProxy на этом сервере не установлен": "MTProxy isn’t installed on this server",
+  "контейнер": "container",
+  "пустой список TCP — не включаю, чтобы не потерять SSH": "empty TCP list — not enabling, so SSH isn’t lost",
+  "правила не приняты": "rules rejected",
+  "Проверяю, что SSH пускает новым соединением (иначе через 90 с правила снимутся сами)": "Checking that SSH accepts a new connection (otherwise the rules remove themselves after 90 s)",
+  "Файрвол включён и переживёт перезагрузку": "Firewall enabled and will survive a reboot",
+  "Выключаю файрвол wpx": "Turning off wpx’s firewall",
+  "Файрвол wpx выключен": "wpx’s firewall is off",
+  "ключи этого доступа не найдены": "keys for this access weren’t found",
+  "вход каскада удалён из wpx": "the cascade entry was removed from wpx",
+  "через этот вход нет труб к нужным протоколам — пересоздайте каскад": "this entry has no pipes to the required protocols — recreate the cascade",
+  "на сервере больше нет протоколов этого доступа": "the server no longer has this access’s protocols",
+  "контейнер wpx-awg не запущен": "the wpx-awg container isn’t running",
+  "ключ не добавился": "the key wasn’t added",
+  "AmneziaWG: ключи на лету, без перезапуска": "AmneziaWG: keys on the fly, no restart",
+  "Выберите хотя бы один протокол, установленный на сервере": "Choose at least one protocol installed on the server",
+  "вход каскада не найден": "cascade entry not found",
+  "адреса AmneziaWG закончились (250 доступов)": "out of AmneziaWG addresses (250 accesses)",
+  "доступ не сохранился": "the access wasn’t saved",
+  "доступ не найден": "access not found",
+  "Срок изменён": "Expiry changed",
+  "Готово — остальные подключения не прерывались": "Done — other connections weren’t interrupted",
+  "Удалён": "Deleted",
+  "у этого доступа нет AmneziaWG": "this access has no AmneziaWG",
+  "wpx · срок доступа истёк": "wpx · access expired",
+  "Это один и тот же сервер": "It’s the same server",
+  "выход": "exit",
+  "не скачался образ sing-box": "the sing-box image didn’t download",
+  "не скачался образ AmneziaWG": "the AmneziaWG image didn’t download",
+  "Проверка отката: новая версия будет считаться не поднявшейся": "Rollback test: the new version will be treated as failed to start",
+  "нет AmneziaWG": "no AmneziaWG",
+  "Рабочий профиль переехал — нажмите «Сделать рабочим» ещё раз, чтобы движок взял новый адрес.": "The active profile moved — click “Make active” again so the engine picks up the new address.",
+  "Нельзя удалить профиль, который сейчас в работе": "You can’t delete the active profile",
+  "Профиль не найден": "Profile not found",
+  "Нет ни одной распознанной точки подключения": "No recognized endpoints",
+  "маршрут в маршруте не поддерживается": "a route inside a route isn’t supported",
+  "Нет рабочего профиля": "No active profile",
+  "Сначала перенесите движок в wpx (кнопка выше)": "Move the engine to wpx first (button above)",
+  "Сначала перенесите движок в wpx": "Move the engine to wpx first",
+  "у движка не включён локальный API — нужен движок wpx": "the engine’s local API isn’t enabled — the wpx engine is required",
+  "В конфиге нет прокси": "No proxy in the config",
+  "пустой ответ": "empty response",
+  "таймаут": "timeout",
+  "нет proxies": "no proxies",
+  "нет группы": "no group",
+  "неверный id": "invalid id",
+  "нет адреса физического адаптера": "no physical adapter address",
+  "Прямой выход мимо туннеля": "Direct exit bypassing the tunnel",
+  "IPv6 закрыт": "IPv6 blocked",
+  "DNS мимо туннеля закрыт": "DNS outside the tunnel blocked",
+  "Файрвол Windows включён": "Windows Firewall on",
+  "все профили": "all profiles",
+  "Строгая маршрутизация": "Strict routing",
+  "strict-route в конфиге движка": "strict-route in the engine config",
+  "UDP заблокирован": "UDP blocked",
+  "UDP через туннель": "UDP through the tunnel",
+  "WebRTC/QUIC не утекают": "WebRTC/QUIC don’t leak",
+  "все выходы передают UDP — звонки и игры идут через VPN": "all exits carry UDP — calls and games go through the VPN",
+  "UDP не заблокирован, а выход его не передаёт": "UDP isn’t blocked, but the exit doesn’t carry it",
+  "Внешний IP — выход туннеля": "External IP is the tunnel exit",
+  "Лабораторная сборка: системные операции отключены — рабочий туннель не трогаю": "Lab build: system operations are disabled — the active tunnel is left alone",
+  "непонятный ответ": "unexpected response",
+  "Ваш IP для сайтов": "Your IP as seen by sites",
+  "Выход мимо туннеля": "Exit bypassing the tunnel",
+  "закрыт — если VPN упадёт, интернет не пойдёт напрямую": "blocked — if the VPN goes down, internet won’t go direct",
+  "открыт — при сбое VPN трафик пойдёт напрямую через провайдера": "open — if the VPN fails, traffic will go directly through your ISP",
+  "не удалось проверить (нет адреса физического адаптера)": "couldn’t check (no physical adapter address)",
+  "у провайдера IPv6 нет — утечь нечему": "your ISP has no IPv6 — nothing to leak",
+  "закрыт: IPv6 у провайдера есть, но наружу не выходит": "blocked: your ISP has IPv6, but it doesn’t get out",
+  "запросы к любым DNS перехватывает wpx — провайдер не видит, какие сайты вы открываете": "wpx intercepts queries to any DNS — your ISP can’t see which sites you open",
+  "запрос к 8.8.8.8 ушёл мимо wpx — провайдер может видеть, какие сайты вы открываете": "a query to 8.8.8.8 went around wpx — your ISP may see which sites you open",
+  "запрос к 8.8.8.8 прошёл через туннель — провайдер его не видит": "a query to 8.8.8.8 went through the tunnel — your ISP can’t see it",
+  "сторонние DNS-серверы недоступны — запросы не утекают": "third-party DNS servers are unreachable — queries don’t leak",
+  "WebRTC (звонки в браузере)": "WebRTC (browser calls)",
+  "UDP наружу закрыт — WebRTC адрес не выдаст": "outbound UDP is blocked — WebRTC won’t reveal an address",
+  "Движок запущен": "Engine started",
+  "Пропал сетевой интерфейс": "Network interface lost",
+  "Сетевой интерфейс подключён": "Network interface connected",
+  "Сервер прокси не ответил на подключение": "The proxy server didn’t answer the connection",
+  "Сеть ещё не готова": "The network isn’t ready yet",
+  "Не дождались ответа через прокси": "No response through the proxy in time",
+  "Прокси оборвал соединение": "The proxy dropped the connection",
+  "Самовосстановление: туннель лежал при живом прокси — движок перезапущен": "Self-healing: the tunnel was down while the proxy was alive — engine restarted",
+  "Самовосстановление: движок не работал — запущен": "Self-healing: the engine wasn’t running — started",
+  "Самовосстановление: прокси не отвечает — перезапуск не поможет": "Self-healing: the proxy isn’t responding — a restart won’t help",
+  "Самовосстановление: ждёт паузу между перезапусками": "Self-healing: waiting out the pause between restarts",
+  "Уже выполняется другая операция": "Another operation is already running",
+  "Движок (mihomo) не запущен": "The engine (mihomo) isn’t running",
+  "Сервер прокси не отвечает ни по одному порту": "The proxy server doesn’t respond on any port",
+  "Прокси отвечает, но туннель не пропускает трафик": "The proxy responds, but the tunnel isn’t passing traffic",
+  "Нет соединения": "No connection",
+  "Соединение восстановлено": "Connection restored",
+  "wpx · похоже на замедление": "wpx · looks like throttling",
+  "нет API движка": "no engine API",
+  "пустой ответ движка": "empty engine response",
+  "сервер доступен, но протокол не проходит": "the server is reachable, but the protocol doesn’t get through",
+  "нет ответа (таймаут)": "no response (timeout)",
+  "в это время": "at this time",
+  "по истории": "by history",
+  "wpx · другой путь": "wpx · another path",
+  "wpx · самовосстановление": "wpx · self-healing",
+  "нет учётных данных": "no credentials",
+  "Заблокированное и замедленное в РФ — домены (itdoginfo, ~1200: YouTube, Instagram, Discord, ИИ-сервисы…)": "Blocked and throttled in Russia — domains (itdoginfo, ~1200: YouTube, Instagram, Discord, AI services…)",
+  "Telegram — подсети": "Telegram — subnets",
+  "Meta (Instagram, WhatsApp, Facebook) — подсети": "Meta (Instagram, WhatsApp, Facebook) — subnets",
+  "Discord — подсети (голос)": "Discord — subnets (voice)",
+  "X (Twitter) — подсети": "X (Twitter) — subnets",
+  "antifilter: подсети от сообщества (~900)": "antifilter: community subnets (~900)",
+  "ИИ-сервисы (ChatGPT, Claude, Gemini, Perplexity, Grok, Copilot)": "AI services (ChatGPT, Claude, Gemini, Perplexity, Grok, Copilot)",
+  "Заблокированное и замедленное в РФ (itdoginfo, ~1200 сайтов)": "Blocked and throttled in Russia (itdoginfo, ~1200 sites)",
+  "приложение (chrome.exe или полный путь)": "an app (chrome.exe or a full path)",
+  "сайт (example.com)": "a site (example.com)",
+  "известный набор": "a known set",
+  "в профиле нет ни одной точки подключения": "the profile has no endpoints",
+  "профиль из правил удалён — поправьте правила": "a profile used in rules was deleted — fix the rules",
+  "не удалось узнать SID пользователя": "couldn’t get the user SID",
+  "проверка не пройдена": "check failed",
+  "файл нового конфига изменился после проверки": "the new config file changed after the check",
+  "не найден mihomo.exe для переноса": "mihomo.exe not found for the move",
+  "движок ещё не перенесён в wpx": "the engine hasn’t been moved to wpx yet",
+  "правила kill switch wpx не найдены — старые не трогаю": "wpx kill switch rules not found — leaving the old ones alone",
+  "задача движка не найдена": "the engine task wasn’t found",
+  "не удалось выставить права на папку движка": "couldn’t set permissions on the engine folder",
+  "Готово, туннель работает": "Done, the tunnel is working",
+  "Выполнено, но туннель не отвечает.": "Done, but the tunnel isn’t responding.",
+  "Выполнено, но туннель не отвечает": "Done, but the tunnel isn’t responding",
+  "Туннель не поднялся — всё вернул как было.": "The tunnel didn’t come up — everything was rolled back.",
+  "Туннель не поднялся — всё вернул как было": "The tunnel didn’t come up — everything was rolled back",
+  "Отменено в окне UAC — ничего не изменено": "Cancelled in the UAC prompt — nothing was changed",
+  "Скрипт не вернул результат. Если изменения были, страховка их отменит": "The script returned no result. If anything changed, the safety net will undo it",
+  "В лабораторной сборке автозапуск не включается": "Autostart can’t be enabled in the lab build",
+  "соединение отклонено": "connection refused",
+  "соединение сброшено": "connection reset",
+  "сервер закрыл соединение": "the server closed the connection",
+  "неверное имя для сертификата (SNI)": "invalid certificate name (SNI)",
+  "неверный логин/пароль (407)": "wrong login/password (407)",
+  "непонятный ответ прокси": "unexpected proxy response",
+  "слишком длинный логин/пароль": "login/password too long",
+  "неверный логин/пароль": "wrong login/password",
+  "нет ответа за 8 с": "no response within 8 s",
+  "туннель закрыл соединение без ответа": "the tunnel closed the connection without a response",
+  "профиль-участник маршрута удалён": "a route member profile was deleted",
+  "профиль-вход каскада удалён": "the cascade entry profile was deleted",
+  "профиль-выход каскада удалён": "the cascade exit profile was deleted",
+  "вход каскада сам является каскадом или маршрутом": "the cascade entry is itself a cascade or route",
+  "выход каскада сам является каскадом или маршрутом": "the cascade exit is itself a cascade or route",
+  "вход и выход каскада — один и тот же профиль": "the cascade entry and exit are the same profile",
+  "Укажите название маршрута": "Enter a route name",
+  "В маршруте должно быть хотя бы два профиля": "A route needs at least two profiles",
+  "Маршрут не может включать сам себя": "A route can’t include itself",
+  "Укажите название каскада": "Enter a cascade name",
+  "DPAPI не смог расшифровать секреты точки": "DPAPI couldn’t decrypt the endpoint secrets",
+  "DPAPI не смог зашифровать секреты": "DPAPI couldn’t encrypt the secrets",
+  "Укажите название профиля": "Enter a profile name",
+  "Нет ни одной точки подключения": "No endpoints",
+  "Это не VPN-профиль": "This isn’t a VPN profile",
+  "Порядок точек устарел — откройте профиль заново": "The endpoint order is outdated — reopen the profile",
+  "В профиле должна остаться хотя бы одна точка подключения": "The profile must keep at least one endpoint",
+  "DPAPI не смог зашифровать пароль": "DPAPI couldn’t encrypt the password",
+  "DPAPI не смог расшифровать (другой пользователь Windows?)": "DPAPI couldn’t decrypt (a different Windows user?)",
+  "удалён": "deleted",
+  "— удалён —": "— deleted —",
+  "Укажите название": "Enter a name",
+  "Сервер — IPv4-адрес вида 203.0.113.50 (имя хоста не подходит: роутеру и туннелю нужен адрес)": "Server must be an IPv4 address like 203.0.113.50 (a host name won’t do: the router and the tunnel need an address)",
+  "Нужен хотя бы один порт: HTTP или SOCKS5": "At least one port is needed: HTTP or SOCKS5",
+  "Имя для сертификата — домен вида proxy.example.com": "The certificate name must be a domain like proxy.example.com",
+  "Основной HTTP, но порт HTTP не указан": "Primary is HTTP, but no HTTP port is set",
+  "Основной SOCKS5, но порт SOCKS5 не указан": "Primary is SOCKS5, but no SOCKS5 port is set",
+  "Основной протокол: http или socks5": "Primary protocol: http or socks5",
+  "Это каскад или маршрут — он меняется в своей панели": "This is a cascade or route — it’s edited in its own panel",
+  "обфускация": "obfuscation",
+  "без обфускации": "no obfuscation",
+  "в ссылке нет адреса сервера": "the link has no server address",
+  "в ссылке нет порта": "the link has no port",
+  "пустая ссылка vpn://": "empty vpn:// link",
+  "Не похоже на ссылку: нет схемы вида vless://": "Doesn’t look like a link: no scheme like vless://",
+  "в ссылке AmneziaVPN нет клиентских конфигов — поделитесь доступом в приложении Amnezia заново": "the AmneziaVPN link has no client configs — share access again in the Amnezia app",
+  "ссылка vpn:// повреждена (не base64)": "the vpn:// link is damaged (not base64)",
+  "ссылка vpn:// не распознана": "the vpn:// link wasn’t recognized",
+  "конфиг AmneziaWG в ссылке не прочитан": "couldn’t read the AmneziaWG config in the link",
+  "в ссылке нет конфига AmneziaWG": "the link has no AmneziaWG config",
+  "конфиг Xray в ссылке не прочитан": "couldn’t read the Xray config in the link",
+  "в конфиге Xray нет VLESS": "the Xray config has no VLESS",
+  "в ссылке vless нет UUID": "the vless link has no UUID",
+  "Reality без публичного ключа (pbk)": "Reality without a public key (pbk)",
+  "в ссылке hysteria2 нет пароля": "the hysteria2 link has no password",
+  "в ссылке trojan нет пароля": "the trojan link has no password",
+  "ss:// не разобрать": "can’t parse ss://",
+  "ss:// без адреса сервера": "ss:// without a server address",
+  "ss:// без метода шифрования": "ss:// without an encryption method",
+  "ss:// без порта": "ss:// without a port",
+  "ss:// неверный порт": "ss:// invalid port",
+  "в [Peer] нет Endpoint": "no Endpoint in [Peer]",
+  "Endpoint без порта": "Endpoint without a port",
+  "Endpoint: неверный порт": "Endpoint: invalid port",
+  "в [Interface] нет PrivateKey": "no PrivateKey in [Interface]",
+  "в [Peer] нет PublicKey": "no PublicKey in [Peer]",
+  "в [Interface] нет IPv4-адреса (Address)": "no IPv4 address (Address) in [Interface]",
+  "данные не идут — соединение есть, а загрузка стоит": "no data flowing — connected, but downloads are stuck",
+  "конфиг не принят": "config rejected",
+  "песочница не запустилась за 8 с": "the sandbox didn’t start within 8 s",
+  "curl не вернул результат": "curl returned no result",
+  "тестовый сервер не отвечает через туннель": "the test server doesn’t respond through the tunnel",
+  "wpx — нет соединения": "wpx — no connection",
+  "wpx — движок остановлен": "wpx — engine stopped",
+  "wpx — проверяем…": "wpx — checking…",
+  "Выход (туннель продолжит работу)": "Quit (the tunnel keeps running)",
+  "конфиг": "config",
+  "Пробный движок не запустился за 10 с (конфиг профиля не принят?)": "The trial engine didn’t start within 10 s (profile config rejected?)",
+  "Пробный запуск не идёт": "No trial run in progress",
+  "Не нашёл браузер на Chromium (Brave, Chrome, Edge, Яндекс, Vivaldi, Opera)": "Couldn’t find a Chromium browser (Brave, Chrome, Edge, Yandex, Vivaldi, Opera)",
+  "браузер": "browser",
+  "проверяем": "checking",
+  "подключён": "connected",
+  "Язык · Language": "Language",
+  "защита": "protection",
+  "данные не идут — соединение есть, а загрузка стоит. Попробуйте другой протокол или путь: «Профили» → «Проверить точки».": "No data flowing — connected, but downloads are stuck. Try another protocol or path: Profiles → “Check endpoints”.",
+  "Приложение AmneziaWG этот QR не примет. v2RayTun, Happ, Hiddify или v2rayNG → «+» → «Сканировать QR» или «Из буфера».": "The AmneziaWG app won't accept this QR. v2RayTun, Happ, Hiddify or v2rayNG → “+” → “Scan QR” or “From clipboard”.",
+  "HTTP(S) / SOCKS5-прокси": "HTTP(S) / SOCKS5 proxy",
+  "· сейчас": "· now",
+  "сейчас": "now",
+  "Промежуточный — необязательно": "Middle — optional",
+  "без промежуточного — вход сразу на выход": "no middle — entry straight to exit",
+  "Промежуточный сервер должен отличаться от входа и выхода": "The middle server must differ from the entry and the exit",
+  "Сначала труба промежуточного сервера на выход": "First, a pipe from the middle server to the exit",
+  "У промежуточного сервера нет труб на выход": "The middle server has no pipes to the exit",
+  "промежуточный сервер не найден": "middle server not found",
+  "Игры": "Games",
+  "Игровой режим": "Game mode",
+  "1. Игра": "1. Game",
+  "выберите или впишите свою": "pick one or add your own",
+  "exe игры": "game exe",
+  "лаунчер — необязательно": "launcher — optional",
+  "серверы входа — необязательно": "sign-in servers — optional",
+  "через запятую; пусто — только сама игра": "comma-separated; empty — the game only",
+  "2. Путь": "2. Path",
+  "Подобрать самый быстрый": "Find the fastest",
+  "Проверяю пути…": "Checking paths…",
+  "3. Запуск": "3. Launch",
+  "Перенаправление входа": "Login redirect",
+  "лаунчер и серверы входа — тем же путём; без этого часть онлайн-игр не пускает в игру": "the launcher and sign-in servers go the same path; without it some online games won't let you in",
+  "Запустить игровой режим": "Start game mode",
+  "Применить изменения": "Apply changes",
+  "Другая игра": "Other game",
+  "тот, что сейчас в работе": "the one in use now",
+  "прокси без UDP — онлайн-играм не подойдёт": "proxy without UDP — not for online games",
+  "не ответил": "no reply",
+  "быстрее всех": "fastest",
+  "включён": "on",
+  "рабочий профиль": "active profile",
+  "профиль удалён": "profile removed",
+  "вход тем же путём": "sign-in via the same path",
+  "Ни один путь не ответил с этого ПК — проверьте профили на вкладке «Профили».": "No path answered from this PC — check your profiles on the Profiles tab.",
+  "Впишите exe игры, например game.exe.": "Enter the game's exe, e.g. game.exe.",
+  "Выберите игру.": "Pick a game.",
+  "Выключить игровой режим": "Turn off game mode",
+  "Игра снова пойдёт по общим правилам. Движок перезапустится.": "The game will follow the general rules again. The engine will restart.",
+  "Как это работает": "How it works",
+  "wpx проверяет пути с этого ПК и ведёт игру самым быстрым; UDP (голос, матч) идёт через туннель. Перенаправление входа ведёт тем же путём лаунчер и серверы авторизации — иначе вход видит один адрес, а игровой сервер другой, и часть игр не пускает. Остальной трафик ПК идёт как обычно.": "wpx checks the paths from this PC and sends the game via the fastest; UDP (voice, the match itself) goes through the tunnel. Login redirect sends the launcher and sign-in servers the same way — otherwise sign-in sees one address and the game server another, and some games won't let you in. The rest of the PC's traffic goes as usual.",
+  "выберите или найдите запущенную": "pick one or find it running",
+  "Найти игру": "Find game",
+  "Состав игры": "Game setup",
+  "Папка игры — всё, что из неё запускается (вход, античит), пойдёт тем же путём": "Game folder — everything launched from it (sign-in, anti-cheat) goes the same path",
+  "Лаунчер": "Launcher",
+  "Сайты входа — обычно не нужно": "Sign-in sites — usually not needed",
+  "Проще всего: запустите игру и нажмите «Найти игру» — exe, папку и значок wpx возьмёт сам. Сайты входа нужны, только если вход идёт через браузер.": "Easiest: start the game and press “Find game” — wpx takes the exe, folder and icon itself. Sign-in sites are needed only if you sign in through a browser.",
+  "Сохранить состав": "Save setup",
+  "Как было": "Reset",
+  "Убрать игру": "Remove game",
+  "Запустите игру (хотя бы до первого экрана) и выберите её в списке. wpx возьмёт exe, папку и значок.": "Start the game (at least to the first screen) and pick it in the list. wpx takes the exe, folder and icon.",
+  "Похожих на игру программ не нашлось. Запустите игру и нажмите «Найти игру» ещё раз.": "No game-like programs found. Start the game and press “Find game” again.",
+  "Укажите exe или папку игры — или нажмите «Найти игру».": "Enter the game's exe or folder — or press “Find game”.",
+  "Состав игры · изменён": "Game setup · edited",
+  "Игра": "Game",
+  "Проверки": "Checks",
+  "Где вырез": "Notch position",
+  "Нажмите место на экране — или потяните вырез за верхнюю строку и отпустите у любого края.": "Click a spot on the screen — or drag the notch by its top row and drop it at any edge.",
+  "В игровой режим": "To game mode",
+  "ярлык, exe или папка игры": "game shortcut, exe or folder",
+  "В правила": "To rules",
+  "программа или сайт — выбрать путь": "app or site — pick a route",
+  "Потяните, чтобы переставить вырез": "Drag to move the notch",
+  "Задержка за 5 минут": "Latency over 5 minutes",
+  "Сверху по центру": "Top center",
+  "Сверху слева": "Top left",
+  "Сверху справа": "Top right",
+  "Слева": "Left",
+  "Справа": "Right",
+  "Снизу по центру": "Bottom center",
+  "Снизу слева": "Bottom left",
+  "Снизу справа": "Bottom right",
+  "Найти запущенную": "Find running",
+  "ищу…": "searching…",
+  "вход в игру — тем же путём; состав — во вкладке «Игры» в окне wpx": "game sign-in goes the same path; setup is on the Games tab in the wpx window",
+  "Экран": "Screen",
+  "Игра не выбрана": "No game selected",
+  "перетащите ярлык игры на вырез — или найдите запущенную": "drop a game shortcut on the notch — or find it running",
+  "похожих на игру программ нет — запустите игру": "no game-like programs — start the game",
+  "разбираю…": "reading…",
+  "это ссылка на сайт": "this is a website link",
+  "не похоже на игру": "doesn't look like a game",
+  "нет программы — перетащите exe": "no app — drop an exe",
+  "Это ссылка на сайт — её в правила": "This is a website link — drop it on rules",
+  "Не похоже на игру": "Doesn't look like a game",
+  "Нет программы — перетащите exe или ярлык программы": "No app — drop an exe or an app shortcut",
+  "Отпустите над «В игровой режим» или «В правила»": "Drop over “To game mode” or “To rules”",
+  "У игры нет exe и папки — поправьте во вкладке «Игры»": "The game has no exe or folder — fix it on the Games tab",
+  "Игровой режим выключен": "Game mode is off",
+  "игра — по общим правилам": "the game follows the general rules",
+  "игра и вход — выбранным путём": "the game and sign-in go the chosen path",
+  "идёт тест, ~30 с…": "testing, ~30 s…",
+  "введите имя программы или сайт — или перетащите ярлык на вырез": "type an app or site name — or drop a shortcut on the notch",
+  "Вырез — на каком экране": "Notch — which screen",
+  "Вырез — у какого края": "Notch — which edge",
+  "это ярлык Windows, а не игры — перетащите exe игры или её папку": "this is a Windows shortcut, not a game — drop the game's exe or folder",
+  "ярлык ведёт не к программе": "the shortcut doesn't point to a program",
+  "в ярлыке нет ссылки": "the shortcut has no link",
+  "такой ярлык wpx не понимает": "wpx doesn't understand this shortcut",
+  "перетащите ярлык игры, exe или папку": "drop a game shortcut, exe or folder",
+  "Steam на этом ПК не найден": "Steam not found on this PC",
+  "эта игра не установлена в Steam на этом ПК": "this game isn't installed in Steam on this PC",
+  "непонятная ссылка Epic": "unrecognized Epic link",
+  "Epic Games на этом ПК не найден": "Epic Games not found on this PC",
+  "эта игра не установлена в Epic Games на этом ПК": "this game isn't installed in Epic Games on this PC",
+  "нет такого exe": "no such exe",
+  "значок не извлёкся": "couldn't extract the icon",
+  "Режим стримера": "Streamer mode",
+  "программа, ярлык или ссылка на сайт": "app, shortcut or website link",
+  "Перетаскивание": "Drag and drop",
+  "перетащите ярлык игры, exe, папку или ссылку на сайт": "drop a game shortcut, exe, folder or website link",
+  "Вырез у края экрана": "Screen-edge notch",
+  "и всё, что она запускает": "and everything it launches",
+  "wpx сам найдёт, что программа запускает (как Codex у ChatGPT), и сайты её помощников — и поведёт тем же путём, на лету": "wpx finds what the app launches (like Codex in ChatGPT) and the sites its helpers use — and routes them the same way, on the fly",
+  "теперь тем же путём": "now goes the same way",
+  "Установка движка: mihomo, задача wpx-engine, правила kill switch": "Engine install: mihomo, the wpx-engine task, kill switch rules",
+  "Запуск туннеля — интернет может пропасть на 2–5 с": "Tunnel start — internet may drop for 2–5 s",
+  "Проверка туннеля, при неудаче — установка отменится сама": "Tunnel check; on failure the install is undone automatically",
+  "Если туннель не поднимется, установка отменится сама.": "If the tunnel doesn't come up, the install is undone automatically.",
+  "Установить движок wpx": "Install the wpx engine",
+  "Движок ещё не установлен": "The engine isn't installed yet",
+  "Сначала добавьте профиль на вкладке «Профили» — или разверните свой сервер на вкладке «Серверы».": "First add a profile on the Profiles tab — or deploy your own server on the Servers tab.",
+  "Установить движок": "Install engine",
+  "движок не установлен": "engine not installed",
+  "станет доступно после установки движка": "available after the engine is installed",
+  "Удалить движок": "Remove engine",
+  "Удаление движка": "Removing the engine",
+  "Остановка движка, удаление задач и правил": "Stopping the engine, removing tasks and rules",
+  "Удаление папки движка": "Removing the engine folder",
+  "как будет работать без wpx; роутер должен пускать сервер": "as it would work without wpx; the router must let the server through",
+  "вход — как без wpx; роутер должен пускать сервер входа": "entry — as without wpx; the router must let the entry server through",
+  "как будет работать без wpx; роутер должен пускать первые звенья": "as it would work without wpx; the router must let the first hops through",
+  "Например, Мой прокси": "For example, My proxy",
+  "Запускать при входе в систему": "Start when signing in",
+  "Подтверждение прав администратора": "Administrator confirmation",
+  "Туннель будет подниматься при включении ПК, ещё до входа в систему.": "The tunnel will come up when the PC boots, even before sign-in.",
+  "Изменение автозапуска wpx-engine": "Changing wpx-engine autostart",
+  "Включение сторожа wpx-watchdog": "Turning on the wpx-watchdog",
+  "Выключение сторожа wpx-watchdog": "Turning off the wpx-watchdog",
+  "как в системе": "like the system",
+  "Применяю правила — подтвердите права администратора": "Applying rules — confirm administrator rights",
+  "Выключаю игровой режим — подтвердите права администратора": "Turning game mode off — confirm administrator rights",
+  "Туннель выключится. Будут удалены задачи и службы wpx, правила файрвола wpx (kill switch — с возвратом прежних настроек) и папка движка. Профили и настройки wpx останутся — движок можно поставить снова.": "The tunnel will stop. The wpx tasks and services, the wpx firewall rules (the kill switch restores previous settings) and the engine folder will be removed. wpx profiles and settings stay — the engine can be installed again.",
+  "Проверять автоматически": "Check automatically",
+  "лабораторная сборка": "lab build",
+  "У вас последняя версия": "You have the latest version",
+  "Обновить и перезапустить": "Update and restart",
+  "Устанавливаю обновление…": "Installing the update…",
+  "Обновление установлено — wpx перезапускается": "Update installed — wpx is restarting",
+  "Что нового и обновление": "What’s new and update",
+  "Описания изменений нет.": "No release notes.",
+  "wpx скачает и установит обновление, затем перезапустится. Профили и настройки останутся.": "wpx will download and install the update, then restart. Profiles and settings stay.",
+  "Позже": "Later",
+  "Обновление": "Update",
+  "в лабораторной сборке обновлений нет": "lab builds don’t get updates",
+  "Обновление движка": "Engine update",
+  "Движок (mihomo) старее, чем в этой версии wpx": "The engine (mihomo) is older than the one in this wpx version",
+  "Обновить движок": "Update engine",
+  "Обновить": "Update",
+  "wpx заменит mihomo версией из этой сборки и перезапустит движок — интернет пропадёт на несколько секунд. Если туннель не поднимется, вернётся прежняя версия.": "wpx will replace mihomo with the version from this build and restart the engine — the internet drops for a few seconds. If the tunnel doesn’t come up, the previous version comes back.",
+  "Замена mihomo с проверкой подлинности": "Replacing mihomo with an authenticity check",
+  "Не скопировалось": "Couldn’t copy",
+  "Профиль на этом ПК": "Profile on this PC",
+  "VPN на сервере уже стоит — wpx соберёт профиль для этого ПК, сервер не меняется": "VPN is already on the server — wpx builds a profile for this PC; the server isn’t changed",
+  "VPN на этих серверах уже стоит — wpx соберёт профиль для этого ПК, сервер не меняется.": "VPN is already on these servers — wpx builds a profile for this PC; the servers aren’t changed.",
+  "подключиться к VPS по SSH и поставить VPN": "connect to a VPS over SSH and install VPN",
+  "Движок не установлен — интернет идёт напрямую. Kill switch и проверки заработают после установки.": "The engine isn’t installed — the internet goes directly. The kill switch and checks start working after installation.",
+  "AmneziaWG в профиль не вошёл: у каждого устройства свой ключ, а для этого ПК его на сервере нет. Нужен — «Поделиться» → AmneziaWG, конфиг добавьте как профиль.": "AmneziaWG isn’t in the profile: each device has its own key, and the server has none for this PC. If you need it — Share → AmneziaWG, then add the config as a profile.",
+  "На сервере нет VPN от wpx — сначала «Установить VPN»": "There’s no wpx VPN on the server — use Install VPN first",
+  "Обновить профиль": "Refresh profile",
+  "Вернуть в профиль все точки сервера и заново проверить их с этого ПК — сервер не меняется": "Put all the server’s points back into the profile and re-test them from this PC — the server isn’t changed",
+  "Выберите профиль — с ним поднимется туннель.": "Choose a profile — the tunnel comes up with it.",
+  "Пока ни одно правило не ведёт в профиль — весь трафик идёт напрямую. Добавляйте сайты и приложения, когда понадобится.": "No rule leads to a profile yet — all traffic goes directly. Add sites and apps when you need them.",
+  "VPN на паузе": "VPN paused",
+  "Интернет идёт напрямую, мимо туннеля. VPN вернётся по «Включить VPN» или при перезапуске движка": "The internet goes directly, bypassing the tunnel. VPN comes back with Resume VPN or when the engine restarts",
+  "Включить VPN": "Resume VPN",
+  "Пауза": "Pause",
+  "Вернуть трафик в туннель": "Send traffic back into the tunnel",
+  "Временно пустить весь трафик напрямую — без прав администратора, kill switch не мешает": "Temporarily send all traffic directly — no admin rights needed, the kill switch doesn’t get in the way",
+  "Лабораторная сборка: рабочий туннель не трогаю": "Lab build: the working tunnel is left alone",
+  "Свой ключ для каждого: телефон, ноутбук, друг. Отключить одного — остальные и вы не заметите. Для другого ПК с wpx отметьте все протоколы — потом «Копировать всё для wpx».": "A separate key for each: phone, laptop, friend. Disabling one won’t affect you or the others. For another PC with wpx, tick every protocol — then “Copy all for wpx”.",
+  "все": "all",
+  "Куда идёт": "Where it goes",
+  "через VPN сейчас ничего не идёт": "nothing is going through the VPN right now",
+  "напрямую сейчас ничего не идёт": "nothing is going direct right now",
+  "блок": "blocked",
+  "На другой ПК с wpx — всё сразу": "To another PC with wpx — all at once",
+  "«Профили» → «Добавить профиль» → «VPN по ссылке или конфигу» → вставить. Получится один профиль со всеми протоколами — wpx сам выберет лучший.": "“Profiles” → “Add profile” → “VPN from a link or config” → paste. You get one profile with every protocol — wpx picks the best one itself.",
+  "Копировать всё для wpx": "Copy all for wpx",
+  "и что он подгружает": "and what it loads",
+  "wpx сам найдёт адреса, с которых сайт грузит картинки и видео и которые напрямую не открываются (как cdninstagram.com у Instagram), — и поведёт их тем же путём, на лету": "wpx finds the addresses the site loads images and video from that don’t open directly (like cdninstagram.com for Instagram) — and routes them the same way, on the fly",
+  "напрямую не открывался — теперь тем же путём": "didn’t open directly — now goes the same way",
+  "Наборы": "Sets",
+  "+ свой набор · скрыть готовые": "+ your own set · hide built-in",
+  "+ свой набор": "+ your own set",
+  "скрыть готовые": "hide built-in",
+  "что внутри": "what’s inside",
+  "Адреса — с поддоменами": "Addresses — with subdomains",
+  "Набор пуст.": "The set is empty.",
+  "копия движка — он обновляет список раз в сутки": "the engine’s copy — it refreshes the list daily",
+  "скачан за последние сутки": "downloaded within the last day",
+  "скачан сейчас": "downloaded just now",
+  "Найти": "Find",
+  "например, youtube": "e.g. youtube",
+  "ничего не нашлось": "nothing found",
+  "Свой набор — адреса (с поддоменами) и подсети под одним именем: одно правило на всё сразу. Готовые можно скрыть из подборщика — правила с ними продолжат работать.": "Your own set is addresses (with subdomains) and subnets under one name: one rule for all of them. Built-in sets can be hidden from the picker — rules that use them keep working.",
+  "Свои": "Yours",
+  "Пока нет — добавьте ниже.": "None yet — add one below.",
+  "Например: Игры, Работа": "For example: Games, Work",
+  "Адреса и подсети — по одному на строку, можно вставить ссылки": "Addresses and subnets — one per line; links are fine",
+  "Сохранить набор": "Save set",
+  "Добавить набор": "Add set",
+  "Готовые": "Built-in",
+  "Всё это войдёт в силу после «Применить».": "All of this takes effect after “Apply”.",
+  "Удалить набор": "Delete set",
+  "Скрыть": "Hide",
+  "Вернуть": "Restore",
+  "скрыт из подборщика": "hidden from the picker",
+  "списки": "lists",
+  "в правилах": "in rules",
+  "Дайте набору название": "Give the set a name",
+  "Добавьте хотя бы один адрес": "Add at least one address",
+  "Свой набор без названия": "A custom set has no name",
+  "нет такого списка": "no such list",
+  "Сейчас": "Now",
+  "куда подключена игра — обновляется само": "where the game is connected — updates by itself",
+  "Только UDP-точки": "UDP points only",
+  "игра идёт напрямую — VPN-точки не участвуют": "the game goes direct — VPN points aren’t involved",
+  "этот профиль — прокси без UDP: для онлайн-игры выберите VPN": "this profile is a proxy without UDP: pick a VPN for online games",
+  "в этом профиле нет точек AmneziaWG или Hysteria2 — игра пойдёт обычными (TCP)": "this profile has no AmneziaWG or Hysteria2 points — the game will use the regular (TCP) ones",
+  "Пинг до серверов профилей с этого ПК; точный замер до сервера игры — в «Сейчас», когда игра подключится": "Ping to the profiles’ servers from this PC; the exact measurement to the game server is in “Now” once the game connects",
+  "только VLESS (TCP) — при потерях пакетов игра подлагивает": "VLESS (TCP) only — the game stutters when packets are lost",
+  "Напрямую, без VPN": "Direct, no VPN",
+  "напрямую, без VPN": "direct, no VPN",
+  "если игру не блокируют и напрямую пинг ниже; kill switch на роутере прямой путь не пустит": "if the game isn’t blocked and the direct ping is lower; a kill switch on the router blocks the direct path",
+  "Игра сейчас на сервере — она переподключится.": "The game is on a server right now — it will reconnect.",
+  "Запустите игру и войдите на сервер — wpx увидит, куда она подключилась, и замерит пути до него: напрямую, через ваши серверы и каскадом из двух.": "Start the game and join a server — wpx will see where it connected and measure the paths to it: direct, through your servers and as a two-server cascade.",
+  "основной": "main",
+  "Замеряю…": "Measuring…",
+  "Замерить пути до сервера": "Measure paths to the server",
+  "напрямую, через ваши серверы и каскадом — 10–30 с; серверы мерят по SSH, ничего не меняя": "direct, through your servers and as a cascade — 10–30 s; servers measure over SSH without changing anything",
+  "Играть через этот путь": "Play via this path",
+  "Пинг пути — сумма участков; в самой игре он обычно на 5–15 мс больше. «Напрямую» и «ПК → сервер» меряются мимо туннеля: если на роутере kill switch, прямой путь не ответит.": "A path’s ping is the sum of its legs; in the game itself it’s usually 5–15 ms higher. “Direct” and “PC → server” are measured outside the tunnel: with a kill switch on the router, the direct path won’t answer.",
+  "неверный адрес сервера игры": "invalid game server address",
+  "не нашёл адрес физического адаптера — проверьте «Движок» → «Сеть движка»": "couldn’t find the physical adapter address — check “Engine” → “Engine network”",
+  "ПК → игра": "PC → game",
+  "не ответил: сервер игры не отвечает на пинг, или прямой путь закрыт (kill switch)": "no answer: the game server doesn’t reply to ping, or the direct path is closed (kill switch)",
+  "нет профиля — «Серверы» → «Профиль на этом ПК»": "no profile — “Servers” → “Profile on this PC”",
+  "каскад не настроен — «Серверы» → «Каскад»": "cascade not set up — “Servers” → “Cascade”",
+  "нет профиля каскада": "no cascade profile",
+  "Протоколы": "Protocols",
+  "о протоколах": "about protocols",
+  "Чем отличаются протоколы и что выбрать": "How the protocols differ and which to pick",
+  "Какие протоколы лучше для игр": "Which protocols are best for games",
+  "Плюсы": "Pros",
+  "Минусы": "Cons",
+  "Как выбрать": "How to choose",
+  "игры и звонки: самая низкая задержка": "games and calls: the lowest latency",
+  "WireGuard с маскировкой: к рукопожатию добавляются пакеты-пустышки, служебные заголовки и размеры меняются — узнаваемого рисунка WireGuard не видно.": "WireGuard with camouflage: dummy packets are added to the handshake, service headers and sizes change — the recognizable WireGuard pattern disappears.",
+  "минимальная задержка и накладные расходы": "minimal latency and overhead",
+  "стабилен, быстро переподключается при смене сети": "stable, reconnects quickly when the network changes",
+  "на телефоне — приложение AmneziaWG и один QR-код": "on a phone — the AmneziaWG app and one QR code",
+  "только UDP: где режут UDP к зарубежным адресам, не работает": "UDP only: doesn’t work where UDP to foreign addresses is cut",
+  "один постоянный порт": "one fixed port",
+  "игры, звонки, телефон — если UDP проходит": "games, calls, phone — if UDP gets through",
+  "плохой канал: держит скорость при потерях": "bad link: keeps speed despite packet loss",
+  "QUIC, как у HTTP/3, со своим управлением скоростью. wpx может включить смену портов: клиент прыгает по диапазону UDP-портов, по одному порту не заблокировать.": "QUIC, like HTTP/3, with its own speed control. wpx can enable port hopping: the client hops across a range of UDP ports, so blocking one port doesn’t help.",
+  "быстрый на плохих каналах: мобильный интернет, Wi-Fi, далёкий сервер": "fast on bad links: mobile internet, Wi-Fi, a distant server",
+  "низкая задержка — подходит для игр и видео": "low latency — good for games and video",
+  "UDP: некоторые провайдеры душат QUIC к зарубежным адресам": "UDP: some ISPs throttle QUIC to foreign addresses",
+  "занимает канал напористо — на слабом роутере может мешать соседям по сети": "grabs bandwidth aggressively — on a weak router it can bother others on the network",
+  "мобильный интернет, далёкий сервер, потери пакетов": "mobile internet, a distant server, packet loss",
+  "проходит почти везде, похож на обычный HTTPS": "gets through almost everywhere, looks like regular HTTPS",
+  "Лёгкий протокол Xray. Reality выдаёт соединение за TLS 1.3 к настоящему популярному сайту (например, www.apple.com): своего домена и сертификата у сервера нет, а на проверочные запросы он отвечает как тот сайт.": "A lightweight Xray protocol. Reality passes the connection off as TLS 1.3 to a real popular site (e.g. www.apple.com): the server has no domain or certificate of its own, and answers probes like that site.",
+  "очень трудно отличить от обычного HTTPS": "very hard to tell apart from regular HTTPS",
+  "TCP проходит там, где UDP режут": "TCP gets through where UDP is cut",
+  "понимают почти все приложения: v2RayTun, Happ, Streisand, Hiddify": "almost every app supports it: v2RayTun, Happ, Streisand, Hiddify",
+  "TCP: при потерях пакетов всё ждёт повторов — игры и звонки подлагивают": "TCP: on packet loss everything waits for retransmits — games and calls stutter",
+  "на некоторых сетях долгие соединения к зарубежным хостингам «замирают»": "on some networks long connections to foreign hosting “freeze”",
+  "основной путь, когда UDP режут; сайты и приложения": "the main path when UDP is cut; sites and apps",
+  "запасной путь при жёсткой фильтрации": "a fallback under heavy filtering",
+  "Тот же VLESS с Reality, но данные идут обычными HTTP-запросами — запрос и ответ разными потоками, без рисунка «TLS внутри TLS» и без одного долгого соединения.": "The same VLESS with Reality, but data goes as ordinary HTTP requests — request and response in separate streams, without the “TLS inside TLS” pattern and without one long connection.",
+  "проходит там, где «замирают» долгие соединения и узнают VLESS": "gets through where long connections “freeze” and VLESS is recognized",
+  "можно пустить через CDN": "can go through a CDN",
+  "медленнее и с большей задержкой — видно в «Путях»": "slower, with higher latency — you can see it in “Paths”",
+  "понимают не все приложения: v2RayTun, Happ, Hiddify, v2rayNG": "not every app supports it: v2RayTun, Happ, Hiddify, v2rayNG",
+  "когда VLESS замирает или его узнают": "when VLESS freezes or gets recognized",
+  "только Telegram": "Telegram only",
+  "Telegram без VPN-приложения": "Telegram without a VPN app",
+  "Прокси Telegram с маскировкой под HTTPS к выбранному сайту (FakeTLS).": "A Telegram proxy disguised as HTTPS to a chosen site (FakeTLS).",
+  "ссылка открывается прямо в Telegram — ничего ставить не нужно": "the link opens right in Telegram — nothing to install",
+  "удобно раздать близким": "easy to share with family",
+  "работает только для Telegram": "works for Telegram only",
+  "Telegram на чужом телефоне или ПК": "Telegram on someone else’s phone or PC",
+  "HTTPS-маскировка со своим доменом": "HTTPS camouflage with your own domain",
+  "Выдаёт себя за обычный HTTPS-сайт; нужен свой домен и сертификат.": "Poses as a regular HTTPS site; needs your own domain and certificate.",
+  "похож на обычный сайт": "looks like a regular site",
+  "понимают почти все приложения": "almost every app supports it",
+  "нужен домен": "needs a domain",
+  "в wpx — только по ссылке, сервер wpx его не ставит": "in wpx — by link only; wpx doesn’t install it on servers",
+  "если такой доступ дал провайдер VPN": "if your VPN provider gave you this kind of access",
+  "TCP и UDP": "TCP and UDP",
+  "старый простой шифрованный прокси": "an old, simple encrypted proxy",
+  "Шифрованный поток без маскировки под что-то знакомое.": "An encrypted stream that doesn’t imitate anything familiar.",
+  "простой, быстрый, понимают все приложения": "simple, fast, every app supports it",
+  "на многих сетях его уже распознают по виду трафика": "many networks already recognize it by its traffic",
+  "в wpx — только по ссылке": "in wpx — by link only",
+  "если другого нет": "if there’s nothing else",
+  "HTTP и SOCKS5 прокси": "HTTP and SOCKS5 proxies",
+  "нужен конкретный IP, а не обход блокировок": "for a specific IP, not for getting around blocks",
+  "Обычный прокси: провайдер видит соединение с прокси, у HTTP-прокси нет UDP.": "A plain proxy: the ISP sees the connection to it; an HTTP proxy has no UDP.",
+  "нужен конкретный IP (платные прокси, работа)": "when you need a specific IP (paid proxies, work)",
+  "годится входом каскада": "works as a cascade entry",
+  "нет маскировки": "no camouflage",
+  "HTTP-прокси не передаёт UDP: звонки и игры через него не пойдут": "an HTTP proxy doesn’t carry UDP: calls and games won’t work through it",
+  "нужен IP определённой страны или сети": "you need an IP from a particular country or network",
+  "Игры и звонки": "Games and calls",
+  "— AmneziaWG, затем Hysteria2.": "— AmneziaWG, then Hysteria2.",
+  "Плохой канал, мобильный интернет, далёкий сервер": "Bad link, mobile internet, distant server",
+  "— Hysteria2.": "— Hysteria2.",
+  "UDP режут или жёсткая фильтрация": "UDP is cut or filtering is heavy",
+  "— VLESS + Reality; замирает — XHTTP или каскад через сервер в России.": "— VLESS + Reality; if it freezes — XHTTP or a cascade via a server in Russia.",
+  "Лучше держать в профиле несколько": "Better keep several in a profile",
+  ": заблокируют один — wpx сам уйдёт на другой.": ": if one gets blocked, wpx switches to another by itself.",
+  "Российские сайты (.ru, .рф, .su)": "Russian sites (.ru, .рф, .su)",
+  "Российские сайты, которые не открываются из-за границы (itdoginfo)": "Russian sites that don’t open from abroad (itdoginfo)",
+  "ping — до сервера напрямую · тест — запрос через точку": "ping — to the server directly · test — a request through the point",
+  "ping — до сервера напрямую": "ping — to the server directly",
+  "тест — запрос через точку": "test — a request through the point",
+  "тест: запрос через эту точку — подключение и ответ; это не ping, а сравнение точек между собой": "test: a request through this point — connect and reply; not a ping, but a way to compare points",
+  "сервер отвечает, а VLESS не проходит — режут протокол или сайт-прикрытие; смените прикрытие: «Серверы» → «Изменить VPN»": "the server answers but VLESS doesn’t get through — the protocol or the cover site is being cut; change the cover: “Servers” → “Edit VPN”",
+  "Профиль сохранён": "Profile saved",
+  "Профиль сейчас в работе — движок до перезапуска идёт по старому порядку точек. Применить сейчас? Если туннель не поднимется, всё вернётся как было.": "The profile is in use — until a restart the engine keeps the old point order. Apply now? If the tunnel doesn’t come up, everything goes back as it was.",
+  "Сайт-прикрытие VLESS и XHTTP — под соединение с ним маскируется VPN": "Cover site for VLESS and XHTTP — the VPN poses as a connection to it",
+  "подобрать самый быстрый с сервера": "pick the fastest from the server",
+  "подобрать другой — самый быстрый с сервера": "pick another — the fastest from the server",
+  "отклик сайта": "site response",
+  "Время до первого ответа сайта через VPN: подключение, шифрование и запрос — 2–3 круга туда-обратно. Это не ping; ping до сервера — на «Обзоре», в «Путях»": "Time to a site’s first reply through the VPN: connect, encryption and request — 2–3 round trips. Not a ping; the ping to the server is on “Overview”, in “Paths”",
+  "папка движка оказалась ссылкой на другую папку — операция остановлена; удалите папку wpx в ProgramData и повторите": "the engine folder turned out to be a link to another folder — the operation was stopped; delete the wpx folder in ProgramData and try again",
+  "прокси открыт в локальную сеть": "the proxy is open to the local network",
+  "TUN выключен": "TUN is off",
+  "TUN включён": "TUN is on",
+  "wpx вернул свой конфиг": "wpx restored its config",
+  "Вернуть не удалось — перезапустите движок": "Couldn’t restore it — restart the engine",
+  "wpx · движок подменён": "wpx · engine tampered with",
+  "Пауза закончилась — VPN снова работает": "The pause is over — the VPN is working again",
+  "Пауза VPN": "Pause VPN",
+  "Весь трафик пойдёт напрямую, мимо туннеля.": "All traffic will go direct, around the tunnel.",
+  "На сколько": "For how long",
+  "15 минут": "15 minutes",
+  "3 часа": "3 hours",
+  "пока не включу": "until I turn it back on",
+  "Запрашиваю ключ сервера — пароль пока не отправляется": "Requesting the server key — the password isn’t sent yet",
+  "Ключ сервера": "Server key",
+  "Ключ совпадает — подключиться": "The key matches — connect",
+  "Сверьте его с настоящим — так видно, что между ПК и сервером никто не встал. Где смотреть: в панели хостинга или VNC-консоли сервера выполните": "Compare it with the real one — this shows nobody is sitting between the PC and the server. Where to look: in the hosting panel or the server’s VNC console run",
+  "— одна из строк должна содержать этот отпечаток.": "— one of the lines must contain this fingerprint.",
+  "Проверить негде? Можно подключиться и так — риск тот же, что у обычного ssh при первом входе: пароль получит тот, кто сейчас отвечает по этому адресу.": "Nowhere to check? You can connect anyway — the risk is the same as with plain ssh on first login: the password goes to whoever answers at this address right now.",
+  "Отпечаток ключа сервера — вида SHA256:…": "A server key fingerprint looks like SHA256:…",
+  "адрес прокси": "proxy address",
+  "порт прокси": "proxy port",
+  "маршруты TUN": "TUN routes",
+  "перехват DNS": "DNS hijack",
+  "исключения TUN": "TUN exclusions",
+  "изменён режим движка": "the engine mode was changed",
+  "изменены правила": "the rules were changed",
+  "изменены источники правил": "the rule sources were changed",
+  "Правила «и всё, что она запускает» заработают после «Применить» на вкладке «Правила»": "Rules for “and everything it launches” will work after “Apply” on the “Rules” tab",
+  "ещё до входа в Windows": "even before you sign in to Windows",
+  "туннель упал — движок перезапустится сам": "the tunnel is down — the engine restarts itself",
+  "Раз в минуту: туннель лежит, а прокси отвечает — движок перезапускается сам, не чаще раза в 5 минут": "Once a minute: if the tunnel is down but the proxy answers, the engine restarts itself, at most once every 5 minutes",
+  "интернет пропадёт на ~15 с": "internet drops for ~15 s",
+  "Туннель остановится на ~15 секунд: проверим, что мимо него не выйти": "The tunnel stops for ~15 seconds to check that nothing gets around it",
+  "Сеть и защита": "Network and protection",
+  "Защита от утечек": "Leak protection",
+  "Kill switch на этом ПК": "Kill switch on this PC",
+  "движок остановился — интернета нет, мимо VPN ничего не уйдёт": "engine stopped — no internet, nothing leaks around the VPN",
+  "Исходящие разрешены только движку, туннелю и локальной сети. Не нужен, если kill switch настроен на роутере": "Outgoing traffic is allowed only for the engine, the tunnel and the local network. Not needed if the kill switch is set up on the router",
+  "Через VPN: сайты по IPv6 идут через туннель, мимо него IPv6 закрыт. Выключить: IPv6 закрыт везде, даже внутри ПК (::1), — если с IPv6 что-то не работает": "Through VPN: IPv6 sites go through the tunnel, IPv6 around it is blocked. Turn off: IPv6 is blocked everywhere, even inside the PC (::1) — if something doesn't work over IPv6",
+  "через VPN (рекомендуется)": "through VPN (recommended)",
+  "выключить полностью — только IPv4": "turn off completely — IPv4 only",
+  "Подключение": "Connection",
+  "Если VPN не отвечает": "If the VPN doesn't respond",
+  "UDP — звонки и игры": "UDP — calls and games",
+  "Авто: UDP пропускается, если выход его передаёт (VPN), иначе блокируется": "Auto: UDP passes if the exit carries it (VPN), otherwise it is blocked",
+  "авто (рекомендуется)": "auto (recommended)",
+  "Блокировать QUIC": "Block QUIC",
+  "браузеры перейдут на TCP": "browsers switch to TCP",
+  "Когда UDP пропускается: браузеры перейдут на TCP — через некоторые выходы так стабильнее": "When UDP passes: browsers switch to TCP — more stable through some exits",
+  "Напрямую, мимо VPN": "Direct, bypassing the VPN",
+  "Локальные сети": "Local networks",
+  "Адреса (SSH и т.п.)": "Addresses (SSH etc.)",
+  "Блокировка": "Blocking",
+  "Телеметрия": "Telemetry",
+  "Windows, NVIDIA и др. не тратят трафик VPN": "Windows, NVIDIA etc. don't waste VPN traffic",
+  "Свои домены (с поддоменами)": "Your domains (with subdomains)",
+  "если kill switch на роутере": "if the kill switch is on the router",
+  "Проще всего — одно правило на IP сервера: LAN → Интернет, любой порт, TCP и UDP.": "Simplest: one rule for the server IP: LAN → Internet, any port, TCP and UDP.",
+  "Нужны только первые звенья: в каскаде ПК ходит лишь ко входу": "Only the first hops are needed: in a cascade the PC connects only to the entry",
+  "ключей и паролей в отчёте нет в любом случае": "the report never contains keys or passwords",
+  "Внешние IP станут вида 203.0.x.x, сайты — ‹сайт›": "External IPs become 203.0.x.x, sites become ‹site›",
+  "Приложения и сайты — через VPN, напрямую или в блок.": "Apps and sites — through the VPN, direct or blocked.",
+  "Перед удалением wpx или чтобы начать с чистого листа. Профили и настройки wpx останутся.": "Before uninstalling wpx or to start from scratch. wpx profiles and settings stay.",
+  "Убираются задачи wpx, правила файрвола (kill switch — с возвратом прежних настроек) и папка движка": "Removes wpx tasks, firewall rules (kill switch — restoring previous settings) and the engine folder",
+  "без резерва": "no reserve",
+  "движок (mihomo) — с запуском при включении ПК": "the engine (mihomo) — starts when the PC turns on",
+  "kill switch и настройки профиля — с проверкой заранее": "kill switch and profile settings — checked in advance",
+  "если туннель не поднимется — всё вернётся как было": "if the tunnel doesn't come up, everything is rolled back",
+  "Отдельно от системы: рабочий туннель не меняется. Через профиль идёт только браузер, открытый кнопкой ниже (или программа с прокси": "Separate from the system: the working tunnel doesn't change. Only the browser opened with the button below goes through the profile (or a program using proxy",
+  "wpx сам поставит VPN на ваш VPS и создаст профиль": "wpx installs a VPN on your VPS and creates a profile",
+  "ПК → вход → выход, например «прокси → свой сервер»": "PC → entry → exit, e.g. “proxy → own server”",
+  "несколько профилей: один упал — wpx переключится на другой": "several profiles: if one fails, wpx switches to another",
+  "адрес, порты, логин и пароль": "address, ports, login and password",
+  "Ссылки по одной на строку или конфиг AmneziaWG целиком": "Links one per line, or a whole AmneziaWG config",
+  "Несколько конфигов AmneziaWG — через строку «---»": "Separate several AmneziaWG configs with a “---” line",
+  "Серверы перенастраивать не нужно — цепочку собирает wpx.": "No server changes needed — wpx builds the chain.",
+  "логин и пароль не идут открытым текстом": "login and password are not sent in plain text",
+  "если основной не отвечает; IP тот же": "if the main one doesn't respond; same IP",
+  "Kill switch на роутере — разрешите там этот IP; wpx проверит заранее.": "Kill switch on the router — allow this IP there; wpx checks in advance.",
+  "Дальше wpx входит своим ключом. Kill switch на роутере — разрешите IP сервера.": "From then on wpx signs in with its own key. Kill switch on the router — allow the server IP.",
+  "Вход становится «трубой»: пересылает зашифрованный поток на выход и ключей не знает — туннель идёт от ПК прямо до выхода. Промежуточный нужен, если режут и канал между входом и выходом. К одному выходу можно добавить несколько входов: все пути попадут в один профиль «… через каскад», движок выберет быстрый живой путь и переключится, если вход упал.": "The entry becomes a “pipe”: it forwards the encrypted stream to the exit and doesn't know the keys — the tunnel runs from the PC straight to the exit. The middle hop is needed if the link between entry and exit is also throttled. One exit can have several entries: all paths go into one “… via cascade” profile, and the engine picks the fastest live path and switches if an entry fails.",
+  "Три шага — и игра пойдёт самым быстрым путём.": "Three steps and the game takes the fastest path.",
+  "AmneziaWG или Hysteria2 — с VLESS (TCP) игра может подлагивать": "AmneziaWG or Hysteria2 — over VLESS (TCP) the game may lag",
+  "лаунчер, вход и античит — тем же путём; без этого часть игр не пускает дальше первого экрана": "launcher, login and anti-cheat take the same path; without it some games won't get past the first screen",
+  "интерфейс, трей и уведомления": "interface, tray and notifications",
+  "раз в сутки; ставится только по вашей кнопке": "once a day; installs only when you click",
+  "свёрнутым в трей": "minimized to the tray",
+  "прячет IP, ссылки, ключи и QR-коды — для стримов и скриншотов": "hides IPs, links, keys and QR codes — for streams and screenshots",
+  "капсула у края экрана, раскрывается при наведении": "a capsule at the screen edge, expands on hover",
+  "или перетащите вырез мышью": "or drag the notch with the mouse",
+  "Простые": "Simple",
+  "Как в Windows": "Like Windows",
+  "светлая или тёмная — как в системе": "light or dark — follows the system",
+  "Светлая": "Light",
+  "белая, без анимации": "white, no animation",
+  "Тёплая": "Warm",
+  "бежевая, мягче для глаз": "beige, easier on the eyes",
+  "Тёмная": "Dark",
+  "тёмно-серая, без анимации": "dark gray, no animation",
+  "Чёрная": "Black",
+  "чистый чёрный — для OLED": "pure black — for OLED",
+  "Настоящие адреса сайтов": "Real site addresses",
+  "для ExitLag, античитов и ускорителей игр": "for ExitLag, anti-cheats and game boosters",
+  "Туннель выключится — интернет пойдёт напрямую, без VPN, до повторного запуска.": "The tunnel will turn off — internet goes direct, without VPN, until you start it again.",
+  "Программы получают настоящие адреса сайтов, а адрес сайта, который идёт через VPN, узнаётся через туннель. Выключено — wpx отдаёт временные адреса (198.18.x.x): ускорители игр (ExitLag и т.п.) и некоторые античиты с ними не работают": "Programs get real site addresses, and the address of a site that goes through the VPN is looked up through the tunnel. Off — wpx hands out temporary addresses (198.18.x.x): game boosters (ExitLag etc.) and some anti-cheats don't work with them",
+  "закрыто": "blocked",
+  "через VPN и прокси": "via VPN and proxy"
+ },
+ "patterns": [
+  [
+   "Снятая галочка у уже установленного протокола — он будет убран. Потом wpx проверит всё с этого ПК и поставит в профиле первым то, что лучше проходит. Чужое на сервере ({}) не трогаю.",
+   "Unticking an installed protocol removes it. Then wpx tests everything from this PC and puts whatever gets through best first in the profile. I won’t touch other things on the server ({})."
+  ],
+  [
+   "Отсканируйте камерой телефона или откройте ссылку — Telegram сам предложит подключить прокси. Работает только для Telegram; маскируется под обычный HTTPS к {}.",
+   "Scan with a phone camera or open the link — Telegram will offer to connect the proxy. Works for Telegram only; disguised as regular HTTPS to {}."
+  ],
+  [
+   "Ключ сервера {} изменился (был {}, сейчас {}). Возможна подмена — подключение прервано. Если сервер переустанавливали, удалите его в wpx и добавьте заново.",
+   "The key of server {} changed (was {}, now {}). It may be spoofed — the connection was aborted. If the server was reinstalled, delete it in wpx and add it again."
+  ],
+  [
+   "wpx поставит sing-box {} ({}) и AmneziaWG в отдельном контейнере, соберёт конфиги и проверит их до запуска. Если что-то пойдёт не так — вернёт прежнее.",
+   "wpx will install sing-box {} ({}) and AmneziaWG in a separate container, build the configs and check them before starting. If anything goes wrong, it rolls back."
+  ],
+  [
+   "С «{}» будет удалено всё, что ставил wpx: sing-box и папка /opt/wpx. Профили этого сервера тоже удалятся. Чужое (AmneziaVPN и др.) не трогаю.",
+   "Everything wpx installed on “{}” will be removed: sing-box and the /opt/wpx folder. This server’s profiles are deleted too. Other software (AmneziaVPN etc.) stays untouched."
+  ],
+  [
+   "{}:{} не отвечает напрямую ({}). Если это новый сервер — разрешите его на роутере (правило LAN→Internet для {} TCP {}). Систему не трогал.",
+   "{}:{} doesn’t respond directly ({}). If it’s a new server, allow it on the router (a LAN→Internet rule for {} TCP {}). The system wasn’t touched."
+  ],
+  [
+   "«{}» включён, но VPN пока не отвечает — интернет идёт через резерв. Как только VPN оживёт, движок вернётся на него сам.",
+   "“{}” is on, but the VPN isn’t responding yet — internet goes through the backup. As soon as the VPN recovers, the engine switches back on its own."
+  ],
+  [
+   "замерзает после ~{} КБ — похоже на ТСПУ. Попробуйте другой протокол или путь: «Профили» → «Проверить точки».",
+   "Stalls after ~{} KB — looks like DPI throttling (TSPU). Try another protocol or path: Profiles → “Check endpoints”."
+  ],
+  [
+   "wpx уберёт свой ключ с «{}» и забудет сервер. Установленное на нём продолжит работать, профили останутся.",
+   "wpx will remove its key from “{}” and forget the server. What’s installed there keeps running, and profiles stay."
+  ],
+  [
+   "Ни одна точка подключения не отвечает напрямую ({}). Если это новый сервер — разрешите его IP на роутере.",
+   "No endpoint responds directly ({}). If it’s a new server, allow its IP on the router."
+  ],
+  [
+   "Выход «{}» работает только по UDP ({}), а вход «{}» ({}) UDP не передаёт — выберите другой вход или выход",
+   "Exit “{}” works over UDP only ({}), but entry “{}” ({}) doesn’t carry UDP — choose another entry or exit"
+  ],
+  [
+   "загрузка оборвалась на {} КБ. Попробуйте другой протокол или путь: «Профили» → «Проверить точки».",
+   "The download cut off at {} KB. Try another protocol or path: Profiles → “Check endpoints”."
+  ],
+  [
+   "Через «{}» выход не ответил. Проверьте, что роутер пускает {} (TCP и UDP) и что выход работает.",
+   "The exit didn’t respond via “{}”. Check that the router allows {} (TCP and UDP) and that the exit is working."
+  ],
+  [
+   "{} Рабочий профиль переехал — нажмите «Сделать рабочим» ещё раз, чтобы движок взял новый адрес.",
+   "{} The active profile moved — click “Make active” again so the engine picks up the new address."
+  ],
+  [
+   "«{}» станет рабочим профилем. Если туннель через него не поднимется — всё вернётся как было.",
+   "“{}” will become the active profile. If the tunnel doesn’t come up through it, everything goes back as it was."
+  ],
+  [
+   "копирует правила kill switch и собирает конфиг из профиля «{}» (HTTP основной, SOCKS резерв)",
+   "copies the kill switch rules and builds the config from the profile “{}” (HTTP primary, SOCKS backup)"
+  ],
+  [
+   "Вход каскада не отвечает напрямую ({}). Если это новый сервер — разрешите его IP на роутере.",
+   "The cascade entry doesn’t respond directly ({}). If it’s a new server, allow its IP on the router."
+  ],
+  [
+   "«{}» больше не подключится, ключи удалятся. Вернуть можно только новым доступом с новым QR.",
+   "“{}” won’t be able to connect anymore, and the keys will be deleted. It can only be restored with new access and a new QR."
+  ],
+  [
+   "напрямую не достучаться ({}), а через «{}» — да: похоже, провайдер ПК блокирует адрес {}",
+   "can’t reach it directly ({}), but via “{}” it works: looks like the PC’s ISP blocks {}"
+  ],
+  [
+   "На «{}» уже стоит VPN от wpx — для переезда нужен чистый сервер (или «Убрать с сервера»)",
+   "“{}” already has wpx VPN — moving needs a clean server (or “Remove from server”)"
+  ],
+  [
+   "С этого ПК сервер не ответил. Если на роутере kill switch — разрешите {} (TCP и UDP).",
+   "The server didn’t respond from this PC. If your router has a kill switch, allow {} (TCP and UDP)."
+  ],
+  [
+   "Xray {}: VLESS + XHTTP + Reality, свой контейнер wpx-xray, TCP {} (при сбое — откат)",
+   "Xray {}: VLESS + XHTTP + Reality, its own wpx-xray container, TCP {} (rollback on failure)"
+  ],
+  [
+   "Доступы ({}) переедут с прежними ключами — людям нужен новый QR: в нём адрес сервера",
+   "Access entries ({}) move with the same keys — people need a new QR: it contains the server address"
+  ],
+  [
+   "{}. Проверьте в панели хостинга, что сервер запущен и TCP {} открыт (файрвол хостинга). Если на роутере kill switch — разрешите {} TCP {}, или выберите «через сервер».",
+   "{}. Check in the hosting panel that the server is running and TCP {} is open (hosting firewall). If your router has a kill switch, allow {} TCP {}, or choose “via server”."
+  ],
+  [
+   "Сервер работает, а с вашего ПК до него не доходит — похоже, провайдер блокирует {}",
+   "The server works, but your PC can’t reach it — looks like your ISP blocks {}"
+  ],
+  [
+   "у сервера нет нормального выхода в интернет (ответ {}, DNS {}) — вопрос к хостеру",
+   "the server has no proper internet access (response {}, DNS {}) — ask your hoster"
+  ],
+  [
+   "Профиль «{}» сейчас в работе, а это его последний путь — сначала включите другой",
+   "Profile “{}” is active and this is its last path — switch to another one first"
+  ],
+  [
+   "после включения файрвола SSH не пустил ({}) — через 90 с правила снимутся сами",
+   "after enabling the firewall SSH refused ({}) — the rules remove themselves after 90 s"
+  ],
+  [
+   "MTProxy слушает TCP {} — ссылка и QR: кнопка «Telegram» на карточке сервера",
+   "MTProxy is listening on TCP {} — link and QR: the “Telegram” button on the server card"
+  ],
+  [
+   "Профиль «{}» переедет на {} — правила, маршруты и резерв продолжат работать",
+   "Profile “{}” moves to {} — rules, routes and backup keep working"
+  ],
+  [
+   "«{}» — SSH только через другой сервер; ПК должен доставать вход напрямую",
+   "“{}” — SSH only through another server; the PC must reach the entry directly"
+  ],
+  [
+   "AmneziaWG пока только для x86_64, а здесь {} — снимите галочку AmneziaWG",
+   "AmneziaWG is x86_64 only for now, and this is {} — untick AmneziaWG"
+  ],
+  [
+   "Профиль используется в каскаде: {}. Сначала удалите или измените каскад",
+   "The profile is used in a cascade: {}. Delete or change the cascade first"
+  ],
+  [
+   "{}. Попробуйте другой протокол или путь: «Профили» → «Проверить точки».",
+   "{}. Try another protocol or path: Profiles → “Check endpoints”."
+  ],
+  [
+   "Постоянный IP {}: нет ни одной точки с этим выходом — поправьте правила",
+   "Fixed IP {}: no endpoint with this exit — fix the rules"
+  ],
+  [
+   "Приложение: имя файла (chrome.exe) или полный путь, без запятых — «{}»",
+   "App: a file name (chrome.exe) or a full path, no commas — “{}”"
+  ],
+  [
+   "на «{}» ({}). Покажите QR камере телефона или скопируйте и отправьте.",
+   "on “{}” ({}). Show the QR to a phone camera or copy and send it."
+  ],
+  [
+   "На «{}» ставлю {} — с прежними ключами и портами, плюс защита сервера",
+   "On “{}” I’ll install {} — with the same keys and ports, plus server hardening"
+  ],
+  [
+   "{}: новая версия не поднялась — вернул прежнюю, всё работает как было",
+   "{}: the new version didn’t start — reverted to the old one, everything works as before"
+  ],
+  [
+   "С этого ПК {} напрямую недоступен — используйте его выходом каскада.",
+   "{} isn’t reachable directly from this PC — use it as a cascade exit."
+  ],
+  [
+   "Смена портов не включилась ({}) — Hysteria2 работает на одном порту",
+   "Port hopping didn’t turn on ({}) — Hysteria2 runs on a single port"
+  ],
+  [
+   "Профиль «{}» готов — его можно сделать рабочим на вкладке «Профили»",
+   "Profile “{}” is ready — you can make it active on the Profiles tab"
+  ],
+  [
+   "Профиль «{}» этого сервера входит в {} — сначала уберите его оттуда",
+   "This server’s profile “{}” is part of {} — remove it from there first"
+  ],
+  [
+   "Доступам ({}) нужен новый QR: «Поделиться» на «{}» → «QR и ссылки».",
+   "Access entries ({}) need a new QR: “Share” on “{}” → “QR and links”."
+  ],
+  [
+   "Умный выбор: {} обычно лучше «{}» (~{} мс, {}% успеха) — переключил",
+   "Smart pick: “{2}” is usually better {1} (~{3} ms, {4}% success) — switched"
+  ],
+  [
+   "«{}» ({}) будет удалён вместе с сохранёнными паролями и ключами.",
+   "“{}” ({}) will be deleted along with its saved passwords and keys."
+  ],
+  [
+   "MTProxy (mtg {}): FakeTLS под {}, свой контейнер wpx-mtg, TCP {}",
+   "MTProxy (mtg {}): FakeTLS as {}, its own wpx-mtg container, TCP {}"
+  ],
+  [
+   "AmneziaWG {}: свой контейнер wpx-awg, UDP {} (при сбое — откат)",
+   "AmneziaWG {}: its own wpx-awg container, UDP {} (rollback on failure)"
+  ],
+  [
+   "Старый сервер не почистил ({}) — можно позже «Убрать с сервера»",
+   "Didn’t clean the old server ({}) — you can “Remove from server” later"
+  ],
+  [
+   "Защита сервера: {} (может занять пару минут — ставятся пакеты)",
+   "Server hardening: {} (may take a couple of minutes — packages are being installed)"
+  ],
+  [
+   "Сделать «{}» рабочим профилем — с проверкой туннеля и откатом",
+   "Make “{}” the active profile — with a tunnel check and rollback"
+  ],
+  [
+   "Труба на «{}» к «{}» будет удалена вместе с профилем каскада.",
+   "The pipe on “{}” to “{}” will be removed along with the cascade profile."
+  ],
+  [
+   "({}). Если туннель не поднимется — вернётся прежний профиль.",
+   "({}). If the tunnel doesn’t come up, the previous profile comes back."
+  ],
+  [
+   "Туннель не поднялся — всё вернул как было. Журнал движка: {}",
+   "The tunnel didn’t come up — everything was rolled back. Engine log: {}"
+  ],
+  [
+   "Каскад «{}» будет удалён. Профили входа и выхода останутся.",
+   "Cascade “{}” will be deleted. The entry and exit profiles stay."
+  ],
+  [
+   "Маршрут к «{}»: {} точек, движок выберет быстрый живой путь",
+   "Route to “{}”: {} endpoints, the engine will pick the fastest live path"
+  ],
+  [
+   "файрвол не закреплён: {} — через 90 с правила снимутся сами",
+   "firewall not made permanent: {} — the rules remove themselves after 90 s"
+  ],
+  [
+   "«{}» — выход каскада с входом «{}». Сначала уберите каскад",
+   "“{}” is a cascade exit with entry “{}”. Remove the cascade first"
+  ],
+  [
+   "sing-box {}: бинарник с проверкой sha256 + служба systemd",
+   "sing-box {}: binary with sha256 check + systemd service"
+  ],
+  [
+   "не отвечает ни напрямую, ни через другие ваши серверы: {}",
+   "doesn’t respond directly or via your other servers: {}"
+  ],
+  [
+   "сайты видят ваш настоящий адрес {} — трафик идёт мимо VPN",
+   "sites see your real address {} — traffic bypasses the VPN"
+  ],
+  [
+   "— {}; не поднимется новая версия — сервер вернёт прежнюю",
+   "— {}; if a new version doesn’t come up, the server reverts to the old one"
+  ],
+  [
+   "На «{}» ещё не установлен VPN — сначала «Установить VPN»",
+   "VPN isn’t installed on “{}” yet — click “Install VPN” first"
+  ],
+  [
+   "ключ {}: {} (с парольной фразой пока не поддерживается)",
+   "key {}: {} (keys with a passphrase aren’t supported yet)"
+  ],
+  [
+   "({}). Дальше при включении ПК его будет поднимать wpx.",
+   "({}). From then on wpx will bring it up when the PC boots."
+  ],
+  [
+   "{} · {} · {} ядр. · {} МБ ОЗУ · Docker · не трогаю: {}",
+   "{} · {} · {} cores · {} MB RAM · Docker · leaving alone: {}"
+  ],
+  [
+   "Профиль «{}» сейчас в работе — сначала включите другой",
+   "Profile “{}” is active right now — switch to another one first"
+  ],
+  [
+   "{}: протокол «{}» из AmneziaVPN пока не поддерживается",
+   "{}: protocol “{}” from AmneziaVPN isn’t supported yet"
+  ],
+  [
+   "VPN не отвечает — трафик идёт через «{}», вернусь сам",
+   "VPN isn’t responding — traffic goes via “{}”, I’ll switch back on my own"
+  ],
+  [
+   "Профиль «{}» входит в {} — сначала уберите его оттуда",
+   "Profile “{}” is part of {} — remove it from there first"
+  ],
+  [
+   "ваш ПК на связи по AmneziaWG (рукопожатие {} с назад)",
+   "your PC is connected over AmneziaWG (handshake {} s ago)"
+  ],
+  [
+   "Утечек не найдено, но {} проверку не удалось провести",
+   "No leaks found, but {} check couldn’t be run"
+  ],
+  [
+   "Утечек не найдено, но {} проверки не удалось провести",
+   "No leaks found, but {} checks couldn’t be run"
+  ],
+  [
+   "Доступ «{}» готов — покажите QR или отправьте ссылку",
+   "Access “{}” is ready — show the QR or send the link"
+  ],
+  [
+   "AmneziaWG → {} (не поднимется — верну прежний образ)",
+   "AmneziaWG → {} (if it doesn’t start, I’ll revert the image)"
+  ],
+  [
+   "Выполнено, но туннель не отвечает. Журнал движка: {}",
+   "Done, but the tunnel isn’t responding. Engine log: {}"
+  ],
+  [
+   "через «{}» ({}) — если {} у человека не открывается",
+   "via “{}” ({}) — if {} doesn’t open for them"
+  ],
+  [
+   "Через «{}» wpx ходит на «{}» — сначала забудьте его",
+   "wpx reaches “{2}” through “{1}” — forget “{2}” first"
+  ],
+  [
+   "Файрвол: открыто только SSH и VPN (TCP {} · UDP {})",
+   "Firewall: only SSH and VPN open (TCP {} · UDP {})"
+  ],
+  [
+   "Пустить через «{}» ({}): каскад, ключи не меняются",
+   "Route via “{}” ({}): a cascade, keys stay the same"
+  ],
+  [
+   "Переезд «{}» → «{}»: ставлю VPN с прежними ключами",
+   "Moving “{}” → “{}”: installing VPN with the same keys"
+  ],
+  [
+   "{}@{}: неверный пароль или вход по паролю запрещён",
+   "{}@{}: wrong password or password login is disabled"
+  ],
+  [
+   "Через «{}» нет трубы для {} — пересоздайте каскад",
+   "There’s no pipe for {2} through “{1}” — recreate the cascade"
+  ],
+  [
+   "«{}» больше не подключится; остальные не заметили",
+   "“{}” won’t connect anymore; the others didn’t notice"
+  ],
+  [
+   "{} — выход VPN (прямой выход к провайдеру закрыт)",
+   "{} — VPN exit (the direct route to your ISP is blocked)"
+  ],
+  [
+   "{}:{} напрямую — недоступен (роутер не пускает?)",
+   "{}:{} direct — unreachable (router blocking?)"
+  ],
+  [
+   "{}:{} недоступен напрямую (роутер или провайдер)",
+   "{}:{} is unreachable directly (router or ISP)"
+  ],
+  [
+   "{} · {} ядр. · {} МБ + swap {} · свободно {} ГБ",
+   "{} · {} cores · {} MB + swap {} · {} GB free"
+  ],
+  [
+   "sing-box {}: образ Docker (закреплён по digest)",
+   "sing-box {}: Docker image (pinned by digest)"
+  ],
+  [
+   "Новый доступ «{}»: свои ключи и адрес AmneziaWG",
+   "New access “{}”: its own keys and an AmneziaWG address"
+  ],
+  [
+   "Подключаюсь к {}@{}:{} напрямую (мимо туннеля)",
+   "Connecting to {}@{}:{} directly (bypassing the tunnel)"
+  ],
+  [
+   "Труба на «{}»: {} → {} (без ключей шифрования)",
+   "Pipe on “{}”: {} → {} (no encryption keys)"
+  ],
+  [
+   "Не достучался, ключ wpx остался на сервере: {}",
+   "Couldn’t reach it, wpx’s key stayed on the server: {}"
+  ],
+  [
+   "Вход отвечает, но выход через него — нет ({}).",
+   "The entry responds, but the exit through it doesn’t ({})."
+  ],
+  [
+   "{} · {} · {} ядр. · {} МБ ОЗУ · не трогаю: {}",
+   "{} · {} · {} cores · {} MB RAM · leaving alone: {}"
+  ],
+  [
+   "AmneziaWG пока только для x86_64, а «{}» — {}",
+   "AmneziaWG is x86_64 only for now, and “{}” is {}"
+  ],
+  [
+   "новая версия не поднялась, и прежняя тоже: {}",
+   "neither the new nor the old version started: {}"
+  ],
+  [
+   "sing-box → {} (не поднимется — верну прежний)",
+   "sing-box → {} (if it doesn’t start, I’ll revert)"
+  ],
+  [
+   "роутер не пускает или сервер не отвечает: {}",
+   "router blocks it or the server doesn’t respond: {}"
+  ],
+  [
+   "сервер-посредник не открыл путь до {}:{}: {}",
+   "the jump server didn’t open a path to {}:{}: {}"
+  ],
+  [
+   "Сохранено: {} — отправьте файл в поддержку.",
+   "Saved: {} — send the file to support."
+  ],
+  [
+   "есть · {} мс · нагрузка {} · свободно {} МБ",
+   "OK · {} ms · load {} · {} MB free"
+  ],
+  [
+   "Обновлять нечего: sing-box {}, AmneziaWG {}",
+   "Nothing to update: sing-box {}, AmneziaWG {}"
+  ],
+  [
+   "медиана: {}\np95: {}\nпотери: {}\nзамеров: {}",
+   "median: {}\np95: {}\nloss: {}\nsamples: {}"
+  ],
+  [
+   "Смена портов: клиент прыгает по UDP {}–{}",
+   "Port hopping: the client hops across UDP {}–{}"
+  ],
+  [
+   "AmneziaWG :{} (ключ клиента выпущу новый)",
+   "AmneziaWG :{} (I’ll issue a new client key)"
+  ],
+  [
+   "AmneziaWG: ключей на сервере {} (с вашим)",
+   "AmneziaWG: {} keys on the server (including yours)"
+  ],
+  [
+   "Профиль ({}) теперь ведёт на новый сервер",
+   "Profile ({}) now points to the new server"
+  ],
+  [
+   "Ни один участник маршрута не отвечает. {}",
+   "None of the route members respond. {}"
+  ],
+  [
+   "браузер может раскрыть настоящий адрес {}",
+   "the browser may reveal your real address {}"
+  ],
+  [
+   "обычно в это время ~{} мс · {}% проверок",
+   "usually at this time ~{} ms · {}% of checks"
+  ],
+  [
+   "256 КБ через точку за {} с — данные идут",
+   "256 KB through the endpoint in {} s — data is flowing"
+  ],
+  [
+   "{} — правила нет, идёт как всё остальное",
+   "{} — no rule, goes like everything else"
+  ],
+  [
+   "Вход каскада: «{} → {}» станет «{} → {}»",
+   "Cascade entry: “{} → {}” becomes “{} → {}”"
+  ],
+  [
+   "Правило «{}»: неизвестно, куда направить",
+   "Rule “{}”: unknown destination"
+  ],
+  [
+   "Будет добавлено: {} · не распознано: {}",
+   "Will be added: {} · not recognized: {}"
+  ],
+  [
+   "Доступ «{}» уже есть — дайте другое имя",
+   "Access “{}” already exists — choose another name"
+  ],
+  [
+   "Подключаюсь к {}@{}:{} через посредника",
+   "Connecting to {}@{}:{} via the jump server"
+  ],
+  [
+   "Смена портов Hysteria2: UDP {}–{} → :{}",
+   "Hysteria2 port hopping: UDP {}–{} → :{}"
+  ],
+  [
+   "UDP: «{}» — нужно auto, block или allow",
+   "UDP: “{}” — must be auto, block or allow"
+  ],
+  [
+   "замерзает после ~{} КБ — похоже на ТСПУ",
+   "stalls after ~{} KB — looks like DPI throttling (TSPU)"
+  ],
+  [
+   "Отклик выше {} мс или были потери · {}",
+   "Latency above {} ms or packet loss · {}"
+  ],
+  [
+   "Подхватил установку wpx на сервере: {}",
+   "Picked up the existing wpx setup on the server: {}"
+  ],
+  [
+   "{} · {} · {} ядр. · {} МБ ОЗУ · Docker",
+   "{} · {} · {} cores · {} MB RAM · Docker"
+  ],
+  [
+   "задача wpx-engine · {} · профиль «{}»",
+   "wpx-engine task · {} · profile “{}”"
+  ],
+  [
+   "{} · {} ядр. · {} МБ · свободно {} ГБ",
+   "{} · {} cores · {} MB · {} GB free"
+  ],
+  [
+   "{} → в wpx {}: «Изменить VPN» обновит",
+   "{} → wpx has {}: “Edit VPN” will update"
+  ],
+  [
+   "{} TCP-соединений VPN с вашего адреса",
+   "{} VPN TCP connections from your address"
+  ],
+  [
+   "работает {} д {} ч · нагрузка {} · {}",
+   "up {} d {} h · load {} · {}"
+  ],
+  [
+   "Прокси для Telegram · FakeTLS под {}",
+   "Proxy for Telegram · FakeTLS as {}"
+  ],
+  [
+   "На выходе «{}» ещё не установлен VPN",
+   "VPN isn’t installed on the exit “{}” yet"
+  ],
+  [
+   "идёт мимо VPN: сайты с IPv6 видят {}",
+   "bypasses the VPN: IPv6 sites see {}"
+  ],
+  [
+   "Не похоже на адрес или подсеть: «{}»",
+   "Doesn’t look like an address or subnet: “{}”"
+  ],
+  [
+   "медиана {} мс · потери {}% · 5 мин",
+   "median {} ms · loss {}% · 5 min"
+  ],
+  [
+   "{}: {}/{} · {} мс · 256 КБ за {} с",
+   "{}: {}/{} · {} ms · 256 KB in {} s"
+  ],
+  [
+   "Загрузка по рабочему пути «{}»: {}",
+   "Downloads over the active path “{}”: {}"
+  ],
+  [
+   "работает {} д {} ч · нагрузка {} ·",
+   "up {} d {} h · load {} ·"
+  ],
+  [
+   "отклик → загрузка → отдача · {} с",
+   "ping → download → upload · {} s"
+  ],
+  [
+   "↓ {} Мбит/с · ↑ {} · отклик {} мс",
+   "↓ {} Mbit/s · ↑ {} · ping {} ms"
+  ],
+  [
+   "конфиг на сервере не прочитан: {}",
+   "couldn’t read the config on the server: {}"
+  ],
+  [
+   "Каскад «{} → {}» станет «{} → {}»",
+   "Cascade “{} → {}” becomes “{} → {}”"
+  ],
+  [
+   "Файрвол на «{}» — как был на «{}»",
+   "Firewall on “{}” — same as on “{}”"
+  ],
+  [
+   "С «{}» убрано всё, что ставил wpx",
+   "Everything wpx installed has been removed from “{}”"
+  ],
+  [
+   "сертификат не прошёл проверку: {}",
+   "certificate check failed: {}"
+  ],
+  [
+   "✓ {}: готов за {} мс (TCP {} мс)",
+   "✓ {}: ready in {} ms (TCP {} ms)"
+  ],
+  [
+   "архитектура {} не поддерживается",
+   "architecture {} isn’t supported"
+  ],
+  [
+   "Движок принял конфиг (sha256 {})",
+   "The engine accepted the config (sha256 {})"
+  ],
+  [
+   "Загрузка по рабочему пути {}: {}",
+   "Downloads over the active path {}: {}"
+  ],
+  [
+   "{}@{}: сервер не принял ключ wpx",
+   "{}@{}: the server rejected the wpx key"
+  ],
+  [
+   "работает {} ч · нагрузка {} · {}",
+   "up {} h · load {} · {}"
+  ],
+  [
+   "работает {} д {} ч · нагрузка {}",
+   "up {} d {} h · load {}"
+  ],
+  [
+   "проверено {} · не проверить: {}",
+   "checked {} · can’t check: {}"
+  ],
+  [
+   "обновлений {} (безопасности {})",
+   "{} updates ({} security)"
+  ],
+  [
+   "Переключился на другой путь: {}",
+   "Switched to another path: {}"
+  ],
+  [
+   "Правило: «{}» — не похоже на {}",
+   "Rule: “{}” — doesn’t look like {}"
+  ],
+  [
+   "Ошибка, всё вернул как было: {}",
+   "Error, everything was rolled back: {}"
+  ],
+  [
+   "SOCKS: цель недоступна (код {})",
+   "SOCKS: target unreachable (code {})"
+  ],
+  [
+   "Протокол «{}» не поддерживается",
+   "Protocol “{}” isn’t supported"
+  ],
+  [
+   "Удаляю доступ «{}» и его ключи",
+   "Deleting access “{}” and its keys"
+  ],
+  [
+   "Загрузка по рабочему пути : {}",
+   "Downloads over the active path: {}"
+  ],
+  [
+   "пробный движок завершился ({})",
+   "the trial engine exited ({})"
+  ],
+  [
+   "{} уже есть в списке серверов",
+   "{} is already in the server list"
+  ],
+  [
+   "{} · {} · {} ядр. · {} МБ ОЗУ",
+   "{} · {} · {} cores · {} MB RAM"
+  ],
+  [
+   "Новый доступ «{}»: свои ключи",
+   "New access “{}”: its own keys"
+  ],
+  [
+   "{} — прежний сервер не тронут",
+   "{} — the old server is untouched"
+  ],
+  [
+   "новая версия не поднялась: {}",
+   "the new version didn’t start: {}"
+  ],
+  [
+   "покажет {} — тот же выход VPN",
+   "will show {} — the same VPN exit"
+  ],
+  [
+   "Неизвестный режим защиты «{}»",
+   "Unknown protection mode “{}”"
+  ],
+  [
+   "работает {} ч · нагрузка {} ·",
+   "up {} h · load {} ·"
+  ],
+  [
+   "TCP {} мс · готов {} мс · {}",
+   "TCP {} ms · ready {} ms · {}"
+  ],
+  [
+   "обычно ~{} мс · {}% проверок",
+   "usually ~{} ms · {}% of checks"
+  ],
+  [
+   "загрузка оборвалась на {} КБ",
+   "the download cut off at {} KB"
+  ],
+  [
+   "TCP {} мс · путь {} мс · {}",
+   "TCP {} ms · path {} ms · {}"
+  ],
+  [
+   "{} — роутер пускает · {} мс",
+   "{} — router lets it through · {} ms"
+  ],
+  [
+   "sing-box не установился: {}",
+   "sing-box didn’t install: {}"
+  ],
+  [
+   "Подключаюсь к посреднику {}",
+   "Connecting to jump server {}"
+  ],
+  [
+   "через «{}» — как и задумано",
+   "via “{}” — as intended"
+  ],
+  [
+   "Постоянный IP {}: нет точек",
+   "Fixed IP {}: no endpoints"
+  ],
+  [
+   "не запустился mihomo -t: {}",
+   "mihomo -t didn’t start: {}"
+  ],
+  [
+   "SOCKS: метод не принят ({})",
+   "SOCKS: method not accepted ({})"
+  ],
+  [
+   "«{}» сам является маршрутом",
+   "“{}” is itself a route"
+  ],
+  [
+   "команда не уложилась в {} с",
+   "the command didn’t finish within {} s"
+  ],
+  [
+   "Экран {} · {}×{} · основной",
+   "Screen {} · {}×{} · primary"
+  ],
+  [
+   "работает {} ч · нагрузка {}",
+   "up {} h · load {}"
+  ],
+  [
+   "{} · {} · {} · {} · {} · {}",
+   "{} · {} · {} · {} · {} · {}"
+  ],
+  [
+   "{}, из них безопасности {}",
+   "{}, {} of them security"
+  ],
+  [
+   "конфиг не в JSON-форме: {}",
+   "the config isn’t in JSON form: {}"
+  ],
+  [
+   "{}: SSH не ответил за 20 с",
+   "{}: SSH didn’t respond within 20 s"
+  ],
+  [
+   "запуск пробного движка: {}",
+   "starting the trial engine: {}"
+  ],
+  [
+   "Простой длился {} мин {} с",
+   "The outage lasted {} min {} s"
+  ],
+  [
+   "Простой длился {} ч {} мин",
+   "The outage lasted {} h {} min"
+  ],
+  [
+   "обычно в это время ~{} мс",
+   "usually at this time ~{} ms"
+  ],
+  [
+   "{}:{} напрямую — доступен",
+   "{}:{} direct — reachable"
+  ],
+  [
+   "AmneziaWG не поднялся: {}",
+   "AmneziaWG didn’t start: {}"
+  ],
+  [
+   "Запущено: TCP {} · UDP {}",
+   "Running: TCP {} · UDP {}"
+  ],
+  [
+   "На «{}» нечего переносить",
+   "Nothing to move on “{}”"
+  ],
+  [
+   "{}: новая версия работает",
+   "{}: the new version is running"
+  ],
+  [
+   "Проверка в песочнице: {}.",
+   "Sandbox check: {}."
+  ],
+  [
+   "Стабильно уже {} мин {} с",
+   "Stable for {} min {} s"
+  ],
+  [
+   "Стабильно уже {} ч {} мин",
+   "Stable for {} h {} min"
+  ],
+  [
+   "mihomo работает (PID {})",
+   "mihomo running (PID {})"
+  ],
+  [
+   "sing-box не поднялся: {}",
+   "sing-box didn’t start: {}"
+  ],
+  [
+   "{}: {}/{} · {} мс, но {}",
+   "{}: {}/{} · {} ms, but {}"
+  ],
+  [
+   "защита не включилась: {}",
+   "hardening didn’t turn on: {}"
+  ],
+  [
+   "AmneziaWG слушает UDP {}",
+   "AmneziaWG is listening on UDP {}"
+  ],
+  [
+   "сертификат не создан: {}",
+   "certificate not created: {}"
+  ],
+  [
+   "файрвол не включился: {}",
+   "firewall didn’t turn on: {}"
+  ],
+  [
+   "«{}»: отключён доступ {}",
+   "“{}”: access disabled for {}"
+  ],
+  [
+   "{} — не адрес провайдера",
+   "{} — not your ISP’s address"
+  ],
+  [
+   "Не похоже на домен: «{}»",
+   "Doesn’t look like a domain: “{}”"
+  ],
+  [
+   "mihomo отверг конфиг: {}",
+   "mihomo rejected the config: {}"
+  ],
+  [
+   "TUN {} · mihomo · {} МБ",
+   "TUN {} · mihomo · {} MB"
+  ],
+  [
+   "пинг {} мс — расслабься",
+   "ping {} ms — relax"
+  ],
+  [
+   "Проверка не удалась: {}",
+   "Check failed: {}"
+  ],
+  [
+   "MTProxy не поднялся: {}",
+   "MTProxy didn’t start: {}"
+  ],
+  [
+   "отвечают {} из {} точек",
+   "{} of {} endpoints respond"
+  ],
+  [
+   "с {} есть прямой выход!",
+   "from {} there’s a direct way out!"
+  ],
+  [
+   "покажет {} — адрес «{}»",
+   "will show {} — address of “{}”"
+  ],
+  [
+   "Неизвестный список «{}»",
+   "Unknown list “{}”"
+  ],
+  [
+   "ошибка авторизации ({})",
+   "authorization error ({})"
+  ],
+  [
+   "Стабильно уже {} д {} ч",
+   "Stable for {} d {} h"
+  ],
+  [
+   "mihomo не запущен · {}",
+   "mihomo isn’t running · {}"
+  ],
+  [
+   "лучше всего около {} ч",
+   "best around {}:00"
+  ],
+  [
+   "{} (VPN не установлен)",
+   "{} (VPN not installed)"
+  ],
+  [
+   "Перезапуск VPN на «{}»",
+   "Restarting VPN on “{}”"
+  ],
+  [
+   "срок истёк {} сентября",
+   "expired September {}"
+  ],
+  [
+   "замерзает после ~{} КБ",
+   "stalls after ~{} KB"
+  ],
+  [
+   "последний тест {} · {}",
+   "last test {} · {}"
+  ],
+  [
+   "выключено профилей: {}",
+   "profiles turned off: {}"
+  ],
+  [
+   "Ничего не изменено: {}",
+   "Nothing was changed: {}"
+  ],
+  [
+   "{}: нет ответа за 10 с",
+   "{}: no response within 10 s"
+  ],
+  [
+   "wpx — на связи · {} мс",
+   "wpx — connected · {} ms"
+  ],
+  [
+   "wpx — медленно · {} мс",
+   "wpx — slow · {} ms"
+  ],
+  [
+   "{} · {} · {} · {} · {}",
+   "{} · {} · {} · {} · {}"
+  ],
+  [
+   "Переключиться на «{}»",
+   "Switch to “{}”"
+  ],
+  [
+   "срок истёк {} февраля",
+   "expired February {}"
+  ],
+  [
+   "срок истёк {} августа",
+   "expired August {}"
+  ],
+  [
+   "срок истёк {} октября",
+   "expired October {}"
+  ],
+  [
+   "срок истёк {} декабря",
+   "expired December {}"
+  ],
+  [
+   "выше {} мс или потери",
+   "above {} ms or packet loss"
+  ],
+  [
+   "и ещё {} — в окне wpx",
+   "and {} more — in the wpx window"
+  ],
+  [
+   "«{}»: отключаю доступ",
+   "“{}”: disabling access"
+  ],
+  [
+   "Переезд на «{}» готов",
+   "Move to “{}” complete"
+  ],
+  [
+   "{} Систему не трогал.",
+   "{} The system wasn’t touched."
+  ],
+  [
+   "{}. Журнал движка: {}",
+   "{}. Engine log: {}"
+  ],
+  [
+   "«{}» — нужен IP-адрес",
+   "“{}” — an IP address is required"
+  ],
+  [
+   "Xray · прикрытие: {}",
+   "Xray · cover: {}"
+  ],
+  [
+   "Обновление ядер «{}»",
+   "Updating cores on “{}”"
+  ],
+  [
+   "срок истёк {} января",
+   "expired January {}"
+  ],
+  [
+   "срок истёк {} апреля",
+   "expired April {}"
+  ],
+  [
+   "срок истёк {} ноября",
+   "expired November {}"
+  ],
+  [
+   "не скачался образ {}",
+   "image {} didn’t download"
+  ],
+  [
+   "конфиг не принят: {}",
+   "config rejected: {}"
+  ],
+  [
+   "ошибки за 30 мин: {}",
+   "errors in 30 min: {}"
+  ],
+  [
+   "Xray не поднялся: {}",
+   "Xray didn’t start: {}"
+  ],
+  [
+   "XHTTP слушает TCP {}",
+   "XHTTP is listening on TCP {}"
+  ],
+  [
+   "«{}»: включаю доступ",
+   "“{}”: enabling access"
+  ],
+  [
+   "адаптер {} не найден",
+   "adapter {} not found"
+  ],
+  [
+   "постоянный IP {}: {}",
+   "fixed IP {}: {}"
+  ],
+  [
+   "неожиданный ответ {}",
+   "unexpected response {}"
+  ],
+  [
+   "ссылка hysteria2: {}",
+   "hysteria2 link: {}"
+  ],
+  [
+   "запуск песочницы: {}",
+   "starting the sandbox: {}"
+  ],
+  [
+   "скачивание: ответ {}",
+   "download: response {}"
+  ],
+  [
+   "API движка: ответ {}",
+   "engine API: response {}"
+  ],
+  [
+   "{} · через «{}» · {}",
+   "{} · via “{}” · {}"
+  ],
+  [
+   "не проходят: {} ({})",
+   "not getting through: {} ({})"
+  ],
+  [
+   "{} быстрее на {} мс",
+   "{} faster by {} ms"
+  ],
+  [
+   "Будет добавлено: {}",
+   "Will be added: {}"
+  ],
+  [
+   "Пробный запуск «{}»",
+   "Trial run “{}”"
+  ],
+  [
+   "{} — роутер пускает",
+   "{} — router lets it through"
+  ],
+  [
+   "Telegram через «{}»",
+   "Telegram via “{}”"
+  ],
+  [
+   "срок истёк {} марта",
+   "expired March {}"
+  ],
+  [
+   "оборвалась на {} КБ",
+   "cut off at {} KB"
+  ],
+  [
+   "Работаем через «{}»",
+   "Running via “{}”"
+  ],
+  [
+   "Docker не встал: {}",
+   "Docker didn’t install: {}"
+  ],
+  [
+   "не сохранить {}: {}",
+   "can’t save {}: {}"
+  ],
+  [
+   "Простой длился {} с",
+   "The outage lasted {} s"
+  ],
+  [
+   "простой {} ч {} мин",
+   "outage {} h {} min"
+  ],
+  [
+   "роутер пускает: {}",
+   "router lets it through: {}"
+  ],
+  [
+   "работает {} д {} ч",
+   "up {} d {} h"
+  ],
+  [
+   "срок истёк {} июня",
+   "expired June {}"
+  ],
+  [
+   "срок истёк {} июля",
+   "expired July {}"
+  ],
+  [
+   "ещё {} · системные",
+   "+{} more · system"
+  ],
+  [
+   "не читается {}: {}",
+   "can’t read {}: {}"
+  ],
+  [
+   "через туннель ({})",
+   "through the tunnel ({})"
+  ],
+  [
+   "Найдено утечек: {}",
+   "Leaks found: {}"
+  ],
+  [
+   "загрузка: ответ {}",
+   "upload: response {}"
+  ],
+  [
+   "{} ч · нагрузка {}",
+   "{} h · load {}"
+  ],
+  [
+   "Стабильно уже {} с",
+   "Stable for {} s"
+  ],
+  [
+   "замерзают: {} ({})",
+   "stalling: {} ({})"
+  ],
+  [
+   "сейчас через «{}»",
+   "now via “{}”"
+  ],
+  [
+   "через резерв «{}»",
+   "via backup “{}”"
+  ],
+  [
+   "{} :{} · основной",
+   "{} :{} · primary"
+  ],
+  [
+   "Обслуживание «{}»",
+   "Maintenance “{}”"
+  ],
+  [
+   "Установка на «{}»",
+   "Installing on “{}”"
+  ],
+  [
+   "Каскад через «{}»",
+   "Cascade via “{}”"
+  ],
+  [
+   "срок истёк {} мая",
+   "expired May {}"
+  ],
+  [
+   "последний тест {}",
+   "last test {}"
+  ],
+  [
+   "{} ms · не найдут",
+   "{} ms · they won’t find you"
+  ],
+  [
+   "{}: {}/{} · {} мс",
+   "{}: {}/{} · {} ms"
+  ],
+  [
+   "ключ не встал: {}",
+   "key didn’t install: {}"
+  ],
+  [
+   "не записал {}: {}",
+   "couldn’t write {}: {}"
+  ],
+  [
+   "разбор ответа: {}",
+   "parsing the response: {}"
+  ],
+  [
+   "правило группы {}",
+   "group rule {}"
+  ],
+  [
+   "Простой длился {}",
+   "The outage lasted {}"
+  ],
+  [
+   "прокси ответил {}",
+   "the proxy replied {}"
+  ],
+  [
+   "ссылка trojan: {}",
+   "trojan link: {}"
+  ],
+  [
+   "привязка к {}: {}",
+   "binding to {}: {}"
+  ],
+  [
+   "{} · {} · {} · {}",
+   "{} · {} · {} · {}"
+  ],
+  [
+   "не распознано: {}",
+   "not recognized: {}"
+  ],
+  [
+   "Стабильно уже {}",
+   "Stable for {}"
+  ],
+  [
+   "VPN-профиль «{}»",
+   "VPN profile “{}”"
+  ],
+  [
+   "работает {} · {}",
+   "running {} · {}"
+  ],
+  [
+   "{} — не отвечает",
+   "{} — not responding"
+  ],
+  [
+   "оставить {} ({})",
+   "keep {} ({})"
+  ],
+  [
+   "был {} мин назад",
+   "seen {} min ago"
+  ],
+  [
+   "Где рвётся: «{}»",
+   "Where does it break: “{}”"
+  ],
+  [
+   "Постоянный IP {}",
+   "Fixed IP {}"
+  ],
+  [
+   "вход каскада: {}",
+   "cascade entry: {}"
+  ],
+  [
+   "ключ Reality: {}",
+   "Reality key: {}"
+  ],
+  [
+   "SSH: {} напрямую",
+   "SSH: {} direct"
+  ],
+  [
+   "SSH: {} через {}",
+   "SSH: {} via {}"
+  ],
+  [
+   "sing-box {} → {}",
+   "sing-box {} → {}"
+  ],
+  [
+   "ссылка vless: {}",
+   "vless link: {}"
+  ],
+  [
+   "копия движка: {}",
+   "engine copy: {}"
+  ],
+  [
+   "Экран {} · {}×{}",
+   "Screen {} · {}×{}"
+  ],
+  [
+   "не проверить: {}",
+   "can’t check: {}"
+  ],
+  [
+   "путь {} мс · {}",
+   "path {} ms · {}"
+  ],
+  [
+   "Перейти на «{}»",
+   "Switch to “{}”"
+  ],
+  [
+   "замерзает в {}%",
+   "stalls in {}%"
+  ],
+  [
+   "Поделиться · {}",
+   "Share · {}"
+  ],
+  [
+   "{} — актуальный",
+   "{} — up to date"
+  ],
+  [
+   "Через «{}» ({})",
+   "Via “{}” ({})"
+  ],
+  [
+   "Поделиться «{}»",
+   "Share “{}”"
+  ],
+  [
+   "Удаление с «{}»",
+   "Removing from “{}”"
+  ],
+  [
+   "Теперь через {}",
+   "Now via {}"
+  ],
+  [
+   "{} через каскад",
+   "{} via cascade"
+  ],
+  [
+   "не проходят: {}",
+   "not getting through: {}"
+  ],
+  [
+   "{} — адрес «{}»",
+   "{} — address of “{}”"
+  ],
+  [
+   "{} (можно BBR)",
+   "{} (BBR available)"
+  ],
+  [
+   "Подключение {}",
+   "Connecting {}"
+  ],
+  [
+   "Каскад {} → {}",
+   "Cascade {} → {}"
+  ],
+  [
+   "был {} ч назад",
+   "seen {} h ago"
+  ],
+  [
+   "был {} д назад",
+   "seen {} d ago"
+  ],
+  [
+   "напрямую на {}",
+   "directly to {}"
+  ],
+  [
+   "Доступ на «{}»",
+   "Access on “{}”"
+  ],
+  [
+   "Применить · {}",
+   "Apply · {}"
+  ],
+  [
+   "сайты видят {}",
+   "sites see {}"
+  ],
+  [
+   "труба :{} → {}",
+   "pipe :{} → {}"
+  ],
+  [
+   "свободно {} МБ",
+   "{} MB free"
+  ],
+  [
+   "автозапуск: {}",
+   "autostart: {}"
+  ],
+  [
+   "простой {} мин",
+   "outage {} min"
+  ],
+  [
+   "до {} сентября",
+   "until September {}"
+  ],
+  [
+   "{}, {}, {}, {}",
+   "{}, {}, {}, {}"
+  ],
+  [
+   "обычно ~{} мс",
+   "usually ~{} ms"
+  ],
+  [
+   "{} — в работе",
+   "{} — active"
+  ],
+  [
+   "Прикрытие: {}",
+   "Cover: {}"
+  ],
+  [
+   "работает {} ч",
+   "up {} h"
+  ],
+  [
+   "обновлений {}",
+   "{} updates"
+  ],
+  [
+   "Усиление «{}»",
+   "Hardening “{}”"
+  ],
+  [
+   "срок истёк {}",
+   "expired {}"
+  ],
+  [
+   "AmneziaWG: {}",
+   "AmneziaWG: {}"
+  ],
+  [
+   "Сохранено: {}",
+   "Saved: {}"
+  ],
+  [
+   "Включить «{}»",
+   "Enable “{}”"
+  ],
+  [
+   "{} · 256 КБ ✓",
+   "{} · 256 KB ✓"
+  ],
+  [
+   "не слушает {}",
+   "not listening on {}"
+  ],
+  [
+   "замерзают: {}",
+   "stalling: {}"
+  ],
+  [
+   "контейнер :{}",
+   "container :{}"
+  ],
+  [
+   "не узнать: {}",
+   "can’t tell: {}"
+  ],
+  [
+   "резерв {}: {}",
+   "backup {}: {}"
+  ],
+  [
+   "до {} февраля",
+   "until February {}"
+  ],
+  [
+   "до {} августа",
+   "until August {}"
+  ],
+  [
+   "до {} октября",
+   "until October {}"
+  ],
+  [
+   "до {} декабря",
+   "until December {}"
+  ],
+  [
+   "медиана {} мс",
+   "median {} ms"
+  ],
+  [
+   "ещё {} точки",
+   "+{} endpoints"
+  ],
+  [
+   "ещё {} точек",
+   "+{} endpoints"
+  ],
+  [
+   "ещё {} точка",
+   "+{} endpoint"
+  ],
+  [
+   "проверено {}",
+   "checked {}"
+  ],
+  [
+   "{}% проверок",
+   "{}% of checks"
+  ],
+  [
+   "Маршрут «{}»",
+   "Route “{}”"
+  ],
+  [
+   "обновить: {}",
+   "update: {}"
+  ],
+  [
+   "Файрвол «{}»",
+   "Firewall on “{}”"
+  ],
+  [
+   "Переезд «{}»",
+   "Moving “{}”"
+  ],
+  [
+   "Рабочий «{}»",
+   "Active “{}”"
+  ],
+  [
+   "ключ AWG: {}",
+   "AWG key: {}"
+  ],
+  [
+   "работают: {}",
+   "working: {}"
+  ],
+  [
+   "вход {} → {}",
+   "entry {} → {}"
+  ],
+  [
+   "{}: ответ {}",
+   "{}: response {}"
+  ],
+  [
+   "· защита: {}",
+   "· protection: {}"
+  ],
+  [
+   "простой {} с",
+   "outage {} s"
+  ],
+  [
+   "до {} января",
+   "until January {}"
+  ],
+  [
+   "до {} апреля",
+   "until April {}"
+  ],
+  [
+   "до {} ноября",
+   "until November {}"
+  ],
+  [
+   "{} · {} · {}",
+   "{} · {} · {}"
+  ],
+  [
+   "отклик {} мс",
+   "ping {} ms"
+  ],
+  [
+   "резерв «{}»",
+   "backup “{}”"
+  ],
+  [
+   "Проблем: {}",
+   "Problems: {}"
+  ],
+  [
+   "проблем: {}",
+   "problems: {}"
+  ],
+  [
+   "за сутки {}",
+   "{} in 24 h"
+  ],
+  [
+   "Прокси «{}»",
+   "Proxy “{}”"
+  ],
+  [
+   "Каскад «{}»",
+   "Cascade “{}”"
+  ],
+  [
+   "нагрузка {}",
+   "load {}"
+  ],
+  [
+   "оставить {}",
+   "keep {}"
+  ],
+  [
+   "VPN на «{}»",
+   "VPN on “{}”"
+  ],
+  [
+   "Доступ «{}»",
+   "Access “{}”"
+  ],
+  [
+   "Осмотр «{}»",
+   "Inspecting “{}”"
+  ],
+  [
+   "макс {}/мин",
+   "max {}/min"
+  ],
+  [
+   "Резерв «{}»",
+   "Backup “{}”"
+  ],
+  [
+   "{} напрямую",
+   "{} direct"
+  ],
+  [
+   "браузер: {}",
+   "browser: {}"
+  ],
+  [
+   "до {} марта",
+   "until March {}"
+  ],
+  [
+   "{} мин {} с",
+   "{} min {} s"
+  ],
+  [
+   "{} ч {} мин",
+   "{} h {} min"
+  ],
+  [
+   "готов {} мс",
+   "ready {} ms"
+  ],
+  [
+   "сегодня {}",
+   "today {}"
+  ],
+  [
+   "защита: {}",
+   "protection: {}"
+  ],
+  [
+   "через «{}»",
+   "via “{}”"
+  ],
+  [
+   "простой {}",
+   "outage {}"
+  ],
+  [
+   "каскад :{}",
+   "cascade :{}"
+  ],
+  [
+   "покажет {}",
+   "will show {}"
+  ],
+  [
+   "ссылка: {}",
+   "link: {}"
+  ],
+  [
+   "до {} июня",
+   "until June {}"
+  ],
+  [
+   "до {} июля",
+   "until July {}"
+  ],
+  [
+   "{}, {}, {}",
+   "{}, {}, {}"
+  ],
+  [
+   "путь {} мс",
+   "path {} ms"
+  ],
+  [
+   "потери {}%",
+   "loss {}%"
+  ],
+  [
+   "рядом: {}",
+   "alongside: {}"
+  ],
+  [
+   "↓ {} ↑ {}",
+   "↓ {} ↑ {}"
+  ],
+  [
+   "вход · {}",
+   "entry · {}"
+  ],
+  [
+   "{} поднят",
+   "{} is up"
+  ],
+  [
+   "до {} мая",
+   "until May {}"
+  ],
+  [
+   "{} д {} ч",
+   "{} d {} h"
+  ],
+  [
+   "{} Мбит/с",
+   "{} Mbit/s"
+  ],
+  [
+   "всего {}",
+   "total {}"
+  ],
+  [
+   "вчера {}",
+   "yesterday {}"
+  ],
+  [
+   "через {}",
+   "via {}"
+  ],
+  [
+   "и ещё {}",
+   "and {} more"
+  ],
+  [
+   "тест: {}",
+   "test: {}"
+  ],
+  [
+   "Гость {}",
+   "Guest {}"
+  ],
+  [
+   "«{}»: {}",
+   "“{}”: {}"
+  ],
+  [
+   "ответ {}",
+   "response {}"
+  ],
+  [
+   "ключ: {}",
+   "key: {}"
+  ],
+  [
+   "На «{}»",
+   "To “{}”"
+  ],
+  [
+   "идёт {}",
+   "ongoing {}"
+  ],
+  [
+   "{} мс?!",
+   "{} ms?!"
+  ],
+  [
+   "{} ✗ {}",
+   "{} ✗ {}"
+  ],
+  [
+   "{} ✓ {}",
+   "{} ✓ {}"
+  ],
+  [
+   "{} КБ/с",
+   "{} KB/s"
+  ],
+  [
+   "{} МБ/с",
+   "{} MB/s"
+  ],
+  [
+   "{} · {}",
+   "{} · {}"
+  ],
+  [
+   "{} — {}",
+   "{} — {}"
+  ],
+  [
+   "{} ({})",
+   "{} ({})"
+  ],
+  [
+   "{} → {}",
+   "{} → {}"
+  ],
+  [
+   "ещё {}",
+   "+{} more"
+  ],
+  [
+   "{} мин",
+   "{} min"
+  ],
+  [
+   "код {}",
+   "code {}"
+  ],
+  [
+   "{} Б/с",
+   "{} B/s"
+  ],
+  [
+   "{}: {}",
+   "{}: {}"
+  ],
+  [
+   "{}, {}",
+   "{}, {}"
+  ],
+  [
+   "{}. {}",
+   "{}. {}"
+  ],
+  [
+   "{}; {}",
+   "{}; {}"
+  ],
+  [
+   "вх {}",
+   "in {}"
+  ],
+  [
+   "{} мс",
+   "{} ms"
+  ],
+  [
+   "{} КБ",
+   "{} KB"
+  ],
+  [
+   "{} МБ",
+   "{} MB"
+  ],
+  [
+   "{} ГБ",
+   "{} GB"
+  ],
+  [
+   "• {}",
+   "• {}"
+  ],
+  [
+   "→ {}",
+   "→ {}"
+  ],
+  [
+   "✓ {}",
+   "✓ {}"
+  ],
+  [
+   "✗ {}",
+   "✗ {}"
+  ],
+  [
+   "{} с",
+   "{} s"
+  ],
+  [
+   "{} ч",
+   "{} h"
+  ],
+  [
+   "{} Б",
+   "{} B"
+  ],
+  [
+   "«{}»",
+   "“{}”"
+  ],
+  [
+   "{} ·",
+   "{} ·"
+  ],
+  [
+   "· {}",
+   "· {}"
+  ],
+  [
+   "— {}",
+   "— {}"
+  ],
+  [
+   "({})",
+   "({})"
+  ],
+  [
+   "{}:",
+   "{}:"
+  ],
+  [
+   "Каскад {} → {} → {}",
+   "Cascade {} → {} → {}"
+  ],
+  [
+   "Через этот путь идёт цепочка с входом «{}» — сначала уберите её",
+   "A chain with entry “{}” goes through this path — remove it first"
+  ],
+  [
+   "Через «{}» идёт цепочка с входом «{}». Сначала уберите её",
+   "A chain with entry “{2}” goes through “{1}”. Remove it first"
+  ],
+  [
+   "Труба на «{}»: {} → {} → {} (без ключей шифрования)",
+   "Pipe on “{}”: {} → {} → {} (no encryption keys)"
+  ],
+  [
+   "Движок перезапустится: «{}» пойдёт через «{}», вход в игру — тем же путём. Если туннель не поднимется — всё вернётся как было.",
+   "The engine will restart: “{}” will go via “{}”, with sign-in the same way. If the tunnel doesn't come up, everything goes back as it was."
+  ],
+  [
+   "Движок перезапустится: «{}» пойдёт через «{}». Если туннель не поднимется — всё вернётся как было.",
+   "The engine will restart: “{}” will go via “{}”. If the tunnel doesn't come up, everything goes back as it was."
+  ],
+  [
+   "включён → {}",
+   "on → {}"
+  ],
+  [
+   "сейчас включён «{}»",
+   "“{}” is on now"
+  ],
+  [
+   "«{}» — можно включать",
+   "“{}” — ready to turn on"
+  ],
+  [
+   "«{}» — в игровом режиме, осталось включить",
+   "“{}” — added to game mode, just turn it on"
+  ],
+  [
+   "{} — куда направить?",
+   "{} — where to route it?"
+  ],
+  [
+   "{} — выбрать путь",
+   "{} — pick a route"
+  ],
+  [
+   "сайт {}",
+   "site {}"
+  ],
+  [
+   "Игровой режим: «{}»",
+   "Game mode: “{}”"
+  ],
+  [
+   "не получилось: {}",
+   "failed: {}"
+  ],
+  [
+   "нет такого места: {}",
+   "no such position: {}"
+  ],
+  [
+   "{}: ещё {}",
+   "{}: also {}"
+  ],
+  [
+   "<p>wpx установит свой движок (mihomo) и поднимет туннель с профилем <b>{}</b> ({}). Дальше при включении ПК туннель будет подниматься сам — ещё до входа в систему.</p>",
+   "<p>wpx will install its engine (mihomo) and bring up the tunnel with the <b>{}</b> profile ({}). From then on the tunnel starts by itself when the PC boots — even before sign-in.</p>"
+  ],
+  [
+   "wpx только наблюдает. Установите движок — и туннель поднимется с профилем «{}».",
+   "wpx only watches. Install the engine and the tunnel will come up with the “{}” profile."
+  ],
+  [
+   "Переключаю на «{}» — подтвердите права администратора",
+   "Switching to “{}” — confirm administrator rights"
+  ],
+  [
+   "Включаю «{}» — подтвердите права администратора",
+   "Turning on “{}” — confirm administrator rights"
+  ],
+  [
+   "Установлена версия {}",
+   "Installed version {}"
+  ],
+  [
+   "Доступна версия {}",
+   "Version {} is available"
+  ],
+  [
+   "Выпущена {}",
+   "Released {}"
+  ],
+  [
+   "— выход не добавлен на этом ПК: «Добавить сервер» {} через «{}», и появится профиль каскада",
+   "— the exit isn’t added on this PC: Add server {} via “{}”, and a cascade profile appears"
+  ],
+  [
+   "Профиль из «{}»",
+   "Profile from “{}”"
+  ],
+  [
+   "{} — сделать профиль",
+   "{} — make a profile"
+  ],
+  [
+   "Профиль не создан: {}. Повторить — «Профиль на этом ПК» на карточке сервера",
+   "Profile not created: {}. To retry — Profile on this PC on the server card"
+  ],
+  [
+   "{} AmneziaWG в профиль не вошёл: у каждого устройства свой ключ, а для этого ПК его на сервере нет. Нужен — «Поделиться» → AmneziaWG, конфиг добавьте как профиль.",
+   "{} AmneziaWG isn’t in the profile: each device has its own key, and the server has none for this PC. If you need it — Share → AmneziaWG, then add the config as a profile."
+  ],
+  [
+   "«{}» — часть набора «{}»: сервис грузит содержимое и с других адресов ({}), поэтому правило на весь набор.",
+   "“{}” is part of the “{}” set: the service also loads content from other addresses ({}), so the rule covers the whole set."
+  ],
+  [
+   "через VPN: {} соед. · ↓ {} ↑ {}  ·  напрямую: {} соед. · ↓ {} ↑ {}  ·  за сессию движка (VPN и напрямую вместе) ↓ {} ↑ {}",
+   "via VPN: {} conn. · ↓ {} ↑ {}  ·  direct: {} conn. · ↓ {} ↑ {}  ·  this engine session (VPN and direct together) ↓ {} ↑ {}"
+  ],
+  [
+   "Скопировано: {}. Вставьте в wpx на другом ПК — это ключи, не публикуйте их.",
+   "Copied: {}. Paste into wpx on the other PC — these are keys, don’t post them publicly."
+  ],
+  [
+   "Путь «{}» то пропадает, то возвращается (переключений за 20 мин: {}) — держу «{}», пока он работает. Через час снова выберу сам",
+   "Path “{}” keeps dropping and coming back (switches in 20 min: {}) — holding “{}” while it works. I’ll pick on my own again in an hour"
+  ],
+  [
+   "Пути скачут (переключений за 20 мин: {}), пропадают все точки — похоже, нестабилен сам канал: Wi-Fi, роутер или провайдер",
+   "Paths keep switching (switches in 20 min: {}) and every point drops — the link itself looks unstable: Wi-Fi, router or ISP"
+  ],
+  [
+   "Что внутри «{}»",
+   "What’s inside “{}”"
+  ],
+  [
+   "всего: {}",
+   "total: {}"
+  ],
+  [
+   "адресов: {}",
+   "addresses: {}"
+  ],
+  [
+   "Не похоже на адрес или подсеть: {}",
+   "Doesn’t look like an address or subnet: {}"
+  ],
+  [
+   "«{}» есть в правилах — сначала уберите правило",
+   "“{}” is used in rules — remove the rule first"
+  ],
+  [
+   "Набор «{}» уже есть",
+   "A set named “{}” already exists"
+  ],
+  [
+   "Набор «{}»: неверный id",
+   "Set “{}”: invalid id"
+  ],
+  [
+   "Набор «{}» пуст — добавьте хотя бы один адрес",
+   "Set “{}” is empty — add at least one address"
+  ],
+  [
+   "Набор «{}»: «{}» — не похоже на домен или подсеть",
+   "Set “{}”: “{}” doesn’t look like a domain or subnet"
+  ],
+  [
+   "Не удалось скачать список ({}). Адрес: {}",
+   "Couldn’t download the list ({}). Address: {}"
+  ],
+  [
+   "{} — по UDP, для игр хорошо",
+   "{} — over UDP, good for games"
+  ],
+  [
+   "Рабочий профиль «{}»",
+   "Working profile “{}”"
+  ],
+  [
+   "ПК → {}",
+   "PC → {}"
+  ],
+  [
+   "{} → игра {}",
+   "{} → game {}"
+  ],
+  [
+   "{} → игра",
+   "{} → game"
+  ],
+  [
+   "не замерил: {}",
+   "not measured: {}"
+  ],
+  [
+   "Когда брать: {}.",
+   "When to use: {}."
+  ],
+  [
+   "{} — что это за протокол",
+   "{} — what this protocol is"
+  ],
+  [
+   "{} — вся зона",
+   "{} — the whole zone"
+  ],
+  [
+   "ping {} мс",
+   "ping {} ms"
+  ],
+  [
+   "тест {} мс",
+   "test {} ms"
+  ],
+  [
+   "Если {} заблокируют в России, VLESS и XHTTP перестанут проходить — смените сайт здесь. После смены профиль на этом ПК обновится сам; на других ПК — «Обновить профиль», гостям — новые ссылки.",
+   "If {} gets blocked in Russia, VLESS and XHTTP stop getting through — change the site here. After the change the profile on this PC updates itself; on other PCs — “Refresh profile”, guests need new links."
+  ],
+  [
+   "Проверяю прикрытие {}: TLS 1.3 + h2 с сервера",
+   "Checking cover {}: TLS 1.3 + h2 from the server"
+  ],
+  [
+   "«{}» не подходит для прикрытия: с сервера у него нет TLS 1.3 с HTTP/2",
+   "“{}” won’t work as a cover: from the server it has no TLS 1.3 with HTTP/2"
+  ],
+  [
+   "«{}» — не похоже на адрес сайта",
+   "“{}” doesn’t look like a site address"
+  ],
+  [
+   "Адаптер «{}»: недопустимые символы в имени",
+   "Adapter “{}”: invalid characters in the name"
+  ],
+  [
+   "Имя TUN «{}»: только латиница, цифры, «_» и «-», до 15 символов",
+   "TUN name “{}”: Latin letters, digits, “_” and “-” only, up to 15 characters"
+  ],
+  [
+   "Найденное на лету «{}» — не похоже на программу или сайт",
+   "Found on the fly “{}” — doesn’t look like an app or a site"
+  ],
+  [
+   "Движок работал не по своему конфигу ({}) — похоже, его поменяла программа на этом ПК через локальный API. {}",
+   "The engine wasn’t running its own config ({}) — a program on this PC seems to have changed it via the local API. {}"
+  ],
+  [
+   "в движке чужая точка «{}»",
+   "a foreign point “{}” in the engine"
+  ],
+  [
+   "Интернет идёт напрямую, мимо туннеля. VPN вернётся сам в {} — или раньше по «Включить VPN»",
+   "Internet goes direct, around the tunnel. The VPN comes back by itself at {} — or earlier via “Resume VPN”"
+  ],
+  [
+   "Сервер {} показал ключ:",
+   "Server {} presented the key:"
+  ],
+  [
+   "Ключ сервера совпал: {}",
+   "Server key matches: {}"
+  ],
+  [
+   "Ключ сервера не сверен — доверяю при первом входе: {}",
+   "Server key not verified — trusting on first use: {}"
+  ],
+  [
+   "{}: сервер не показал ключ",
+   "{}: the server didn’t present a key"
+  ],
+  [
+   "{}: отпечаток ключа сервера не сохранён — удалите сервер в wpx и добавьте заново",
+   "{}: the server key fingerprint isn’t saved — remove the server in wpx and add it again"
+  ],
+  [
+   "изменено: {}",
+   "changed: {}"
+  ],
+  [
+   "через {}",
+   "via {}"
+  ],
+  [
+   "Сверка движка: «{}» не уходит и после возврата своего конфига — это особенность движка, а не подмена; эту сверку отключаю до перезапуска wpx",
+   "Engine check: “{}” stays even after wpx restored its own config — this is an engine quirk, not tampering; this check is off until wpx restarts"
+  ],
+  [
+   "перейти на «{}», потом вернуться",
+   "switch to “{}”, then come back"
+  ],
+  [
+   "профиль «{}» · движок работает в фоне, даже когда окно закрыто",
+   "profile “{}” · the engine runs in the background even when the window is closed"
+  ],
+  [
+   "задача wpx-engine · {}",
+   "task wpx-engine · {}"
+  ],
+  [
+   "с {} на {} — закрыто",
+   "from {} to {} — blocked"
+  ],
+  [
+   "{} через {}",
+   "{} via {}"
+  ]
+ ]
+}

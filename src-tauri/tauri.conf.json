@@ -1,0 +1,66 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "wpx",
+  "version": "0.1.0",
+  "identifier": "local.wpx.app",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://127.0.0.1:1430",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "wpx",
+        "width": 1280,
+        "height": 860,
+        "minWidth": 1100,
+        "minHeight": 720,
+        "decorations": false,
+        "shadow": true,
+        "resizable": true,
+        "center": true,
+        "visible": false,
+        "dragDropEnabled": false,
+        "backgroundColor": "#090B12"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src ipc: http://ipc.localhost"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "externalBin": [
+      "binaries/wpx-mihomo"
+    ],
+    "resources": {
+      "../LICENSE": "LICENSE.txt",
+      "../THIRD_PARTY_NOTICES.md": "THIRD_PARTY_NOTICES.md"
+    },
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.png",
+      "icons/icon.ico"
+    ],
+    "publisher": "wpx",
+    "category": "Utility",
+    "shortDescription": "Tunnel manager for your PC and your own VPN servers",
+    "longDescription": "wpx keeps the whole PC behind a tunnel (mihomo in TUN mode) with a kill switch, safe config changes with automatic rollback, per-app and per-site rules, and deploys VPN servers (VLESS Reality, Hysteria2, AmneziaWG, XHTTP, MTProxy) on your own VPS over SSH."
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEVDNjkyMjYxRUEzNThFOUIKUldTYmpqWHFZU0pwN05uYXVuL2RjTjNOdWpWeE5rdE44TjByWlp0eVBOUmRHTWdoTDR6Wml3SFoK",
+      "endpoints": [
+        "https://github.com/qjcky/wpx/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+version: 2
+# Only compatible updates come automatically; major versions are bumped by hand.
+updates:
+  # Pinned actions: SHA and its version comment, without major versions.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+  # Only within the ranges in Cargo.toml / package.json (lock files): for 0.x crates
+  # a "minor" bump (0.32 → 0.40) is breaking, and Cargo's own ranges already know it.
+  - package-ecosystem: cargo
+    directory: /src-tauri
+    schedule:
+      interval: monthly
+    versioning-strategy: lockfile-only
+    open-pull-requests-limit: 5
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    versioning-strategy: lockfile-only
+    open-pull-requests-limit: 5

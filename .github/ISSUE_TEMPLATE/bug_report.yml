@@ -1,0 +1,35 @@
+name: Bug report
+description: Something does not work as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        English or Russian is fine. **Do not paste connection links, keys, passwords or server addresses.**
+  - type: input
+    id: version
+    attributes:
+      label: wpx version
+      description: Settings → Updates
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: System
+      options: [Windows 11, Windows 10, Linux (deb), Linux (AppImage)]
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, what you got instead.
+    validations:
+      required: true
+  - type: textarea
+    id: report
+    attributes:
+      label: Support report
+      description: Engine → Support report (addresses hidden, no keys). Attach the file or paste the relevant part.

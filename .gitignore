@@ -1,0 +1,13 @@
+# Зависимости и сборка
+node_modules/
+dist/
+dist-linux/
+src-tauri/target/
+src-tauri/gen/
+
+# mihomo скачивается скриптом scripts/fetch-mihomo.mjs (с проверкой SHA-256)
+src-tauri/binaries/
+
+*.log
+.DS_Store
+Thumbs.db

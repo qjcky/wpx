@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wpx</title>
+    <link rel="stylesheet" href="/src/styles/app.css" />
+    <link rel="stylesheet" href="/src/styles/themes.css" />
+    <link rel="stylesheet" href="/src/styles/themes-2.css" />
+  </head>
+  <body data-health="starting">
+    <div class="aura" aria-hidden="true"></div>
+    <canvas class="scene-bg" id="sceneBg" aria-hidden="true"></canvas>
+
+    <header class="titlebar" data-tauri-drag-region>
+      <div class="brand" data-tauri-drag-region>
+        <svg class="mark" viewBox="0 0 30 20" aria-hidden="true">
+          <path d="M7 1h4.2L5.2 19H1zM15 1h4.2l-6 18H9zM23 1h4.2l-6 18H17z" fill="currentColor" />
+        </svg>
+        <span class="wordmark">wpx</span>
+      </div>
+      <span class="server mono" id="serverLabel" data-tauri-drag-region>—</span>
+      <div class="win">
+        <button type="button" class="upd-chip" id="updChip" title="Что нового и обновление" hidden></button>
+        <button class="icon-btn" id="btnRefresh" title="Проверить сейчас" aria-label="Проверить сейчас">
+          <svg viewBox="0 0 16 16"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9M13.5 2.5v3h-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="icon-btn" id="btnWidget" title="Вырез у края экрана" aria-label="Вырез у края экрана">
+          <svg viewBox="0 0 16 16"><rect x="2.5" y="3.5" width="11" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="8" y="8" width="4" height="3" rx=".8" fill="currentColor"/></svg>
+        </button>
+        <span class="win-sep"></span>
+        <button class="icon-btn wbtn" id="btnMin" title="Свернуть" aria-label="Свернуть">
+          <svg viewBox="0 0 16 16"><path d="M3.5 8.5h9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </button>
+        <button class="icon-btn wbtn close" id="btnClose" title="Спрятать в трей" aria-label="Спрятать в трей">
+          <svg viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <nav class="tabs" role="tablist" aria-label="Разделы" aria-orientation="vertical">
+        <button role="tab" data-page="overview" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v8.5a1.5 1.5 0 0 1-1.5 1.5H15v-6H9v6H5.5A1.5 1.5 0 0 1 4 19.5z"/></svg>Обзор</button>
+        <button role="tab" data-page="traffic" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20v-5M10 20v-9M15 20V7M20 20V4"/></svg>Трафик</button>
+        <button role="tab" data-page="profiles" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 12.5l9 5 9-5M3 17l9 5 9-5"/></svg>Профили</button>
+        <button role="tab" data-page="rules" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6z"/></svg>Правила</button>
+        <button role="tab" data-page="games" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12a4 4 0 0 1 4 4v1a3.5 3.5 0 0 1-6.3 2.1L14.5 14h-5l-1.2 1.1A3.5 3.5 0 0 1 2 13v-1a4 4 0 0 1 4-4z"/><path d="M7 11v3M5.5 12.5h3"/><circle cx="16.5" cy="11.5" r=".6"/><circle cx="18.5" cy="13.5" r=".6"/></svg>Игры</button>
+        <button role="tab" data-page="servers" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="7" rx="2"/><rect x="4" y="13" width="16" height="7" rx="2"/><path d="M8 7.5h.01M8 16.5h.01"/></svg>Серверы</button>
+        <button role="tab" data-page="engine" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></svg>Движок<span class="tab-dot" id="engineDot" hidden></span></button>
+      </nav>
+      <button class="nav-foot" id="btnSettings" title="Настройки и оформление"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>Настройки</button>
+    </aside>
+
+    <div id="main">
+    <main class="page overview" id="pageOverview">
+      <section class="card hero">
+      <div class="ov-head">
+        <div class="ov-status">
+          <div class="kicker" id="ovKicker">wpx</div>
+          <div class="ov-title"><span class="st-ico" id="stIco" aria-hidden="true"></span><h1 id="stateLabel">Проверяем связь</h1></div>
+          <div class="ov-meta" id="ovMeta"></div>
+          <div class="ov-chips" id="ovChips"></div>
+          <div class="status-sub" id="stateSub">Первые замеры через пару секунд</div>
+        </div>
+        <div class="ov-actions">
+          <button class="btn" id="btnReserve" hidden></button>
+          <button class="btn" id="btnWhere" hidden title="Проверить путь до своего сервера: ПК → сервер → его интернет → протоколы">Где рвётся?</button>
+          <button class="btn" id="btnPause" hidden></button>
+          <button class="btn big conn" id="btnRestart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v8"/><path d="M6.6 6.6a8 8 0 1 0 10.8 0"/></svg>Перезапустить</button>
+        </div>
+      </div>
+      <div class="route-head"><span>Сетевой маршрут</span></div>
+      <div class="route" id="route" role="img" aria-label="Маршрут трафика"><canvas aria-hidden="true"></canvas><div class="rt-nodes"></div></div>
+      </section>
+
+      <section class="card pulse">
+        <div class="lat-side">
+          <span class="lbl">Задержка</span>
+          <div class="latency mono"><span id="latencyValue">—</span><span class="unit">мс</span></div>
+          <span class="pill" id="latPill">…</span>
+          <div class="pulse-stats mono" id="pulseStats"></div>
+        </div>
+        <div class="lat-chart">
+          <div class="card-head">
+            <span class="hint"></span>
+            <div class="seg" role="tablist" aria-label="Окно графика">
+              <button role="tab" data-range="900000" aria-selected="true">15 мин</button>
+              <button role="tab" data-range="3600000" aria-selected="false">1 час</button>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="pulseChart"></canvas><div class="tip mono" id="pulseTip" hidden></div></div>
+        </div>
+      </section>
+
+      <section class="metrics">
+        <div class="metric"><span class="m-ico down"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6"/></svg></span>
+          <div class="m-txt"><span class="lbl">Скачивание</span><b id="rx">—</b><small class="mono" id="rxTotal"></small></div><canvas class="mspark" id="rxSpark"></canvas></div>
+        <div class="metric"><span class="m-ico up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V5M6 11l6-6 6 6"/></svg></span>
+          <div class="m-txt"><span class="lbl">Отправка</span><b id="tx">—</b><small class="mono" id="txTotal"></small></div><canvas class="mspark" id="txSpark"></canvas></div>
+        <div class="metric"><span class="m-ico prot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <div class="m-txt"><span class="lbl">Защита</span><b id="mProt">—</b><small id="mProtSub"></small></div></div>
+        <div class="metric"><span class="m-ico ip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span>
+          <div class="m-txt"><span class="lbl">Выход для сайтов</span><b class="mono" id="mIp">—</b><small id="mIpSub"></small></div></div>
+      </section>
+
+      <button type="button" class="more" id="btnMore" aria-expanded="false">Подробности<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <section class="ov-details" id="ovDetails" hidden>
+        <div class="card">
+          <div class="card-head"><h2>Пути</h2><span class="hint" id="legsHint"></span><button type="button" class="link" id="legsFaq" title="Чем отличаются протоколы и что выбрать">о протоколах</button></div>
+          <div id="legs" class="legs"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Защита</h2><span class="hint" id="guardAt"></span><button class="link" id="btnLeaks" title="IP, выход мимо туннеля, IPv6, DNS, WebRTC">утечки</button></div>
+          <ul id="guard" class="guard"></ul>
+        </div>
+        <div class="card side-card events-card">
+          <div class="card-head"><h2>Лента</h2><button class="link" id="btnLog">журнал</button></div>
+          <ol id="events" class="events"></ol>
+        </div>
+        <div class="card side-card">
+          <div class="card-head"><h2>Ошибки движка</h2><span class="hint">в минуту, 3 часа</span></div>
+          <canvas id="errChart" class="errs"></canvas>
+        </div>
+        <div class="card side-card">
+          <div class="card-head"><h2>Простои</h2><span class="hint" id="outageSum"></span></div>
+          <ol id="outages" class="outages"></ol>
+        </div>
+      </section>
+    </main>
+
+    <!-- Трафик: скорость и кто ест туннель -->
+    <main class="page page-pad traffic-page" id="pageTraffic" hidden>
+      <section class="card speed">
+        <div class="card-head"><h2>Скорость через туннель</h2><span class="hint">Cloudflare · ~30 с · до ~30 МБ трафика прокси</span></div>
+        <div class="speed-row">
+          <div class="spd"><span class="lbl">загрузка ↓</span><b class="mono" id="spDown">—</b><span class="u">Мбит/с</span></div>
+          <div class="spd"><span class="lbl">отдача ↑</span><b class="mono" id="spUp">—</b><span class="u">Мбит/с</span></div>
+          <div class="spd" title="Время до первого ответа сайта через VPN: подключение, шифрование и запрос — 2–3 круга туда-обратно. Это не ping; ping до сервера — на «Обзоре», в «Путях»"><span class="lbl">отклик сайта</span><b class="mono" id="spPing">—</b><span class="u">мс</span></div>
+          <button class="btn primary" id="spRun">Запустить тест</button>
+        </div>
+        <div class="hint" id="spNote"></div>
+        <ol class="sp-hist mono" id="spHist"></ol>
+      </section>
+      <section class="card conns">
+        <div class="card-head">
+          <h2>Кто ест туннель</h2>
+          <div class="seg" id="cnRoute" role="tablist" aria-label="Куда идёт">
+            <button role="tab" data-croute="vpn" aria-selected="true">через VPN и прокси</button>
+            <button role="tab" data-croute="direct" aria-selected="false">напрямую</button>
+            <button role="tab" data-croute="all" aria-selected="false">все</button>
+          </div>
+          <div class="seg" id="cnView" role="tablist" aria-label="Вид">
+            <button role="tab" data-cview="apps" aria-selected="true">приложения</button>
+            <button role="tab" data-cview="hosts" aria-selected="false">адреса</button>
+          </div>
+        </div>
+        <p class="hint cn-sum" id="cnTotals"></p>
+        <p class="note" id="cnNote" hidden></p>
+        <div class="cn-head mono"><span>кто</span><span>соед.</span><span>↓ сейчас</span><span>↑ сейчас</span><span>↓ всего</span><span>↑ всего</span><span></span></div>
+        <div class="cn-list" id="cnList"></div>
+      </section>
+    </main>
+
+    <!-- Профили -->
+    <main class="page page-pad" id="pageProfiles" hidden>
+      <section class="prof-list">
+        <div class="page-head">
+          <h1>Профили</h1>
+          <div class="head-actions">
+            <button class="btn primary" id="btnAddProfile">Добавить профиль</button>
+          </div>
+        </div>
+        <p class="page-lead">Куда выходит ПК: VPN, каскад или прокси.</p>
+        <section class="card trial" id="trialBox" hidden>
+          <div class="card-head"><h2 id="trTitle">Пробный запуск</h2><span class="hint" id="trHint"></span></div>
+          <p class="note">Отдельно от системы: рабочий туннель не меняется. Через профиль идёт только браузер, открытый кнопкой ниже (или программа с прокси <span class="mono" id="trAddr"></span>).</p>
+          <ol class="im-list" id="trPoints"></ol>
+          <div class="tr-speed" id="trSpeed"></div>
+          <p class="form-err" id="trErr" hidden></p>
+          <div class="modal-actions">
+            <button type="button" class="btn" id="trCheck" title="Проверить все точки сейчас">Проверить точки</button>
+            <button type="button" class="btn" id="trSpeedBtn" title="~25 МБ вниз и ~6 МБ вверх через профиль">Тест скорости</button>
+            <button type="button" class="btn primary" id="trBrowser">Открыть браузер через профиль</button>
+            <button type="button" class="btn danger" id="trStop">Остановить</button>
+          </div>
+        </section>
+        <div id="profileCards" class="prof-cards"></div>
+      </section>
+      <section class="card prof-edit" id="addChooser" hidden>
+        <div class="card-head"><h2>Что добавить?</h2><button type="button" class="btn sm" id="acClose">Закрыть</button></div>
+        <div class="choose">
+          <button type="button" class="choice" data-add="links">
+            <b>VPN по ссылке или конфигу</b>
+            <span>vless://, hysteria2://, trojan://, ss://, ссылка vpn:// из AmneziaVPN или конфиг AmneziaWG (.conf)</span></button>
+          <button type="button" class="choice" data-add="server">
+            <b>Свой сервер</b>
+            <span>wpx сам поставит VPN на ваш VPS и создаст профиль</span></button>
+          <button type="button" class="choice" data-add="cascade">
+            <b>Каскад из двух профилей</b>
+            <span>ПК → вход → выход, например «прокси → свой сервер»</span></button>
+          <button type="button" class="choice" data-add="route">
+            <b>Маршрут из нескольких профилей</b>
+            <span>несколько профилей: один упал — wpx переключится на другой</span></button>
+          <button type="button" class="choice" data-add="proxy">
+            <b>HTTP(S) / SOCKS5-прокси</b>
+            <span>адрес, порты, логин и пароль</span></button>
+        </div>
+      </section>
+      <section class="card prof-edit" id="importer" hidden>
+        <div class="card-head"><h2>VPN по ссылке или конфигу</h2></div>
+        <label class="field" title="Несколько конфигов AmneziaWG — через строку «---»"><span>Ссылки по одной на строку или конфиг AmneziaWG целиком</span>
+          <textarea id="imText" class="mono" rows="6" spellcheck="false" placeholder="vless://…&#10;hysteria2://…&#10;vpn://… (AmneziaVPN → «Поделиться»)"></textarea></label>
+        <ol class="im-list" id="imList"></ol>
+        <label class="pref inline"><span class="t">Проверять мимо туннеля</span>
+          <label class="switch"><input type="checkbox" id="imDirect"><span></span></label>
+          <span class="d">как будет работать без wpx; роутер должен пускать сервер</span></label>
+        <div class="row2">
+          <label class="field"><span>Название профиля</span><input id="imName" maxlength="40" placeholder="Например, Амстердам"></label>
+          <label class="field"><span>Как выбирать точку</span>
+            <select id="imMode"><option value="auto">самая быстрая (автоподбор)</option><option value="smart">умная — по истории и времени суток</option><option value="fallback">по порядку, следующая при сбое</option></select></label>
+        </div>
+        <p class="form-err" id="imErr" hidden></p>
+        <div class="modal-actions">
+          <button type="button" class="btn" id="imProbe" title="Проверить каждую точку в песочнице и расставить по скорости">Подобрать</button>
+          <button type="button" class="btn" id="imCancel">Отмена</button>
+          <button type="button" class="btn primary" id="imSave">Сохранить профиль</button>
+        </div>
+
+      </section>
+      <section class="card prof-edit" id="cascader" hidden>
+        <div class="card-head"><h2 id="caTitle">Каскад</h2><span class="hint">ПК → вход → выход → интернет</span></div>
+        <div class="ca-chain">
+          <span class="ca-node">ПК</span><span class="ca-arr">→</span>
+          <label class="field"><span>Вход — до него ПК достаёт сам</span><select id="caEntry"></select></label>
+          <button type="button" class="btn ca-swap" id="caSwap" title="Поменять вход и выход местами" aria-label="Поменять вход и выход местами">⇄</button>
+          <label class="field"><span>Выход — его IP увидят сайты</span><select id="caExit"></select></label>
+          <span class="ca-arr">→</span><span class="ca-node">интернет</span>
+        </div>
+        <ol class="im-list" id="caList"></ol>
+        <label class="pref inline"><span class="t">Проверять мимо туннеля</span>
+          <label class="switch"><input type="checkbox" id="caDirect" checked><span></span></label>
+          <span class="d">вход — как без wpx; роутер должен пускать сервер входа</span></label>
+        <label class="field"><span>Название каскада</span><input id="caName" maxlength="40" placeholder="Например, Сингапур → Хельсинки"></label>
+        <p class="form-err" id="caErr" hidden></p>
+        <div class="modal-actions">
+          <button type="button" class="btn" id="caProbe" title="Проверить вход отдельно и выход через вход — в песочнице, систему не трогает">Проверить</button>
+          <button type="button" class="btn" id="caCancel">Отмена</button>
+          <button type="button" class="btn primary" id="caSave">Сохранить каскад</button>
+        </div>
+        <p class="note">Серверы перенастраивать не нужно — цепочку собирает wpx.</p>
+      </section>
+      <section class="card prof-edit" id="routeEditor" hidden>
+        <div class="card-head"><h2 id="roTitle">Маршрут</h2><span class="hint">несколько путей — движок держит лучший живой</span></div>
+        <div class="row2">
+          <label class="field"><span>Название</span><input id="roName" maxlength="40" placeholder="Например, Хельсинки — все пути"></label>
+          <label class="field"><span>Как выбирать путь</span>
+            <select id="roMode"><option value="auto">самый быстрый из живых</option><option value="fallback">по порядку, следующий при сбое</option></select></label>
+        </div>
+        <div class="field"><span>Профили-участники — отметьте и расставьте по порядку</span><ol class="im-list ve-list" id="roList"></ol></div>
+        <label class="pref inline"><span class="t">Проверять мимо туннеля</span>
+          <label class="switch"><input type="checkbox" id="roDirect" checked><span></span></label>
+          <span class="d">как будет работать без wpx; роутер должен пускать первые звенья</span></label>
+        <p class="form-err" id="roErr" hidden></p>
+        <div class="modal-actions">
+          <button type="button" class="btn" id="roProbe" title="Проверить каждого отмеченного участника в песочнице">Проверить участников</button>
+          <button type="button" class="btn" id="roCancel">Отмена</button>
+          <button type="button" class="btn primary" id="roSave">Сохранить маршрут</button>
+        </div>
+      </section>
+      <section class="card prof-edit" id="vpnEditor" hidden>
+        <div class="card-head"><h2 id="veTitle">VPN-профиль</h2><span class="hint" id="veHint"></span></div>
+        <div class="row2">
+          <label class="field"><span>Название</span><input id="veName" maxlength="40"></label>
+          <label class="field"><span>Как выбирать точку</span>
+            <select id="veMode"><option value="auto">самая быстрая (автоподбор)</option><option value="smart">умная — по истории и времени суток</option><option value="fallback">по порядку, следующая при сбое</option></select></label>
+        </div>
+        <div class="field"><span>Точки подключения — сверху вниз по приоритету</span><ol class="im-list ve-list" id="veList"></ol></div>
+        <label class="field"><span>Добавить точки — ссылки или конфиг AWG (необязательно)</span>
+          <textarea id="veAdd" class="mono" rows="2" spellcheck="false" placeholder="vless://…  hysteria2://…  vpn://…"></textarea></label>
+        <p class="hint" id="veAddInfo"></p>
+        <label class="pref inline"><span class="t">Проверять мимо туннеля</span>
+          <label class="switch"><input type="checkbox" id="veDirect" checked><span></span></label>
+          <span class="d">как будет работать без wpx; роутер должен пускать сервер</span></label>
+        <p class="form-err" id="veErr" hidden></p>
+        <div class="modal-actions">
+          <button type="button" class="btn" id="veProbe" title="Проверить сохранённые точки в песочнице и расставить по скорости">Проверить</button>
+          <button type="button" class="btn" id="veCancel">Отмена</button>
+          <button type="button" class="btn primary" id="veSave">Сохранить</button>
+        </div>
+      </section>
+      <section class="card prof-edit" id="profileEditor" hidden>
+        <div class="card-head"><h2 id="peTitle">Профиль</h2></div>
+        <form id="peForm" autocomplete="off">
+          <label class="field"><span>Название</span><input id="peName" required maxlength="40" placeholder="Например, Мой прокси"></label>
+          <label class="field"><span>Сервер (IPv4)</span><input id="peServer" class="mono" required placeholder="203.0.113.50" inputmode="decimal"></label>
+          <div class="row2">
+            <label class="field"><span id="peHttpLbl">Порт HTTP</span><input id="peHttp" class="mono" type="number" min="1" max="65535" placeholder="59100"></label>
+            <label class="field"><span>Порт SOCKS5</span><input id="peSocks" class="mono" type="number" min="1" max="65535" placeholder="59101"></label>
+          </div>
+          <label class="pref inline"><span class="t">HTTPS — порт HTTP по TLS</span>
+            <label class="switch"><input type="checkbox" id="peHttps"><span></span></label>
+            <span class="d">логин и пароль не идут открытым текстом</span></label>
+          <div class="row2" id="peTlsRow" hidden>
+            <label class="field"><span>Имя для сертификата (SNI)</span><input id="peSni" class="mono" maxlength="253" placeholder="proxy.example.com"></label>
+            <label class="pref inline"><span class="t">Не проверять сертификат</span>
+              <label class="switch"><input type="checkbox" id="peInsecure"><span></span></label>
+              <span class="d">только для своего прокси с самоподписанным сертификатом</span></label>
+          </div>
+          <div class="row2">
+            <label class="field"><span>Логин</span><input id="peUser" class="mono" autocomplete="off"></label>
+            <label class="field"><span>Пароль</span>
+              <span class="pw"><input id="pePass" class="mono" type="password" autocomplete="new-password"><button type="button" class="icon-btn" id="pePassEye" aria-label="Показать пароль" title="Показать пароль"><svg viewBox="0 0 16 16"><path d="M1.5 8s2.4-4.5 6.5-4.5S14.5 8 14.5 8s-2.4 4.5-6.5 4.5S1.5 8 1.5 8z" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="8" cy="8" r="2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button></span>
+            </label>
+          </div>
+          <div class="field"><span>Основной выход</span>
+            <div class="seg wide" role="radiogroup" id="pePrimary">
+              <button type="button" role="radio" data-v="http" aria-checked="true" id="pePrimHttp">HTTP</button>
+              <button type="button" role="radio" data-v="socks5" aria-checked="false">SOCKS5</button>
+            </div>
+          </div>
+          <label class="pref inline"><span class="t">Второй протокол — резерв</span>
+            <label class="switch"><input type="checkbox" id="peFallback" checked><span></span></label>
+            <span class="d">если основной не отвечает; IP тот же</span></label>
+          <div class="pe-test" id="peTest"></div>
+          <p class="form-err" id="peErr" hidden></p>
+          <div class="modal-actions">
+            <button type="button" class="btn" id="peTestBtn">Проверить</button>
+            <button type="button" class="btn" id="peCancel">Отмена</button>
+            <button type="submit" class="btn primary">Сохранить</button>
+          </div>
+          <p class="note">Kill switch на роутере — разрешите там этот IP; wpx проверит заранее.</p>
+        </form>
+      </section>
+    </main>
+
+    <!-- Правила: что куда идёт -->
+    <main class="page page-pad rules-page" id="pageRules" hidden>
+      <div class="page-head">
+        <h1>Правила</h1>
+        <div class="head-actions">
+          <span class="hint" id="ruCheckRes"></span>
+          <span class="ru-dirty" id="ruDirty" hidden>не применено</span>
+          <button class="btn" id="ruCheck" title="mihomo -t для конфига с этими правилами — систему не меняет">Проверить</button>
+          <button class="btn" id="ruSave" title="Сохранить — движок возьмёт при следующем перезапуске">Сохранить</button>
+          <button class="btn primary" id="ruApply" title="Сохранить и перезапустить движок — с откатом">Применить</button>
+        </div>
+      </div>
+      <p class="page-lead">Приложение или сайт — через нужный профиль, напрямую или в блок.</p>
+      <section class="card rp-card">
+        <label class="rp-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="ruQuery" placeholder="Приложение, сайт или набор — начните вводить или выберите ниже" spellcheck="false" autocomplete="off"></label>
+        <div class="rp-what" id="ruPickWhat"></div>
+        <div class="rp-to" id="ruPickTo" hidden>
+          <div class="rp-to-head"><span class="rp-name" id="ruPickName"></span><button type="button" class="link" id="ruPickBack">← выбрать другое</button></div>
+          <div class="rp-targets" id="ruTargets"></div>
+        </div>
+        <p class="note" id="ruNote" hidden></p>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>Правила <span class="ru-count" id="ruCount"></span></h2><span class="hint">сверху вниз — первое совпавшее решает</span></div>
+        <ol class="ru-list" id="ruList"></ol>
+        <p class="form-err" id="ruErr" hidden></p>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>Всё остальное</h2></div>
+        <div class="seg wide" role="radiogroup" id="ruDefault">
+          <button type="button" role="radio" data-v="strict" aria-checked="true">через рабочий профиль <b id="ruMainName"></b></button>
+          <button type="button" role="radio" data-v="apps" aria-checked="false">напрямую</button>
+        </div>
+        <p class="note" id="ruDefaultNote"></p>
+
+      </section>
+    </main>
+
+    <!-- Свои серверы -->
+    <main class="page page-pad" id="pageServers" hidden>
+      <section class="prof-list">
+        <div class="page-head">
+          <h1>Свои серверы</h1>
+          <div class="head-actions">
+            <button class="btn" id="btnSrvCascade" title="Вход пересылает трафик на выход, ключей не знает">Каскад</button>
+            <button class="btn primary" id="btnSrvAdd">Добавить сервер</button>
+          </div>
+        </div>
+        <p class="page-lead">wpx сам ставит VPN на ваш сервер по SSH и создаёт профиль.</p>
+        <div id="srvCards" class="prof-cards"></div>
+      </section>
+      <section class="card prof-edit" id="srvAdd" hidden>
+        <div class="card-head"><h2>Новый сервер</h2><span class="hint">Debian или Ubuntu, вход под root</span></div>
+        <form id="saForm" autocomplete="off">
+          <div class="row2">
+            <label class="field"><span>IP-адрес</span><input id="saHost" class="mono" required placeholder="203.0.113.10" inputmode="decimal"></label>
+            <label class="field"><span>Название</span><input id="saName" maxlength="40" placeholder="по городу сервера"></label>
+          </div>
+          <div class="row2">
+            <label class="field"><span>Логин</span><input id="saUser" class="mono" value="root"></label>
+            <label class="field"><span>Порт SSH</span><input id="saPort" class="mono" type="number" min="1" max="65535" value="22"></label>
+          </div>
+          <div class="field"><span>Вход</span>
+            <div class="seg wide" role="radiogroup" id="saAuth">
+              <button type="button" role="radio" data-v="pass" aria-checked="true">Пароль</button>
+              <button type="button" role="radio" data-v="key" aria-checked="false">Файл ключа</button>
+            </div>
+          </div>
+          <label class="field" id="saPassBox"><span>Пароль — нужен один раз и нигде не сохраняется</span><input id="saPass" class="mono" type="password" autocomplete="new-password"></label>
+          <label class="field" id="saKeyBox" hidden><span>Файл ключа OpenSSH (без парольной фразы)</span><input id="saKey" class="mono" placeholder="C:\Users\…\.ssh\id_ed25519"></label>
+          <label class="field"><span>Как подключаться</span><select id="saVia"></select></label>
+          <p class="form-err" id="saErr" hidden></p>
+          <div class="modal-actions">
+            <button type="button" class="btn" id="saCancel">Отмена</button>
+            <button type="submit" class="btn primary">Подключить</button>
+          </div>
+          <p class="note">Дальше wpx входит своим ключом. Kill switch на роутере — разрешите IP сервера.</p>
+        </form>
+      </section>
+      <section class="card prof-edit" id="srvCascade" hidden>
+        <div class="card-head"><h2>Путь к выходу через вход</h2><span class="hint">ПК → вход → выход → интернет</span></div>
+        <div class="ca-chain">
+          <span class="ca-node">ПК</span><span class="ca-arr">→</span>
+          <label class="field"><span>Вход — к нему подключается ПК</span><select id="scEntry"></select></label>
+          <button type="button" class="btn ca-swap" id="scSwap" title="Поменять вход и выход местами" aria-label="Поменять вход и выход местами">⇄</button>
+          <label class="field"><span>Промежуточный — необязательно</span><select id="scVia"></select></label>
+          <label class="field"><span>Выход — его IP увидят сайты</span><select id="scExit"></select></label>
+          <span class="ca-arr">→</span><span class="ca-node">интернет</span>
+        </div>
+        <p class="form-err" id="scErr" hidden></p>
+        <div class="modal-actions">
+          <button type="button" class="btn" id="scCancel">Отмена</button>
+          <button type="button" class="btn primary" id="scGo">Добавить путь</button>
+        </div>
+        <details class="gm-how"><summary>Как это работает</summary><p>Вход становится «трубой»: пересылает зашифрованный поток на выход и ключей не знает — туннель идёт от ПК прямо до выхода. Промежуточный нужен, если режут и канал между входом и выходом. К одному выходу можно добавить несколько входов: все пути попадут в один профиль «… через каскад», движок выберет быстрый живой путь и переключится, если вход упал.</p></details>
+      </section>
+    </main>
+
+    <main class="page page-pad games-page" id="pageGames" hidden>
+      <div class="page-head"><h1>Игровой режим</h1><div class="head-actions"><span class="gm-state" id="gmState"></span></div></div>
+      <p class="gm-lead">Три шага — и игра пойдёт самым быстрым путём.</p>
+      <section class="card gm-step gm-live" id="gmLive" hidden>
+        <div class="card-head"><h2>Сейчас</h2><span class="hint">куда подключена игра — обновляется само</span></div>
+        <div id="gmLiveBody"></div>
+      </section>
+      <section class="card gm-step">
+        <div class="card-head"><h2>1. Игра</h2><span class="hint">выберите или найдите запущенную</span><button type="button" class="btn sm gm-find" id="gmFind">Найти игру</button></div>
+        <div class="gm-games" id="gmGames"></div>
+        <div id="gmComp"></div>
+      </section>
+      <section class="card gm-step">
+        <div class="card-head"><h2>2. Путь</h2><button type="button" class="link" id="gmFaq" title="Какие протоколы лучше для игр">о протоколах</button><button type="button" class="btn sm" id="gmPick" title="Пинг до серверов профилей с этого ПК; точный замер до сервера игры — в «Сейчас», когда игра подключится">Подобрать самый быстрый</button></div>
+        <div class="gm-paths" id="gmPaths"></div>
+        <label class="pref inline gm-udp"><span class="t">Только UDP-точки</span>
+          <label class="switch"><input type="checkbox" id="gmUdp" checked><span></span></label>
+          <span class="d" id="gmUdpNote">AmneziaWG или Hysteria2 — с VLESS (TCP) игра может подлагивать</span></label>
+      </section>
+      <section class="card gm-step">
+        <div class="card-head"><h2>3. Запуск</h2></div>
+        <label class="pref inline"><span class="t">Перенаправление входа</span>
+          <label class="switch"><input type="checkbox" id="gmLogin" checked><span></span></label>
+          <span class="d">лаунчер, вход и античит — тем же путём; без этого часть игр не пускает дальше первого экрана</span></label>
+        <div class="gm-go"><button type="button" class="btn primary big" id="gmGo">Запустить игровой режим</button><button type="button" class="btn" id="gmStop" hidden>Остановить</button></div>
+        <p class="note" id="gmNote"></p>
+        <details class="gm-how"><summary>Как это работает</summary><p>wpx проверяет пути с этого ПК и ведёт игру самым быстрым; UDP (голос, матч) идёт через туннель. Перенаправление входа ведёт тем же путём лаунчер и серверы авторизации — иначе вход видит один адрес, а игровой сервер другой, и часть игр не пускает. Остальной трафик ПК идёт как обычно.</p></details>
+      </section>
+    </main>
+
+    <!-- Движок и защита -->
+    <main class="page page-pad engine-page" id="pageEngine" hidden>
+      <section class="card eng-owner" id="engOwner"></section>
+      <section class="card eng-update" id="engUpdate" hidden>
+        <div class="card-head"><h2>Обновление движка</h2></div>
+        <p class="page-lead">Движок (mihomo) старее, чем в этой версии wpx</p>
+        <button class="btn primary" id="engUpdateBtn">Обновить движок</button>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>Управление</h2><span class="hint" id="engTaskHint"></span></div>
+        <div class="eng-buttons">
+          <button class="btn" id="engStart">Запустить</button>
+          <button class="btn" id="engRestart">Перезапустить</button>
+          <button class="btn danger" id="engStop">Остановить</button>
+        </div>
+        <div class="pref"><span class="t">Запускать туннель при включении ПК</span>
+          <label class="switch"><input type="checkbox" id="engBoot"><span></span></label>
+          <span class="d" id="engBootHint">ещё до входа в Windows</span></div>
+        <div class="pref" title="Раз в минуту: туннель лежит, а прокси отвечает — движок перезапускается сам, не чаще раза в 5 минут"><span class="t">Самовосстановление</span>
+          <label class="switch"><input type="checkbox" id="engHeal"><span></span></label>
+          <span class="d">туннель упал — движок перезапустится сам</span></div>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>Kill switch</h2><span class="hint" id="engGuardAt"></span></div>
+        <ul class="guard" id="engGuard"></ul>
+        <div class="deep">
+          <button class="btn" id="engDeep" title="Туннель остановится на ~15 секунд: проверим, что мимо него не выйти">Глубокая проверка</button>
+          <span class="hint">интернет пропадёт на ~15 с</span>
+        </div>
+        <div id="engDeepResult"></div>
+      </section>
+      <section class="card eng-net">
+        <div class="card-head"><h2>Сеть и защита</h2><span class="hint">применяется перезапуском движка</span></div>
+        <div class="stale" id="netStale" hidden>Конфиг движка устарел: блок телеметрии и имена приложений в «Трафике» заработают после «Сохранить и применить».</div>
+        <h3 class="grp-h">Защита от утечек</h3>
+        <div class="row2">
+        <label class="pref inline" title="Исходящие разрешены только движку, туннелю и локальной сети. Не нужен, если kill switch настроен на роутере"><span class="t">Kill switch на этом ПК</span>
+          <label class="switch"><input type="checkbox" id="netKs"><span></span></label>
+          <span class="d">движок остановился — интернета нет, мимо VPN ничего не уйдёт</span></label>
+        <label class="field" title="Через VPN: сайты по IPv6 идут через туннель, мимо него IPv6 закрыт. Выключить: IPv6 закрыт везде, даже внутри ПК (::1), — если с IPv6 что-то не работает"><span>IPv6</span>
+          <select id="netIpv6">
+            <option value="tunnel">через VPN (рекомендуется)</option>
+            <option value="block">выключить полностью — только IPv4</option>
+          </select></label>
+        </div>
+        <h3 class="grp-h">Подключение</h3>
+        <div class="row2">
+          <label class="field"><span>Физический адаптер</span><select id="netIface" class="mono"></select></label>
+          <label class="field"><span>Если VPN не отвечает</span><select id="netReserve"></select></label>
+        </div>
+        <label class="pref inline" title="Программы получают настоящие адреса сайтов, а адрес сайта, который идёт через VPN, узнаётся через туннель. Выключено — wpx отдаёт временные адреса (198.18.x.x): ускорители игр (ExitLag и т.п.) и некоторые античиты с ними не работают"><span class="t">Настоящие адреса сайтов</span>
+          <label class="switch"><input type="checkbox" id="netRealIp"><span></span></label>
+          <span class="d">для ExitLag, античитов и ускорителей игр</span></label>
+        <h3 class="grp-h">UDP — звонки и игры</h3>
+        <div class="row2">
+          <label class="field" title="Авто: UDP пропускается, если выход его передаёт (VPN), иначе блокируется"><span>UDP</span>
+            <select id="netUdpMode">
+              <option value="auto">авто (рекомендуется)</option>
+              <option value="block">всегда блокировать</option>
+              <option value="allow">всегда пропускать</option>
+            </select></label>
+          <label class="pref inline" title="Когда UDP пропускается: браузеры перейдут на TCP — через некоторые выходы так стабильнее"><span class="t">Блокировать QUIC</span>
+            <label class="switch"><input type="checkbox" id="netQuic"><span></span></label>
+            <span class="d">браузеры перейдут на TCP</span></label>
+        </div>
+        <h3 class="grp-h">Напрямую, мимо VPN</h3>
+        <div class="row2">
+          <label class="field"><span>Локальные сети</span><textarea id="netLan" class="mono" rows="3" placeholder="192.168.1.0/24"></textarea></label>
+          <label class="field"><span>Адреса (SSH и т.п.)</span><textarea id="netDirect" class="mono" rows="3" placeholder="198.51.100.40"></textarea></label>
+        </div>
+        <h3 class="grp-h">Блокировка</h3>
+        <div class="row2">
+          <label class="pref inline"><span class="t">Телеметрия</span>
+            <label class="switch"><input type="checkbox" id="netTele"><span></span></label>
+            <span class="d" id="netTeleHint">Windows, NVIDIA и др. не тратят трафик VPN</span></label>
+          <label class="field"><span>Свои домены (с поддоменами)</span><textarea id="netBlock" class="mono" rows="2" placeholder="ads.example.com"></textarea></label>
+        </div>
+        <p class="form-err" id="netErr" hidden></p>
+        <div class="modal-actions">
+          <button class="btn" id="netSave">Сохранить</button>
+          <button class="btn primary" id="netApply">Сохранить и применить</button>
+        </div>
+      </section>
+      <section class="card eng-router">
+        <div class="card-head"><h2>Правила роутера</h2><span class="hint">если kill switch на роутере</span></div>
+        <div class="rt-head">
+          <label class="field"><span>Профиль</span><select id="rtProfile"></select></label>
+          <button type="button" class="btn" id="rtCheck" title="Песочница мимо туннеля через физический адаптер — как ПК будет ходить к серверу">Проверить, что роутер пускает</button>
+        </div>
+        <ul class="rt-rules" id="rtRules"></ul>
+        <p class="note" title="Нужны только первые звенья: в каскаде ПК ходит лишь ко входу">Проще всего — одно правило на IP сервера: LAN → Интернет, любой порт, TCP и UDP.</p>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>Проверка и поддержка</h2><span class="hint">ничего не меняет в системе</span></div>
+        <div class="eng-buttons">
+          <button class="btn" id="btnLeaks2" title="IP для сайтов, выход мимо туннеля, IPv6, DNS, WebRTC">Проверить утечки</button>
+          <button class="btn" id="btnReport" title="Текстовый файл в «Загрузках»: версия, движок, профили без ключей, защита, события, простои, утечки, ошибки движка">Отчёт для поддержки</button>
+        </div>
+        <div class="pref" title="Внешние IP станут вида 203.0.x.x, сайты — ‹сайт›"><span class="t">Скрыть в отчёте адреса и сайты</span>
+          <label class="switch"><input type="checkbox" id="repHide" checked><span></span></label>
+          <span class="d">ключей и паролей в отчёте нет в любом случае</span></div>
+        <p class="note" id="repMsg"></p>
+      </section>
+      <section class="card eng-mode">
+        <div class="card-head"><h2>Что куда идёт</h2></div>
+        <p class="mode-d">Приложения и сайты — через VPN, напрямую или в блок.</p>
+        <button type="button" class="btn" id="engToRules">Открыть «Правила»</button>
+      </section>
+      <section class="card eng-remove" id="engRemove" hidden>
+        <div class="card-head"><h2>Удаление движка</h2></div>
+        <p class="page-lead" title="Убираются задачи wpx, правила файрвола (kill switch — с возвратом прежних настроек) и папка движка">Перед удалением wpx или чтобы начать с чистого листа. Профили и настройки wpx останутся.</p>
+        <button class="btn danger" id="engUninstall">Удалить движок</button>
+      </section>
+    </main>
+    </div>
+
+    <div class="modal" id="modal" hidden>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <h3 id="modalTitle"></h3>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-actions">
+          <button class="btn" id="modalCancel">Отмена</button>
+          <button class="btn primary" id="modalOk">Применить</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "wpx",
+        "width": 1280,
+        "height": 860,
+        "minWidth": 1100,
+        "minHeight": 720,
+        "decorations": false,
+        "shadow": true,
+        "resizable": true,
+        "center": true,
+        "visible": false,
+        "dragDropEnabled": true,
+        "backgroundColor": "#090B12"
+      }
+    ]
+  },
+  "bundle": {
+    "targets": [
+      "deb",
+      "appimage"
+    ],
+    "linux": {
+      "deb": {
+        "depends": [
+          "policykit-1 | polkitd",
+          "nftables",
+          "curl"
+        ],
+        "section": "net"
+      },
+      "appimage": {
+        "bundleMediaFramework": false
+      }
+    }
+  }
+}

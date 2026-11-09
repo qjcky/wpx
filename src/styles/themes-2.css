@@ -1,0 +1,272 @@
+/* Оформление тем: кофе, мемы, котики (MEH, Коробка, Формулы, Overthinking), гаджеты.
+   Светлые темы (data-light) — тёмные чернила по светлому фону; капсула выреза
+   остаётся тёмной, её сцена и мини-маршрут показываются негативом. */
+
+/* ═══ Светлые темы: общая основа ═══ */
+html[data-light]:not(.notch-mode) {
+  --line: rgb(0 0 0 / .1); --line-2: rgb(0 0 0 / .2); --glass: rgb(0 0 0 / .04); --glass-2: rgb(0 0 0 / .07);
+  --ink: #141414; --muted: #46464b; --dim: #67676c; --ice: #1f2937;
+  --ok: #15803d; --warn: #b45309; --bad: #dc2626; --idle: #6b7280; --rx: #0369a1;
+  --edge: linear-gradient(150deg, rgb(0 0 0 / .3), rgb(0 0 0 / .14) 45%, rgb(0 0 0 / .22));
+  color-scheme: light;
+}
+html[data-light] .nt-scene, html[data-light] .mr-canvas { filter: invert(1) hue-rotate(180deg); }
+:where(html[data-light]:not(.notch-mode)) .btn { --b-sheen: none; --b-edge: linear-gradient(rgb(0 0 0 / .5), rgb(0 0 0 / .35)); box-shadow: none; }
+:where(html[data-light]:not(.notch-mode)) .btn.primary { color: #fff; }
+:where(html[data-light]:not(.notch-mode)) .tabs { box-shadow: 0 12px 26px -16px rgb(0 0 0 / .4); }
+:where(html[data-light]:not(.notch-mode)) .tabs button[aria-selected="true"] { color: #fff; box-shadow: none; }
+:where(html[data-light]:not(.notch-mode)) .card { box-shadow: 0 16px 34px -26px rgb(0 0 0 / .4); }
+:where(html[data-light]:not(.notch-mode)) .rn2 .ico { filter: none; }
+:where(html[data-light]:not(.notch-mode)) .rn2 .pts i { border-color: rgb(0 0 0 / .35); }
+
+/* ═══ MEH: кремовый призрак ═══ */
+:root[data-scene="meh"] { --display: "Segoe UI Variable Display", "Segoe UI", sans-serif; --ok: #efe6b8; --radius: 22px; }
+:where(html[data-scene="meh"]) .btn { --b-sheen: none; --b-base: #0b0b0b; --b-edge: linear-gradient(#efe6b8, #efe6b8); border-width: 1.5px; border-radius: 999px; color: #efe6b8; transition: transform 300ms cubic-bezier(.3, 1.4, .5, 1); }
+:where(html[data-scene="meh"]) .btn:hover { transform: translateY(-2px); }
+:where(html[data-scene="meh"]) .btn.primary { --b-base: #efe6b8; color: #050505; }
+:where(html[data-scene="meh"]) .btn.conn { --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); }
+:where(html[data-scene="meh"]) .tabs { border-radius: 30px 30px 18px 18px; background: #0b0b0b; border: 1.5px solid rgb(239 230 184 / .7); box-shadow: 0 0 30px -12px rgb(239 230 184 / .4); }
+:where(html[data-scene="meh"]) .tabs button { border-radius: 999px; color: rgb(239 230 184 / .7); }
+:where(html[data-scene="meh"]) .tabs button[aria-selected="true"] { background: #efe6b8; color: #050505; border-color: transparent; box-shadow: none; }
+:where(html[data-scene="meh"]) .tabs button[aria-selected="true"] svg { color: #050505; }
+:where(html[data-scene="meh"]) .ov-title h1, :where(html[data-scene="meh"]) .page-head h1 { color: #efe6b8; font-weight: 600; }
+:where(html[data-scene="meh"]) .page:not([hidden]) { animation: pgGhost 640ms cubic-bezier(.3, .8, .3, 1); }
+@keyframes pgGhost { from { opacity: 0; filter: blur(6px); transform: translateY(14px); } 60% { opacity: .9; filter: none; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+
+/* ═══ Коробка (светлая): комикс-рамки, тени со сдвигом ═══ */
+html[data-scene="catbox"]:not(.notch-mode) { font-synthesis-weight: none; --display: "Segoe UI Variable Display", "Segoe UI", sans-serif; --hero: "Segoe UI Black", "Segoe UI", sans-serif; --radius: 12px; }
+:where(html[data-scene="catbox"]) .btn { --b-base: #ffffff; --b-edge: linear-gradient(#1f1f1f, #1f1f1f); border-width: 2px; border-radius: 10px; box-shadow: 3px 3px 0 #1f1f1f; color: #1f1f1f; font-weight: 700; transition: transform 120ms, box-shadow 120ms; }
+:where(html[data-scene="catbox"]) .btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 #1f1f1f; }
+:where(html[data-scene="catbox"]) .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #1f1f1f; }
+:where(html[data-scene="catbox"]) .btn.primary { --b-base: #1f1f1f; color: #fff; box-shadow: 3px 3px 0 #d9d36a; }
+:where(html[data-scene="catbox"]) .btn.conn { --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); box-shadow: 3px 3px 0 var(--state); }
+:where(html[data-scene="catbox"]) .tabs { background: #fff; border: 2px solid #1f1f1f; border-radius: 16px; box-shadow: 4px 4px 0 #1f1f1f; }
+:where(html[data-scene="catbox"]) .tabs button { color: #46464b; }
+:where(html[data-scene="catbox"]) .tabs button:hover { background: #f1f1f1; color: #1f1f1f; }
+:where(html[data-scene="catbox"]) .tabs button[aria-selected="true"] { background: #1f1f1f; color: #fff; border-color: transparent; }
+:where(html[data-scene="catbox"]) .tabs button[aria-selected="true"] svg { color: #d9d36a; }
+:where(html[data-scene="catbox"]) #main .card.pulse { background: #fff; border: 2px solid #1f1f1f; box-shadow: 5px 5px 0 #1f1f1f; }
+:where(html[data-scene="catbox"]) .ov-title h1, :where(html[data-scene="catbox"]) .page-head h1 { letter-spacing: -.01em; }
+:where(html[data-scene="catbox"]) .page:not([hidden]) { animation: pgHop 520ms cubic-bezier(.3, 1.5, .5, 1); }
+@keyframes pgHop { from { opacity: 0; transform: translateY(26px) rotate(-1.5deg); } 70% { transform: translateY(-4px) rotate(.4deg); } to { opacity: 1; transform: none; } }
+
+/* ═══ Формулы: мел на доске ═══ */
+:root[data-scene="formula"] { --display: "Segoe Print", "Ink Free", cursive; --ok: #f0f0f0; --radius: 10px; --sketch: 18px 6px 16px 5px / 6px 16px 5px 18px; }
+:where(html[data-scene="formula"]) .btn { --b-sheen: none; --b-base: #1b1c1c; --b-edge: linear-gradient(rgb(236 236 236 / .8), rgb(236 236 236 / .55)); border-width: 1.5px; border-style: dashed; border-radius: var(--sketch); color: #ececec; font-family: "Segoe Print", "Ink Free", cursive; font-size: 12.5px; }
+:where(html[data-scene="formula"]) .btn.primary { --b-base: #e7e7e7; border-style: solid; color: #1b1c1c; }
+:where(html[data-scene="formula"]) .btn.conn { --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); }
+:where(html[data-scene="formula"]) .tabs { background: rgb(27 28 28 / .85); border: 1.5px dashed rgb(236 236 236 / .35); box-shadow: none; }
+:where(html[data-scene="formula"]) .tabs button { font-family: "Segoe Print", "Ink Free", cursive; font-size: 13px; }
+:where(html[data-scene="formula"]) .tabs button[aria-selected="true"] { background: none; color: #fff; border: 1.5px solid rgb(236 236 236 / .85); border-radius: 50% 40% 48% 42% / 60% 55% 45% 50%; box-shadow: none; }
+:where(html[data-scene="formula"]) .tabs button[aria-selected="true"] svg { color: #fff; }
+:where(html[data-scene="formula"]) .ov-title h1::after { content: " ∴"; opacity: .6; }
+:where(html[data-scene="formula"]) .page:not([hidden]) { animation: pgWipe 560ms ease-out; }
+@keyframes pgWipe { from { clip-path: inset(0 100% 0 0); filter: brightness(1.6); } to { clip-path: inset(0); filter: none; } }
+
+/* ═══ Overthinking: пузыри мыслей, почерк ═══ */
+:root[data-scene="overthink"] { --display: "Ink Free", "Segoe Print", cursive; --ok: #f2f2f2; --radius: 26px; }
+:where(html[data-scene="overthink"]) .btn { --b-sheen: none; --b-base: #000; --b-edge: linear-gradient(#f2f2f2, #f2f2f2); border-width: 1.5px; border-radius: 999px; font-family: "Ink Free", "Segoe Print", cursive; font-size: 14px; letter-spacing: .04em; text-transform: uppercase; }
+:where(html[data-scene="overthink"]) .btn.primary { --b-base: #f2f2f2; color: #000; }
+:where(html[data-scene="overthink"]) .btn.conn { --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); }
+:where(html[data-scene="overthink"]) .tabs { background: #000; border: 1.5px solid #f2f2f2; border-radius: 34px; box-shadow: none; }
+:where(html[data-scene="overthink"]) .tabs button { border-radius: 999px; font-family: "Ink Free", "Segoe Print", cursive; }
+:where(html[data-scene="overthink"]) .tabs button[aria-selected="true"] { background: #000; color: #fff; border: 1.5px solid #f2f2f2; box-shadow: -9px 7px 0 -6px #000, -9px 7px 0 -4.5px #f2f2f2; }
+:where(html[data-scene="overthink"]) .tabs button[aria-selected="true"] svg { color: #fff; }
+:where(html[data-scene="overthink"]) .ov-title h1, :where(html[data-scene="overthink"]) .page-head h1 { text-transform: uppercase; letter-spacing: .06em; font-weight: 400; }
+:where(html[data-scene="overthink"]) .page:not([hidden]) { animation: pgThink 700ms ease-out; }
+@keyframes pgThink { 0% { opacity: 0; filter: blur(4px); transform: scale(.985) rotate(-.4deg); } 40% { opacity: 1; filter: none; transform: rotate(.4deg); } 70% { transform: rotate(-.2deg); } 100% { transform: none; } }
+
+/* ═══ Утро: блоб-маркер, толстая белая линия ═══ */
+:root[data-scene="blob"] { --display: "Segoe UI Variable Display", "Segoe UI", sans-serif; --ok: #f2f2f2; --radius: 26px; }
+:where(html[data-scene="blob"]) .btn { --b-sheen: none; --b-base: #28282c; --b-edge: linear-gradient(#f2f2f2, #f2f2f2); border-width: 2.5px; border-radius: 18px 22px 16px 24px; font-weight: 700; }
+:where(html[data-scene="blob"]) .btn.primary { --b-base: #f2f2f2; color: #28282c; }
+:where(html[data-scene="blob"]) .btn.conn { --b-base: #28282c; --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); }
+:where(html[data-scene="blob"]) .tabs { background: #1f1f23; border: 2.5px solid #f2f2f2; border-radius: 30px; box-shadow: none; }
+:where(html[data-scene="blob"]) .tabs button { border-radius: 20px; }
+:where(html[data-scene="blob"]) .tabs button[aria-selected="true"] { background: #f2f2f2; color: #28282c; border-color: transparent; box-shadow: none; }
+:where(html[data-scene="blob"]) .tabs button[aria-selected="true"] svg { color: #5b3a32; }
+:where(html[data-scene="blob"]) .ov-title h1, :where(html[data-scene="blob"]) .page-head h1 { font-weight: 700; }
+:where(html[data-scene="blob"]) .page:not([hidden]) { animation: pgBlob 560ms cubic-bezier(.3, 1.3, .5, 1); transform-origin: 0 100%; }
+@keyframes pgBlob { from { opacity: 0; transform: scale(.94, 1.04); } 60% { transform: scale(1.01, .99); } to { opacity: 1; transform: none; } }
+
+/* ═══ E=MC²: мел, кофе ═══ */
+:root[data-scene="emc2"] { --display: "Ink Free", "Segoe Print", cursive; --ok: #f0f0f0; --radius: 8px; }
+:where(html[data-scene="emc2"]) .btn { --b-sheen: none; --b-base: #0a0a0a; --b-edge: linear-gradient(#f0f0f0, #c9c9c9); border-width: 1.5px; border-radius: 6px; box-shadow: 0 0 0 3px #0a0a0a, 0 0 0 4px rgb(240 240 240 / .25); font-family: "Ink Free", "Segoe Print", cursive; font-size: 14px; font-weight: 700; }
+:where(html[data-scene="emc2"]) .btn.primary { --b-base: #6b4226; --b-edge: linear-gradient(#f5e6d3, #c9a27e); color: #f5e6d3; }
+:where(html[data-scene="emc2"]) .btn.conn { --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); }
+:where(html[data-scene="emc2"]) .tabs { background: none; border-color: transparent; box-shadow: none; }
+:where(html[data-scene="emc2"]) .tabs button { font-family: "Ink Free", "Segoe Print", cursive; font-size: 16px; }
+:where(html[data-scene="emc2"]) .tabs button[aria-selected="true"] { background: none; color: #fff; border-color: transparent; box-shadow: inset 0 -2px 0 rgb(240 240 240 / .7); border-radius: 2px; }
+:where(html[data-scene="emc2"]) .tabs button[aria-selected="true"]::after { content: "²"; margin-left: 2px; font-size: 11px; align-self: flex-start; margin-top: 8px; }
+:where(html[data-scene="emc2"]) .tabs button[aria-selected="true"] svg { color: #c9a27e; }
+:where(html[data-scene="emc2"]) .page:not([hidden]) { animation: pgSteam 620ms ease-out; }
+@keyframes pgSteam { from { opacity: 0; filter: blur(5px); transform: translateY(18px) scaleY(1.03); } to { opacity: 1; filter: none; transform: none; } }
+
+/* ═══ Элемент: плитки таблицы, металл ═══ */
+:root[data-scene="element"] { --display: Bahnschrift, "Segoe UI", sans-serif; --ok: #d4d4d4; --radius: 6px; }
+:where(html[data-scene="element"]) .btn { --b-sheen: none; --b-base: #121214; --b-edge: linear-gradient(160deg, #e5e5e5, #8a8a8a); border-width: 1.4px; border-radius: 6px; font-family: Bahnschrift, "Segoe UI", sans-serif; letter-spacing: .03em; }
+:where(html[data-scene="element"]) .btn.primary { --b-base: #cfcfcf; --b-sheen: linear-gradient(115deg, transparent 30%, rgb(255 255 255 / .7) 45%, transparent 60%); color: #0e0e0f; }
+:where(html[data-scene="element"]) .btn.conn { --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); }
+:where(html[data-scene="element"]) .tabs { background: #0e0e0f; border: 1px solid rgb(205 205 205 / .25); border-radius: 8px; box-shadow: none; }
+:where(html[data-scene="element"]) .tabs button { border-radius: 5px; font-family: Bahnschrift, "Segoe UI", sans-serif; }
+:where(html[data-scene="element"]) .tabs button[aria-selected="true"] { background: #161618; color: #fff; border: 1.4px solid #cfcfcf; box-shadow: none; }
+:where(html[data-scene="element"]) .tabs button[aria-selected="true"]::before { content: "27"; position: absolute; top: 3px; left: 5px; font-size: 8px; color: #a3a3a3; }
+:where(html[data-scene="element"]) .tabs button[aria-selected="true"] svg { color: #e5e5e5; }
+:where(html[data-scene="element"]) .ov-title h1, :where(html[data-scene="element"]) .page-head h1 { background: linear-gradient(100deg, #9a9a9a, #fff 45%, #9a9a9a 60%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+:where(html[data-scene="element"]) .page:not([hidden]) { animation: pgTile 520ms cubic-bezier(.3, .7, .2, 1); transform-origin: 50% 0; }
+@keyframes pgTile { from { opacity: 0; transform: perspective(900px) rotateX(-18deg); } to { opacity: 1; transform: none; } }
+
+/* ═══ Офлайн: пиксели, серый ═══ */
+:root[data-scene="offline"] { --display: "Lucida Console", Consolas, monospace; --ok: #f2f2f2; --radius: 0; }
+:where(html[data-scene="offline"]) .btn { border-radius: 0; border-color: transparent; --b-sheen: none; --b-base: #1c1c1e; --b-edge: linear-gradient(#1c1c1e, #1c1c1e); box-shadow: 0 -2px 0 0 #f2f2f2, 0 2px 0 0 #f2f2f2, -2px 0 0 0 #f2f2f2, 2px 0 0 0 #f2f2f2; margin: 2px; font-family: var(--display); text-transform: uppercase; font-size: 11.5px; }
+:where(html[data-scene="offline"]) .btn.primary { --b-base: #f2f2f2; --b-edge: linear-gradient(#f2f2f2, #f2f2f2); color: #1c1c1e; }
+:where(html[data-scene="offline"]) .btn.conn { box-shadow: 0 -2px 0 0 var(--state), 0 2px 0 0 var(--state), -2px 0 0 0 var(--state), 2px 0 0 0 var(--state); color: var(--state); }
+:where(html[data-scene="offline"]) .tabs { border-radius: 0; background: #1c1c1e; border-color: transparent; box-shadow: 0 -2px 0 0 #f2f2f2, 0 2px 0 0 #f2f2f2, -2px 0 0 0 #f2f2f2, 2px 0 0 0 #f2f2f2; }
+:where(html[data-scene="offline"]) .tabs button { border-radius: 0; font-family: var(--display); font-size: 12px; text-transform: uppercase; }
+:where(html[data-scene="offline"]) .tabs button[aria-selected="true"] { background: #f2f2f2; color: #1c1c1e; border-color: transparent; box-shadow: none; }
+:where(html[data-scene="offline"]) .tabs button[aria-selected="true"] svg { color: #1c1c1e; }
+:where(html[data-scene="offline"]) .ov-title h1, :where(html[data-scene="offline"]) .page-head h1 { text-transform: uppercase; letter-spacing: .02em; }
+:where(html[data-scene="offline"]) .page:not([hidden]) { animation: pgJump 420ms steps(6, end); }
+@keyframes pgJump { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-10px); } 100% { transform: none; } }
+
+/* ═══ Дедлайн: красное и белое, полоса прогресса ═══ */
+:root[data-scene="deadline"] { --display: "Segoe UI", sans-serif; --ok: #f4f4f5; --bad: #ff4d5a; --radius: 4px; }
+:where(html[data-scene="deadline"]) .btn { --b-sheen: none; --b-base: #000; --b-edge: linear-gradient(#f4f4f5, #f4f4f5); border-width: 1.5px; border-radius: 4px; font-weight: 700; }
+:where(html[data-scene="deadline"]) .btn.primary { --b-base: #e11d2a; --b-edge: linear-gradient(#e11d2a, #e11d2a); color: #fff; }
+:where(html[data-scene="deadline"]) .btn.conn { --b-edge: linear-gradient(90deg, #e11d2a 50%, #f4f4f5 50%); color: var(--state); }
+:where(html[data-scene="deadline"]) .tabs { background: #000; border: 1px solid rgb(244 244 245 / .3); border-radius: 6px; box-shadow: none; }
+:where(html[data-scene="deadline"]) .tabs button { border-radius: 3px; }
+:where(html[data-scene="deadline"]) .tabs button[aria-selected="true"] { background: #000; color: #fff; border-color: transparent; box-shadow: inset 0 -4px 0 #f4f4f5, inset 0 -4px 0 0 #f4f4f5; background-image: linear-gradient(90deg, #e11d2a 60%, #f4f4f5 60%); background-size: 100% 4px; background-repeat: no-repeat; background-position: bottom; }
+:where(html[data-scene="deadline"]) .tabs button[aria-selected="true"] svg { color: #e11d2a; }
+:where(html[data-scene="deadline"]) .ov-title h1, :where(html[data-scene="deadline"]) .page-head h1 { font-weight: 800; }
+:where(html[data-scene="deadline"]) .page:not([hidden]) { animation: pgBar 520ms cubic-bezier(.6, 0, .2, 1); }
+@keyframes pgBar { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+
+/* ═══ Ctrl+Alt+Del: клавиши ═══ */
+:root[data-scene="cad"] { --display: "Segoe UI", sans-serif; --ok: #f5f5f5; --radius: 8px; }
+:where(html[data-scene="cad"]) .btn { --b-sheen: none; --b-base: #1a1a1a; --b-edge: linear-gradient(#f5f5f5, #bdbdbd); border-width: 1.5px; border-radius: 8px; box-shadow: 0 3px 0 #bdbdbd; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: 11.5px; transition: transform 80ms, box-shadow 80ms; }
+:where(html[data-scene="cad"]) .btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #bdbdbd; }
+:where(html[data-scene="cad"]) .btn.primary { --b-base: #f5f5f5; color: #000; box-shadow: 0 3px 0 #8a8a8a; }
+:where(html[data-scene="cad"]) .btn.conn { --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); box-shadow: 0 3px 0 var(--state); }
+:where(html[data-scene="cad"]) .tabs { background: #000; border: none; box-shadow: none; gap: 8px; }
+:where(html[data-scene="cad"]) .tabs button { background: #121212; border: 1.5px solid rgb(245 245 245 / .45); border-radius: 8px; box-shadow: 0 3px 0 rgb(245 245 245 / .3); text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 700; }
+:where(html[data-scene="cad"]) .tabs button[aria-selected="true"] { background: #f5f5f5; color: #000; border-color: #f5f5f5; box-shadow: 0 1px 0 #8a8a8a; transform: translateY(2px); }
+:where(html[data-scene="cad"]) .tabs button[aria-selected="true"] svg { color: #000; }
+:where(html[data-scene="cad"]) .ov-title h1, :where(html[data-scene="cad"]) .page-head h1 { font-weight: 800; letter-spacing: -.01em; }
+:where(html[data-scene="cad"]) .page:not([hidden]) { animation: pgKey 300ms cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes pgKey { from { opacity: 0; transform: translateY(5px) scale(.985); } to { opacity: 1; transform: none; } }
+
+/* ═══ while(alive): розовые ключевые слова, зелёные вызовы ═══ */
+:root[data-scene="alive"] { --display: "Segoe UI Variable Display", "Segoe UI", sans-serif; --ok: #22c55e; --radius: 10px; }
+:where(html[data-scene="alive"]) .btn { --b-sheen: none; --b-base: #000; --b-edge: linear-gradient(#22c55e, #22c55e); border-width: 1.5px; border-radius: 10px; color: #f5f5f5; }
+:where(html[data-scene="alive"]) .btn.primary { --b-base: #22c55e; color: #000; }
+:where(html[data-scene="alive"]) .btn.conn { --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); }
+:where(html[data-scene="alive"]) .tabs { background: #000; border: 1px solid rgb(34 197 94 / .3); box-shadow: none; }
+:where(html[data-scene="alive"]) .tabs button { color: #22c55e; }
+:where(html[data-scene="alive"]) .tabs button::after { content: "();"; color: rgb(245 245 245 / .55); margin-left: -9px; }
+:where(html[data-scene="alive"]) .tabs button[aria-selected="true"] { background: rgb(34 197 94 / .1); color: #22c55e; border-color: transparent; box-shadow: inset 3px 0 0 #22c55e; }
+:where(html[data-scene="alive"]) .tabs button[aria-selected="true"]::after { content: "();"; color: #f5f5f5; }
+:where(html[data-scene="alive"]) .tabs button[aria-selected="true"] svg { color: #f472b6; }
+:where(html[data-scene="alive"]) .ov-title h1::before { content: "› "; color: #f472b6; }
+:where(html[data-scene="alive"]) .page:not([hidden]) { animation: pgType 380ms steps(10, end); }
+
+/* ═══ N*PE (светлая): пиксельные рамки, чёрное на белом ═══ */
+html[data-scene="nope"]:not(.notch-mode) { --display: "Lucida Console", Consolas, monospace; --radius: 0; }
+:where(html[data-scene="nope"]) .btn { border-radius: 0; border-color: transparent; --b-base: #fff; --b-edge: linear-gradient(#fff, #fff); box-shadow: 0 -3px 0 0 #0a0a0a, 0 3px 0 0 #0a0a0a, -3px 0 0 0 #0a0a0a, 3px 0 0 0 #0a0a0a; margin: 3px; color: #0a0a0a; font-family: var(--display); text-transform: uppercase; font-size: 11.5px; font-weight: 700; }
+:where(html[data-scene="nope"]) .btn.primary { --b-base: #0a0a0a; --b-edge: linear-gradient(#0a0a0a, #0a0a0a); color: #fff; }
+:where(html[data-scene="nope"]) .btn.conn { box-shadow: 0 -3px 0 0 var(--state), 0 3px 0 0 var(--state), -3px 0 0 0 var(--state), 3px 0 0 0 var(--state); color: var(--state); }
+:where(html[data-scene="nope"]) .tabs { border-radius: 0; background: #fff; border-color: transparent; box-shadow: 0 -3px 0 0 #0a0a0a, 0 3px 0 0 #0a0a0a, -3px 0 0 0 #0a0a0a, 3px 0 0 0 #0a0a0a, 6px 6px 0 0 #a6a6a6; }
+:where(html[data-scene="nope"]) .tabs button { border-radius: 0; color: #46464b; }
+:where(html[data-scene="nope"]) .tabs button[aria-selected="true"] { background: #0a0a0a; color: #fff; border-color: transparent; font-family: var(--display); text-transform: uppercase; }
+:where(html[data-scene="nope"]) .tabs button[aria-selected="true"] svg { color: #fff; }
+:where(html[data-scene="nope"]) .ov-title h1, :where(html[data-scene="nope"]) .page-head h1 { text-transform: uppercase; text-shadow: 3px 3px 0 #a6a6a6; }
+:where(html[data-scene="nope"]) .page:not([hidden]) { animation: pgSteps 360ms steps(4, end); }
+
+/* ═══ Hello world: моно, радужная рамка ═══ */
+:root[data-scene="hello"] { --display: "Cascadia Mono", Consolas, monospace; --ok: #22c55e; --radius: 6px; --hw: linear-gradient(90deg, #22c55e, #60a5fa, #facc15, #f472b6, #fb923c); }
+:where(html[data-scene="hello"]) .btn { --b-sheen: none; --b-base: #121214; --b-edge: var(--hw); border-radius: 6px; font-family: var(--mono); font-size: 12px; }
+:where(html[data-scene="hello"]) .btn.primary { --b-base: #22c55e; --b-edge: linear-gradient(#22c55e, #22c55e); color: #000; }
+:where(html[data-scene="hello"]) .btn.conn { --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); }
+:where(html[data-scene="hello"]) .tabs { background: #0b0b0c; border: 1px solid rgb(255 255 255 / .12); border-radius: 8px; box-shadow: none; }
+:where(html[data-scene="hello"]) .tabs button { font-family: var(--mono); font-size: 12.5px; border-radius: 4px; }
+:where(html[data-scene="hello"]) .tabs button[aria-selected="true"] { background: #121214; color: #22c55e; border-color: transparent; box-shadow: inset 0 -2px 0 #22c55e; }
+:where(html[data-scene="hello"]) .tabs button[aria-selected="true"]::before { content: ">"; color: #f472b6; margin-right: -6px; }
+:where(html[data-scene="hello"]) .tabs button[aria-selected="true"] svg { color: #60a5fa; }
+:where(html[data-scene="hello"]) .ov-title h1::after { content: ";"; color: #facc15; }
+:where(html[data-scene="hello"]) .page:not([hidden]) { animation: pgType 380ms steps(10, end); }
+
+/* ═══ Питомец (светлая LCD): тёмно-зелёные чернила по шалфею ═══ */
+html[data-scene="pet"]:not(.notch-mode) { --display: "Lucida Console", Consolas, monospace; --ink: #263022; --muted: #3f4a39; --dim: #56614f; --ok: #2e3529; --warn: #6b5a1e; --bad: #7a2a1e; --radius: 12px; --line: rgb(46 53 41 / .18); --line-2: rgb(46 53 41 / .3); }
+:where(html[data-scene="pet"]) .btn { --b-base: #b2bca6; --b-edge: linear-gradient(#2e3529, #2e3529); border-width: 2px; border-radius: 12px; color: #2e3529; font-family: var(--display); text-transform: uppercase; font-size: 11.5px; }
+:where(html[data-scene="pet"]) .btn.primary { --b-base: #2e3529; color: #c5cfb8; }
+:where(html[data-scene="pet"]) .btn.conn { --b-edge: linear-gradient(#2e3529, #2e3529); color: #2e3529; box-shadow: inset 0 0 0 2px #b2bca6, inset 0 0 0 4px #2e3529; }
+:where(html[data-scene="pet"]) .tabs { background: #b2bca6; border: 2px solid #8f9a83; border-radius: 14px; box-shadow: none; }
+:where(html[data-scene="pet"]) .tabs button { color: #3f4a39; font-family: var(--display); font-size: 12px; text-transform: uppercase; }
+:where(html[data-scene="pet"]) .tabs button[aria-selected="true"] { background: #2e3529; color: #c5cfb8; border-color: transparent; }
+:where(html[data-scene="pet"]) .tabs button[aria-selected="true"] svg { color: #c5cfb8; }
+:where(html[data-scene="pet"]) #main { text-shadow: 1px 1px 0 rgb(46 53 41 / .12); }
+:where(html[data-scene="pet"]) .ov-title h1, :where(html[data-scene="pet"]) .page-head h1 { text-transform: uppercase; }
+:where(html[data-scene="pet"]) .page:not([hidden]) { animation: pgSteps 360ms steps(4, end); }
+
+/* ═══ Виджеты (светлая): плитки с обводкой и сдвинутой тенью ═══ */
+html[data-scene="widgets"]:not(.notch-mode) { --display: "Segoe UI Variable Display", "Segoe UI", sans-serif; --ink: #2b302d; --muted: #4a504b; --radius: 18px; }
+:where(html[data-scene="widgets"]) .btn { --b-base: #f3f3f0; --b-edge: linear-gradient(#2b302d, #2b302d); border-width: 1.6px; border-radius: 16px; box-shadow: 3px 4px 0 rgb(43 48 45 / .35); color: #2b302d; font-weight: 600; transition: transform 140ms, box-shadow 140ms; }
+:where(html[data-scene="widgets"]) .btn:hover { transform: translate(-1px, -2px); box-shadow: 4px 6px 0 rgb(43 48 45 / .35); }
+:where(html[data-scene="widgets"]) .btn.primary { --b-base: #2b302d; color: #f3f3f0; }
+:where(html[data-scene="widgets"]) .btn.conn { --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); }
+:where(html[data-scene="widgets"]) .tabs { background: #f3f3f0; border: 1.6px solid #2b302d; border-radius: 18px; box-shadow: 3px 4px 0 rgb(43 48 45 / .35); }
+:where(html[data-scene="widgets"]) .tabs button { color: #4a504b; border-radius: 12px; }
+:where(html[data-scene="widgets"]) .tabs button[aria-selected="true"] { background: #2b302d; color: #f3f3f0; border-color: transparent; }
+:where(html[data-scene="widgets"]) .tabs button[aria-selected="true"] svg { color: #f3f3f0; }
+:where(html[data-scene="widgets"]) #main .card.pulse { background: #f3f3f0; border: 1.6px solid #2b302d; box-shadow: 4px 5px 0 rgb(43 48 45 / .35); }
+:where(html[data-scene="widgets"]) .page:not([hidden]) { animation: pgWidget 460ms cubic-bezier(.3, 1.4, .5, 1); }
+@keyframes pgWidget { from { opacity: 0; transform: scale(.97) translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* Фокус — с меню-доком: плашка в тон. */
+:where(html[data-scene="focus"]) .tabs { background: rgb(30 3 5 / .92); border: 1px solid rgb(233 200 168 / .3); border-radius: 4px; }
+
+/* ═══ Капсула ═══ */
+html[data-scene="meh"] .nt-body::after { opacity: .8; background: repeating-linear-gradient(90deg, #efe6b8 0 4px, transparent 4px 10px); }
+html[data-scene="offline"] .nt-body::after, html[data-scene="nope"] .nt-body::after, html[data-scene="pet"] .nt-body::after { left: 0; right: 0; height: 2px; opacity: .9; background: repeating-linear-gradient(90deg, #f2f2f2 0 6px, transparent 6px 10px); }
+html[data-scene="offline"] .nt-body, html[data-scene="nope"] .nt-body, html[data-scene="pet"] .nt-body, html[data-scene="element"] .nt-body, html[data-scene="cad"] .nt-body { --rmax: 6px; }
+html[data-scene="deadline"] .nt-body::after { left: 0; right: 0; height: 2px; opacity: 1; background: linear-gradient(90deg, #e11d2a 62%, #f4f4f5 62%); }
+html[data-scene="alive"] .nt-body::after, html[data-scene="hello"] .nt-body::after { left: 6%; right: 6%; opacity: 1; background: linear-gradient(90deg, #f472b6, #22c55e 40%, #60a5fa 70%, #facc15); }
+html[data-scene="blob"] .nt-body::after, html[data-scene="overthink"] .nt-body::after, html[data-scene="emc2"] .nt-body::after, html[data-scene="formula"] .nt-body::after { opacity: .8; background: linear-gradient(90deg, transparent, #f2f2f2, transparent); }
+html[data-scene="catbox"] .nt-body::after { opacity: 1; background: repeating-linear-gradient(90deg, #f4a3a3 0 5px, transparent 5px 12px); }
+html[data-scene="widgets"] .nt-body::after { left: 20%; right: 20%; height: 3px; border-radius: 3px; opacity: .9; background: #e4e4e1; }
+html[data-scene="element"] .nt-body::after { opacity: .9; background: linear-gradient(90deg, transparent, #cfcfcf 30%, #fff 50%, #cfcfcf 70%, transparent); }
+html[data-scene="overthink"] .nt, html[data-scene="emc2"] .nt { --display: "Ink Free", "Segoe Print", cursive; }
+html[data-scene="offline"] .nt, html[data-scene="nope"] .nt, html[data-scene="pet"] .nt { --display: "Lucida Console", Consolas, monospace; }
+
+/* ═══ Простые темы: ровный фон, тонкие линии, без свечения, граней и сцены ═══ */
+html[data-plain]:not(.notch-mode) { --edge: linear-gradient(var(--line-2), var(--line-2)); --facet-line: linear-gradient(var(--line), var(--line)); --radius: 12px; }
+html[data-plain]:not(.notch-mode) body { background: var(--bg); }
+html[data-plain]:not(.notch-mode) body::before, html[data-plain]:not(.notch-mode) body::after,
+html[data-plain]:not(.notch-mode) .aura, html[data-plain]:not(.notch-mode) .scene-bg { display: none; }
+html[data-plain]:not(.notch-mode) .tabs { background: var(--surface); border: 1px solid var(--line); box-shadow: none; }
+html[data-plain]:not(.notch-mode) .tabs button[aria-selected="true"] { background: color-mix(in srgb, var(--accent) 14%, transparent); border-color: transparent; box-shadow: none; color: var(--ink); }
+html[data-plain]:not(.notch-mode) .tabs button[aria-selected="true"] svg { color: var(--accent); }
+html[data-plain]:not(.notch-mode) .btn { --b-sheen: none; box-shadow: none; }
+html[data-plain]:not(.notch-mode) .btn:not(.primary, .danger, .conn) { --b-base: var(--surface-2); --b-edge: linear-gradient(var(--line-2), var(--line-2)); }
+html[data-plain]:not(.notch-mode) .btn:not(.primary, .danger, .conn):hover { --b-base: var(--surface-3); }
+html[data-plain]:not(.notch-mode) .btn.primary { --b-edge: linear-gradient(var(--accent-deep), var(--accent-deep)); color: #fff; }
+html[data-plain]:not(.notch-mode) .btn.primary:hover { box-shadow: none; filter: brightness(1.1); }
+html[data-plain]:not(.notch-mode) .btn:active { filter: brightness(.94); }
+html[data-plain]:not(.notch-mode) .seg { background: var(--surface-2); }
+html[data-plain]:not(.notch-mode) .seg button:is([aria-selected="true"], [aria-checked="true"], [aria-pressed="true"]) { background: var(--surface); box-shadow: inset 0 0 0 1px var(--line-2); }
+html[data-plain]:not(.notch-mode) .switch input:checked + span { background: var(--accent-deep); box-shadow: none; }
+html[data-plain]:not(.notch-mode) .field :is(input, select, textarea) { background: var(--surface); box-shadow: none; }
+html[data-plain]:not(.notch-mode) .sheet { background: var(--surface); border: 1px solid var(--line-2); box-shadow: 0 24px 60px -20px rgb(0 0 0 / .5); }
+html[data-plain]:not(.notch-mode) #main .card.pulse { background: var(--surface); border: 1px solid var(--line); box-shadow: none; }
+html[data-plain][data-light]:not(.notch-mode) .switch span { background: rgb(0 0 0 / .16); box-shadow: none; }
+html[data-plain][data-light]:not(.notch-mode) .switch span::after { box-shadow: 0 1px 2px rgb(0 0 0 / .3); }
+html[data-plain][data-scene="sepia"]:not(.notch-mode) { --ink: #2b2118; --muted: #5c4a3a; --dim: #7a6654; }
+/* Превью простых тем — набросок окна: меню слева и карточка. */
+.scn canvas:is([data-prev="light"], [data-prev="sepia"], [data-prev="dark"], [data-prev="black"]) {
+  background: linear-gradient(var(--pc) 0 0) 8px 8px / 22% 42px no-repeat, linear-gradient(var(--pc) 0 0) calc(22% + 16px) 8px / 52% 18px no-repeat, var(--sbg);
+}
+.scn canvas[data-prev="light"] { --pc: #ffffff; }
+.scn canvas[data-prev="sepia"] { --pc: #fbf6ee; }
+.scn canvas[data-prev="dark"] { --pc: #2c2f35; }
+.scn canvas[data-prev="black"] { --pc: #1a1a1c; }
+.scn canvas[data-prev="auto"] { background: linear-gradient(135deg, #f4f5f7 50%, #1c1d21 50%); }

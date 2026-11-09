@@ -1,0 +1,60 @@
+[package]
+name = "wpx"
+version = "0.1.0"
+description = "Tunnel manager for your PC and your own VPN servers"
+repository = "https://github.com/qjcky/wpx"
+license = "GPL-3.0-or-later"
+edition = "2021"
+
+[lib]
+name = "wpx_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+sha2 = "0.10"
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-single-instance = "2"
+tauri-plugin-notification = "2"
+tauri-plugin-autostart = "2"
+tauri-plugin-updater = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "io-util", "time", "sync"] }
+base64 = "0.22"
+chrono = { version = "0.4", default-features = false, features = ["std", "clock"] }
+sysinfo = { version = "0.32", default-features = false, features = ["system"] }
+dirs = "5"
+socket2 = "0.5"
+sha2 = "0.10"
+url = "2"
+percent-encoding = "2"
+russh = { version = "0.65", default-features = false, features = ["ring", "flate2"] }
+ring = "0.17"
+x25519-dalek = { version = "2", features = ["static_secrets"] }
+rand_core = { version = "0.6", features = ["getrandom"] }
+flate2 = "1"
+qrcode = { version = "0.14", default-features = false, features = ["svg"] }
+# HTTPS-прокси: прямая проверка рукопожатия по TLS (те же криптопримитивы ring, что у russh).
+tokio-rustls = { version = "0.26", default-features = false, features = ["ring", "tls12", "logging"] }
+webpki-roots = "0.26"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.59", features = ["Win32_Foundation", "Win32_NetworkManagement_IpHelper", "Win32_NetworkManagement_Ndis", "Win32_Networking_WinSock", "Win32_Security_Cryptography", "Win32_UI_Input_KeyboardAndMouse", "Win32_UI_Shell", "Win32_UI_WindowsAndMessaging", "Win32_Graphics_Dwm"] }
+# Пути перетащенных файлов от WebView2 (те же версии, что у wry).
+webview2-com = "0.39"
+windows-core = "0.62"
+
+[features]
+# Лабораторная сборка: свои данные (%APPDATA%\wpx-lab), без системных
+# операций, автозапуска и уведомлений. Не мешает установленному wpx.
+lab = []
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true

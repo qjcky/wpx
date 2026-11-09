@@ -1,0 +1,537 @@
+/* wpx · скины тем. Каждая тема-сцена (scenes.ts) приносит свой характер:
+   шрифт заголовков, форму и тени кнопок, выбранный раздел, капсулу выреза.
+   Цвета состояний (мятный, янтарный, розовый) не меняются нигде.
+   Селекторы — через :where(html[data-scene]), чтобы не поднимать вес: скин
+   перекрывает базовые правила порядком, а .btn.primary / .btn.conn — своими. */
+
+html:not([data-scene="prism"]) { --edge: linear-gradient(150deg, rgb(255 255 255 / .14), rgb(255 255 255 / .04) 30%, color-mix(in srgb, var(--accent) 30%, transparent)); }
+.scn canvas { background: var(--sbg, #050507); }
+
+/* ═══ Сеть — серебро, волосяные линии, строгий гротеск ═══ */
+:root[data-scene="plexus"] { --display: Bahnschrift, "Segoe UI", sans-serif; --radius: 4px; }
+:where(html[data-scene="plexus"]) .btn { border-radius: 3px; --b-sheen: none; --b-base: var(--bg); --b-edge: linear-gradient(rgb(255 255 255 / .34), rgb(255 255 255 / .14)); box-shadow: none; text-transform: uppercase; letter-spacing: .08em; font-size: 11.5px; }
+:where(html[data-scene="plexus"]) .btn.primary { --b-base: #e7e9ee; --b-edge: linear-gradient(#fff, #fff); color: #07080a; box-shadow: 0 0 26px -8px rgb(255 255 255 / .55); }
+:where(html[data-scene="plexus"]) .tabs { border-radius: 6px; box-shadow: none; }
+:where(html[data-scene="plexus"]) .tabs button { border-radius: 3px; }
+:where(html[data-scene="plexus"]) .tabs button[aria-selected="true"] { background: linear-gradient(90deg, rgb(255 255 255 / .12), transparent); border-color: transparent; box-shadow: inset 2px 0 0 #fff; }
+:where(html[data-scene="plexus"]) .tabs button[aria-selected="true"] svg { color: #fff; }
+:where(html[data-scene="plexus"]) .ov-title h1, :where(html[data-scene="plexus"]) .page-head h1 { font-weight: 300; letter-spacing: .01em; }
+
+/* ═══ Паутина — белая нить, капсулы, серифы с наклоном ═══ */
+:root[data-scene="web"] { --display: Cambria, Georgia, serif; --radius: 22px; }
+:where(html[data-scene="web"]) .btn { border-radius: 999px; --b-sheen: none; --b-base: var(--bg); --b-edge: linear-gradient(rgb(255 255 255 / .5), rgb(255 255 255 / .16)); box-shadow: none; font-weight: 500; }
+:where(html[data-scene="web"]) .btn.primary { --b-base: #f4f4f5; --b-edge: linear-gradient(#fff, #fff); color: #050506; box-shadow: 0 0 0 4px rgb(255 255 255 / .06), 0 8px 30px -10px rgb(255 255 255 / .5); }
+:where(html[data-scene="web"]) .tabs { border-radius: 28px; }
+:where(html[data-scene="web"]) .tabs button { border-radius: 999px; }
+:where(html[data-scene="web"]) .tabs button[aria-selected="true"] { background: rgb(255 255 255 / .07); border-color: rgb(255 255 255 / .38); box-shadow: 0 0 20px -8px rgb(255 255 255 / .5); }
+:where(html[data-scene="web"]) .tabs button[aria-selected="true"] svg { color: #fff; }
+:where(html[data-scene="web"]) .ov-title h1, :where(html[data-scene="web"]) .page-head h1 { font-style: italic; font-weight: 400; }
+
+/* ═══ Код — терминал: моноширинный, квадратные углы, [скобки] ═══ */
+:root[data-scene="ascii"] { --display: "Cascadia Mono", Consolas, monospace; --radius: 0; }
+:where(html[data-scene="ascii"]) .btn { border-radius: 0; font-family: var(--mono); font-weight: 500; text-transform: lowercase; --b-sheen: none; --b-base: #0b0b0c; --b-edge: linear-gradient(rgb(255 255 255 / .34), rgb(255 255 255 / .34)); box-shadow: none; }
+:where(html[data-scene="ascii"]) .btn:not(.icon)::before { content: "["; opacity: .45; margin-right: -4px; }
+:where(html[data-scene="ascii"]) .btn:not(.icon)::after { content: "]"; opacity: .45; margin-left: -4px; }
+:where(html[data-scene="ascii"]) .btn.primary { --b-base: #e4e4e7; --b-edge: linear-gradient(#fff, #fff); color: #000; box-shadow: none; }
+:where(html[data-scene="ascii"]) .tabs { border-radius: 0; background: #0b0b0c; border: 1px dashed rgb(255 255 255 / .2); box-shadow: none; }
+:where(html[data-scene="ascii"]) .tabs button { border-radius: 0; font-family: var(--mono); font-size: 13px; }
+:where(html[data-scene="ascii"]) .tabs button[aria-selected="true"] { background: #e4e4e7; color: #000; border-color: transparent; box-shadow: none; }
+:where(html[data-scene="ascii"]) .tabs button[aria-selected="true"] svg { color: #000; }
+:where(html[data-scene="ascii"]) .tabs button[aria-selected="true"]::after { content: "_"; margin-left: -9px; animation: caret 1s steps(1) infinite; }
+:where(html[data-scene="ascii"]) .ov-title h1::before, :where(html[data-scene="ascii"]) .page-head h1::before { content: "> "; color: var(--dim); }
+:where(html[data-scene="ascii"]) #main .card.pulse { border-radius: 0; border: 1px dashed rgb(255 255 255 / .2); background: #0b0b0c; }
+@keyframes caret { 50% { opacity: 0; } }
+
+/* ═══ Спектр — радужные кромки, жирный гротеск ═══ */
+:root[data-scene="spectrum"] { --rainbow: linear-gradient(100deg, #22d3ee, #3b82f6 25%, #a855f7 45%, #f472b6 65%, #fb923c 85%, #facc15); --radius: 14px; }
+:where(html[data-scene="spectrum"]) .btn { --b-edge: var(--rainbow); --b-base: #0a0a10; }
+:where(html[data-scene="spectrum"]) .btn.primary { background: var(--rainbow) border-box; color: #07070c; font-weight: 700; box-shadow: 0 10px 30px -12px #a855f7, 0 6px 24px -14px #fb923c; }
+:where(html[data-scene="spectrum"]) .tabs button[aria-selected="true"] { background: linear-gradient(rgb(255 255 255 / .06), rgb(255 255 255 / .02)) padding-box, linear-gradient(var(--surface), var(--surface)) padding-box, var(--rainbow) border-box; box-shadow: 0 0 24px -8px #a855f7; }
+:where(html[data-scene="spectrum"]) .tabs button[aria-selected="true"] svg { color: #f9a8d4; }
+:where(html[data-scene="spectrum"]) .ov-title h1, :where(html[data-scene="spectrum"]) .page-head h1 { font-weight: 800; letter-spacing: -0.035em; }
+
+/* ═══ Сбой — узкий гротеск капсом, каналы разъехались ═══ */
+:root[data-scene="glitch"] { --display: "Bahnschrift Condensed", Bahnschrift, sans-serif; --radius: 0; }
+:where(html[data-scene="glitch"]) .btn { border-radius: 0; text-transform: uppercase; letter-spacing: .1em; font-size: 12px; --b-sheen: none; --b-base: #0d0d0d; --b-edge: linear-gradient(rgb(255 255 255 / .3), rgb(255 255 255 / .3)); box-shadow: -2px 0 0 rgb(255 38 48 / .6), 2px 0 0 rgb(32 227 208 / .5); }
+:where(html[data-scene="glitch"]) .btn:hover { animation: jolt 260ms steps(2); text-shadow: -1px 0 #ff2630, 1px 0 #20e3d0; }
+:where(html[data-scene="glitch"]) .btn.primary { --b-base: #d6141f; --b-edge: linear-gradient(#ff5a62, #ff2630); color: #fff; }
+:where(html[data-scene="glitch"]) .tabs { border-radius: 0; box-shadow: none; }
+:where(html[data-scene="glitch"]) .tabs button { border-radius: 0; text-transform: uppercase; letter-spacing: .06em; font-family: var(--display); font-size: 15px; }
+:where(html[data-scene="glitch"]) .tabs button[aria-selected="true"] { background: linear-gradient(90deg, rgb(255 38 48 / .28), transparent); border-color: transparent; box-shadow: inset 3px 0 0 #ff2630, -2px 0 0 rgb(32 227 208 / .55); }
+:where(html[data-scene="glitch"]) .tabs button[aria-selected="true"] svg { color: #ff5a62; }
+:where(html[data-scene="glitch"]) .ov-title h1, :where(html[data-scene="glitch"]) .page-head h1, :where(html[data-scene="glitch"]) .latency { text-transform: uppercase; text-shadow: -2px 0 rgb(255 38 48 / .7), 2px 0 rgb(32 227 208 / .6); }
+@keyframes jolt { 0% { transform: translate(-2px, 0); } 50% { transform: translate(2px, -1px); } }
+
+/* ═══ Постер — тяжёлый сериф, белые плашки, багровые тени ═══ */
+:root[data-scene="poster"] { --display: Georgia, "Times New Roman", serif; --radius: 2px; }
+:where(html[data-scene="poster"]) .btn { border-radius: 0; text-transform: uppercase; letter-spacing: .06em; font-size: 11.5px; --b-sheen: none; --b-base: #0a0a0a; --b-edge: linear-gradient(rgb(255 255 255 / .55), rgb(255 255 255 / .55)); box-shadow: 3px 3px 0 rgb(225 29 72 / .6); }
+:where(html[data-scene="poster"]) .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 rgb(225 29 72 / .6); }
+:where(html[data-scene="poster"]) .btn.primary { --b-base: #f2f2f2; --b-edge: linear-gradient(#fff, #fff); color: #050505; box-shadow: 4px 4px 0 #e11d48; }
+:where(html[data-scene="poster"]) .tabs { border-radius: 2px; box-shadow: none; }
+:where(html[data-scene="poster"]) .tabs button { border-radius: 0; }
+:where(html[data-scene="poster"]) .tabs button[aria-selected="true"] { background: #f2f2f2; color: #050505; border-color: transparent; box-shadow: 4px 4px 0 #e11d48; }
+:where(html[data-scene="poster"]) .tabs button[aria-selected="true"] svg { color: #050505; }
+:where(html[data-scene="poster"]) .ov-title h1, :where(html[data-scene="poster"]) .page-head h1 { font-weight: 900; letter-spacing: -0.02em; }
+:where(html[data-scene="poster"]) .kicker::after { content: ""; display: block; width: 14px; height: 2px; margin-top: 7px; background: #e11d48; }
+
+/* ═══ Голограмма — стекло, розово-голубое свечение, капсулы ═══ */
+:root[data-scene="holo"] { --holo: linear-gradient(120deg, #ff7ad6, #22d3ee); --radius: 24px; }
+:where(html[data-scene="holo"]) .btn { border-radius: 999px; --b-edge: linear-gradient(120deg, rgb(255 31 174 / .7), rgb(34 211 238 / .6)); box-shadow: 0 0 18px -6px rgb(255 31 174 / .55), inset 0 1px 0 rgb(255 255 255 / .15); }
+:where(html[data-scene="holo"]) .btn.primary { background: linear-gradient(120deg, #c026d3, #2563eb) padding-box, var(--holo) border-box; color: #fff; box-shadow: 0 0 30px -6px rgb(255 31 174 / .8), 0 0 40px -10px rgb(34 211 238 / .6); }
+:where(html[data-scene="holo"]) .tabs { border-radius: 28px; }
+:where(html[data-scene="holo"]) .tabs button { border-radius: 999px; }
+:where(html[data-scene="holo"]) .tabs button[aria-selected="true"] { background: linear-gradient(110deg, rgb(255 31 174 / .3), rgb(34 211 238 / .15)) padding-box, linear-gradient(var(--surface), var(--surface)) padding-box, var(--holo) border-box; box-shadow: 0 0 26px -6px rgb(255 31 174 / .7); }
+:where(html[data-scene="holo"]) .tabs button[aria-selected="true"] svg { color: #ffd1f1; }
+:where(html[data-scene="holo"]) .ov-title h1, :where(html[data-scene="holo"]) .page-head h1 { font-weight: 300; text-shadow: 0 0 18px rgb(255 122 214 / .55); }
+
+/* ═══ Дисперсия — чёрный камень, радуга по кромке ═══ */
+:root[data-scene="dispersion"] { --prismline: linear-gradient(90deg, #ff3b30, #ff9f0a, #ffd60a, #34c759, #0a84ff, #5e5ce6); --radius: 14px; }
+:where(html[data-scene="dispersion"]) .btn { --b-base: #0a0a0c; --b-edge: linear-gradient(rgb(255 255 255 / .18), rgb(255 255 255 / .06)); }
+:where(html[data-scene="dispersion"]) .btn.primary { --b-base: #f5f5f7; --b-edge: linear-gradient(#fff, #d4d4d8); color: #000; box-shadow: 0 6px 24px -6px rgb(255 159 10 / .5), 0 10px 30px -10px rgb(10 132 255 / .6); }
+:where(html[data-scene="dispersion"]) .tabs button[aria-selected="true"] { background: linear-gradient(rgb(255 255 255 / .06), rgb(255 255 255 / .02)) padding-box, linear-gradient(var(--surface), var(--surface)) padding-box, var(--prismline) border-box; box-shadow: 0 10px 24px -12px #000, 0 0 22px -10px #0a84ff; }
+:where(html[data-scene="dispersion"]) .tabs button[aria-selected="true"] svg { color: #fff; }
+:where(html[data-scene="dispersion"]) .ov-title h1, :where(html[data-scene="dispersion"]) .page-head h1 { font-weight: 700; letter-spacing: -0.035em; }
+
+/* ═══ Руны — сериф, скошенные таблички, бирюзовое свечение ═══ */
+:root[data-scene="runes"] { --display: Cambria, Georgia, serif; --radius: 4px; --cut: polygon(7px 0, calc(100% - 7px) 0, 100% 7px, 100% calc(100% - 7px), calc(100% - 7px) 100%, 7px 100%, 0 calc(100% - 7px), 0 7px); }
+:where(html[data-scene="runes"]) .btn { border-radius: 0; clip-path: var(--cut); letter-spacing: .04em; --b-base: #0c1426; --b-edge: linear-gradient(rgb(103 232 249 / .6), rgb(103 232 249 / .25)); }
+:where(html[data-scene="runes"]) .btn.primary { --b-base: #0e7490; --b-edge: linear-gradient(#a5f3fc, #22d3ee); color: #ecfeff; text-shadow: 0 0 8px #67e8f9; }
+:where(html[data-scene="runes"]) .tabs { border-radius: 4px; }
+:where(html[data-scene="runes"]) .tabs button { border-radius: 0; clip-path: var(--cut); }
+:where(html[data-scene="runes"]) .tabs button[aria-selected="true"] { background: linear-gradient(90deg, rgb(103 232 249 / .22), rgb(103 232 249 / .05)); border-color: transparent; box-shadow: inset 0 0 0 1px rgb(103 232 249 / .5), inset 0 0 18px -6px #22d3ee; }
+:where(html[data-scene="runes"]) .tabs button[aria-selected="true"]::after { content: "◆"; margin-left: auto; font-size: 9px; color: #67e8f9; text-shadow: 0 0 6px #22d3ee; }
+:where(html[data-scene="runes"]) .tabs button[aria-selected="true"] svg { color: #a5f3fc; }
+:where(html[data-scene="runes"]) .ov-title h1, :where(html[data-scene="runes"]) .page-head h1 { letter-spacing: .02em; color: #e0fbff; text-shadow: 0 0 16px rgb(34 211 238 / .45); }
+
+/* ═══ Соты — шестигранные кнопки, чёрно-белый контраст ═══ */
+:root[data-scene="hex"] { --display: Bahnschrift, sans-serif; --radius: 6px; --hexcut: polygon(10px 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0 50%); }
+:where(html[data-scene="hex"]) .btn { border-radius: 0; clip-path: var(--hexcut); padding: 0 22px; --b-base: #1c1c1c; --b-edge: linear-gradient(#5a5a5a, #2a2a2a); --b-sheen: linear-gradient(160deg, rgb(255 255 255 / .1), transparent 60%); }
+:where(html[data-scene="hex"]) .btn.primary { --b-base: #f4f4f4; --b-edge: linear-gradient(#fff, #bdbdbd); color: #0a0a0a; }
+:where(html[data-scene="hex"]) .tabs button { border-radius: 0; clip-path: var(--hexcut); }
+:where(html[data-scene="hex"]) .tabs button[aria-selected="true"] { background: linear-gradient(160deg, #f4f4f4, #a3a3a3); color: #0a0a0a; border-color: transparent; box-shadow: none; }
+:where(html[data-scene="hex"]) .tabs button[aria-selected="true"] svg { color: #0a0a0a; }
+:where(html[data-scene="hex"]) .ov-title h1, :where(html[data-scene="hex"]) .page-head h1 { font-weight: 600; }
+
+/* ═══ Цветение — разреженный сериф, листья, зелёный свет ═══ */
+:root[data-scene="bloom"] { --display: Georgia, Cambria, serif; --radius: 18px; --leaf: 16px 4px 16px 4px; }
+:where(html[data-scene="bloom"]) .btn { border-radius: var(--leaf); --b-base: #06140c; --b-edge: linear-gradient(140deg, rgb(74 222 128 / .7), rgb(56 189 248 / .3)); box-shadow: 0 0 18px -8px #4ade80, inset 0 0 12px -8px #4ade80; }
+:where(html[data-scene="bloom"]) .btn.primary { --b-base: #15803d; --b-edge: linear-gradient(140deg, #bef264, #38bdf8); color: #f0fdf4; box-shadow: 0 0 26px -6px rgb(74 222 128 / .8); }
+:where(html[data-scene="bloom"]) .tabs button { border-radius: var(--leaf); }
+:where(html[data-scene="bloom"]) .tabs button[aria-selected="true"] { background: linear-gradient(110deg, rgb(74 222 128 / .25), rgb(56 189 248 / .08)) padding-box, linear-gradient(var(--surface), var(--surface)) padding-box, linear-gradient(140deg, #bef264, #38bdf8 60%, transparent) border-box; box-shadow: 0 0 24px -8px #4ade80; }
+:where(html[data-scene="bloom"]) .tabs button[aria-selected="true"] svg { color: #bef264; }
+:where(html[data-scene="bloom"]) .ov-title h1, :where(html[data-scene="bloom"]) .page-head h1 { text-transform: uppercase; letter-spacing: .26em; font-weight: 400; background: linear-gradient(90deg, #bef264, #7dd3fc); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* ═══ Кибер-HUD — скошенные углы, капс, бирюзовая заливка ═══ */
+:root[data-scene="hud"] { --display: "Bahnschrift Condensed", Bahnschrift, sans-serif; --radius: 0; --bevel: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+:where(html[data-scene="hud"]) .btn { border-radius: 0; clip-path: var(--bevel); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; --b-base: #031419; --b-edge: linear-gradient(#22d3ee, #22d3ee); --b-sheen: linear-gradient(rgb(34 211 238 / .1), rgb(34 211 238 / .02)); }
+:where(html[data-scene="hud"]) .btn.primary { --b-base: #22d3ee; --b-edge: linear-gradient(#a5f3fc, #22d3ee); color: #001018; }
+:where(html[data-scene="hud"]) .btn.primary:hover { --b-sheen: repeating-linear-gradient(-45deg, rgb(0 16 24 / .22) 0 6px, transparent 6px 12px); }
+:where(html[data-scene="hud"]) .tabs { border-radius: 0; clip-path: var(--bevel); box-shadow: none; }
+:where(html[data-scene="hud"]) .tabs button { border-radius: 0; text-transform: uppercase; letter-spacing: .08em; font-family: var(--display); font-size: 15px; }
+:where(html[data-scene="hud"]) .tabs button[aria-selected="true"] { background: #22d3ee; color: #001018; border-color: transparent; box-shadow: none; clip-path: var(--bevel); }
+:where(html[data-scene="hud"]) .tabs button[aria-selected="true"] svg { color: #001018; }
+:where(html[data-scene="hud"]) .ov-title h1, :where(html[data-scene="hud"]) .page-head h1 { text-transform: uppercase; letter-spacing: .06em; }
+:where(html[data-scene="hud"]) .kicker { font-family: var(--mono); color: #22d3ee; }
+:where(html[data-scene="hud"]) .kicker::before { content: "▶ "; }
+:where(html[data-scene="hud"]) #main .card.pulse { border-radius: 0; clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px); }
+
+/* ═══ Осколки — параллелограммы, фиолетовый с бирюзовой дорожкой ═══ */
+:root[data-scene="shards"] { --display: Bahnschrift, sans-serif; --radius: 8px; --skew: polygon(9px 0, 100% 0, calc(100% - 9px) 100%, 0 100%); }
+:where(html[data-scene="shards"]) .btn { border-radius: 0; clip-path: var(--skew); padding: 0 20px; --b-base: #1a1440; --b-edge: linear-gradient(120deg, rgb(192 132 252 / .8), rgb(45 212 191 / .5)); }
+:where(html[data-scene="shards"]) .btn.primary { --b-base: #7c3aed; --b-edge: linear-gradient(120deg, #e9d5ff, #2dd4bf); color: #fff; }
+:where(html[data-scene="shards"]) .tabs button { border-radius: 0; clip-path: var(--skew); }
+:where(html[data-scene="shards"]) .tabs button[aria-selected="true"] { background: linear-gradient(100deg, rgb(192 132 252 / .5), rgb(124 58 237 / .22)); border-color: transparent; box-shadow: inset -3px 0 0 #2dd4bf; }
+:where(html[data-scene="shards"]) .tabs button[aria-selected="true"] svg { color: #e9d5ff; }
+:where(html[data-scene="shards"]) .ov-title h1, :where(html[data-scene="shards"]) .page-head h1 { color: #f3e8ff; text-shadow: 2px 2px 0 rgb(45 212 191 / .35); }
+
+/* ═══ Ретро-ПК — красный люминофор, пиксельные тени ═══ */
+:root[data-scene="retro"] { --display: Consolas, "MS Gothic", monospace; --radius: 0; --ink: #ffe4e4; }
+:where(html[data-scene="retro"]) .btn { border-radius: 0; font-family: Consolas, monospace; text-transform: uppercase; color: #ff6b6b; --b-sheen: none; --b-base: #05052a; --b-edge: linear-gradient(#ff3b3b, #ff3b3b); box-shadow: 3px 3px 0 rgb(255 59 59 / .45); }
+:where(html[data-scene="retro"]) .btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 rgb(255 59 59 / .45); }
+:where(html[data-scene="retro"]) .btn.primary { --b-base: #ff3b3b; --b-edge: linear-gradient(#ff8a8a, #ff3b3b); color: #02021a; box-shadow: 3px 3px 0 #7f1d1d; }
+:where(html[data-scene="retro"]) .tabs { border-radius: 0; background: #03031f; border: 2px solid rgb(255 59 59 / .5); box-shadow: 4px 4px 0 rgb(255 59 59 / .2); }
+:where(html[data-scene="retro"]) .tabs button { border-radius: 0; font-family: Consolas, monospace; text-transform: uppercase; font-size: 13.5px; }
+:where(html[data-scene="retro"]) .tabs button[aria-selected="true"] { background: #ff3b3b; color: #02021a; border-color: transparent; box-shadow: none; }
+:where(html[data-scene="retro"]) .tabs button[aria-selected="true"] svg { color: #02021a; }
+:where(html[data-scene="retro"]) .ov-title h1, :where(html[data-scene="retro"]) .page-head h1 { color: #ff3b3b; text-shadow: 0 0 10px rgb(255 59 59 / .6); letter-spacing: 0; }
+
+/* ═══ Редактор — Cascadia Code, вкладки как в IDE, янтарь ═══ */
+:root[data-scene="editor"] { --display: "Cascadia Code", "Cascadia Mono", Consolas, monospace; --radius: 6px; }
+:where(html[data-scene="editor"]) .btn { border-radius: 4px; font-family: var(--mono); font-weight: 500; --b-base: #151517; --b-edge: linear-gradient(rgb(255 255 255 / .14), rgb(255 255 255 / .06)); }
+:where(html[data-scene="editor"]) .btn.primary { --b-base: #ffb340; --b-edge: linear-gradient(#ffd27a, #e0951f); color: #1a1205; box-shadow: 0 0 22px -8px #ffb340; }
+:where(html[data-scene="editor"]) .tabs { border-radius: 6px; background: #0f0f11; box-shadow: none; }
+:where(html[data-scene="editor"]) .tabs button { border-radius: 2px; font-family: var(--mono); font-size: 13px; }
+:where(html[data-scene="editor"]) .tabs button[aria-selected="true"] { background: #1b1b1f; color: #fff; border-color: transparent; box-shadow: inset 0 2px 0 #ffb340; }
+:where(html[data-scene="editor"]) .tabs button[aria-selected="true"] svg { color: #ffb340; }
+:where(html[data-scene="editor"]) .ov-title h1::before, :where(html[data-scene="editor"]) .page-head h1::before { content: "// "; color: #6b6b6b; }
+:where(html[data-scene="editor"]) .card-head h2::before { content: "#"; color: #ff5a4f; margin-right: 6px; }
+
+/* ═══ Нет сигнала — серый, края каналов ═══ */
+:root[data-scene="nosignal"] { --radius: 4px; }
+:where(html[data-scene="nosignal"]) .btn { border-radius: 2px; --b-sheen: none; --b-base: #141414; --b-edge: linear-gradient(rgb(255 255 255 / .25), rgb(255 255 255 / .1)); box-shadow: -1px 0 0 rgb(255 40 60 / .55), 1px 0 0 rgb(40 230 230 / .55); }
+:where(html[data-scene="nosignal"]) .btn.primary { --b-base: #e5e7eb; --b-edge: linear-gradient(#fff, #fff); color: #050505; }
+:where(html[data-scene="nosignal"]) .tabs button { border-radius: 2px; }
+:where(html[data-scene="nosignal"]) .tabs button[aria-selected="true"] { background: rgb(255 255 255 / .92); color: #050505; border-color: transparent; box-shadow: -2px 0 0 rgb(255 40 60 / .7), 2px 0 0 rgb(40 230 230 / .7); }
+:where(html[data-scene="nosignal"]) .tabs button[aria-selected="true"] svg { color: #050505; }
+:where(html[data-scene="nosignal"]) .ov-title h1, :where(html[data-scene="nosignal"]) .page-head h1 { text-shadow: -1.5px 0 rgb(255 40 60 / .6), 1.5px 0 rgb(40 230 230 / .6); }
+
+/* ═══ Разбитый экран — стекло с изломом блика ═══ */
+:root[data-scene="cracked"] { --radius: 12px; }
+:where(html[data-scene="cracked"]) .btn { border-radius: 8px; --b-base: #0a0f1f; --b-edge: linear-gradient(150deg, rgb(147 197 253 / .6), rgb(255 255 255 / .1) 40%, rgb(96 165 250 / .4)); --b-sheen: linear-gradient(160deg, rgb(255 255 255 / .12), transparent 40%, rgb(255 255 255 / .07) 41%, transparent 62%); }
+:where(html[data-scene="cracked"]) .btn.primary { --b-base: #1d4ed8; --b-edge: linear-gradient(150deg, #bfdbfe, #3b82f6); color: #fff; }
+:where(html[data-scene="cracked"]) .tabs button[aria-selected="true"] { background: linear-gradient(160deg, rgb(96 165 250 / .32), rgb(96 165 250 / .08) 50%, rgb(255 255 255 / .07) 51%, transparent 70%) padding-box, linear-gradient(var(--surface), var(--surface)) padding-box, linear-gradient(150deg, #bfdbfe, #3b82f6 50%, transparent) border-box; box-shadow: 0 0 22px -8px #3b82f6; }
+:where(html[data-scene="cracked"]) .tabs button[aria-selected="true"] svg { color: #bfdbfe; }
+
+/* ═══ Взгляд — розовая рамка, японская подпись ═══ */
+:root[data-scene="anime"] { --display: "Segoe UI Variable Display", "Yu Gothic UI", sans-serif; --radius: 2px; }
+:where(html[data-scene="anime"]) .btn { border-radius: 0; color: #ffd1e2; --b-sheen: none; --b-base: #07120b; --b-edge: linear-gradient(#ff2d7a, #ff2d7a); box-shadow: none; }
+:where(html[data-scene="anime"]) .btn.primary { --b-base: #ff2d7a; --b-edge: linear-gradient(#ff7aa6, #ff2d7a); color: #fff; box-shadow: 0 0 22px -6px #ff2d7a; }
+:where(html[data-scene="anime"]) .tabs { border-radius: 2px; }
+:where(html[data-scene="anime"]) .tabs button { border-radius: 0; }
+:where(html[data-scene="anime"]) .tabs button[aria-selected="true"] { background: rgb(255 45 122 / .14); border-color: #ff2d7a; box-shadow: 0 0 18px -8px #ff2d7a; }
+:where(html[data-scene="anime"]) .tabs button[aria-selected="true"] svg { color: #ff7aa6; }
+:where(html[data-scene="anime"]) .kicker::after { content: " — 綺麗な"; color: #ff2d7a; letter-spacing: .1em; }
+:where(html[data-scene="anime"]) .ov-title h1, :where(html[data-scene="anime"]) .page-head h1 { font-weight: 700; }
+
+/* ═══ Разлом — тёплое золото на чёрном, сериф ═══ */
+:root[data-scene="rift"] { --display: Cambria, Georgia, serif; --radius: 10px; }
+:where(html[data-scene="rift"]) .btn { border-radius: 6px; --b-base: #08080a; --b-edge: linear-gradient(160deg, rgb(253 230 138 / .55), rgb(255 255 255 / .05) 50%, rgb(253 230 138 / .25)); }
+:where(html[data-scene="rift"]) .btn.primary { --b-base: #e2bd62; --b-sheen: linear-gradient(180deg, rgb(255 255 255 / .35), transparent 60%); --b-edge: linear-gradient(#fff3c4, #c99a3d); color: #1a1205; box-shadow: 0 0 26px -6px rgb(253 230 138 / .6); }
+:where(html[data-scene="rift"]) .tabs button[aria-selected="true"] { background: linear-gradient(90deg, rgb(253 230 138 / .14), transparent 70%) padding-box, linear-gradient(var(--surface), var(--surface)) padding-box, linear-gradient(180deg, #fde68a, transparent) border-box; box-shadow: inset 2px 0 0 #fde68a, -6px 0 18px -8px #fde68a; }
+:where(html[data-scene="rift"]) .tabs button[aria-selected="true"] svg { color: #fde68a; }
+:where(html[data-scene="rift"]) .ov-title h1, :where(html[data-scene="rift"]) .page-head h1 { font-weight: 400; color: #fff7e0; }
+
+/* ─── Капсула выреза под тему ─── */
+html[data-scene="ascii"] .nt-body, html[data-scene="glitch"] .nt-body, html[data-scene="hud"] .nt-body, html[data-scene="retro"] .nt-body,
+html[data-scene="editor"] .nt-body, html[data-scene="nosignal"] .nt-body, html[data-scene="poster"] .nt-body, html[data-scene="anime"] .nt-body { --rmax: 6px; }
+html[data-scene="ascii"] .nt-proto, html[data-scene="glitch"] .nt-proto, html[data-scene="hud"] .nt-proto, html[data-scene="retro"] .nt-proto,
+html[data-scene="editor"] .nt-proto, html[data-scene="poster"] .nt-proto, html[data-scene="anime"] .nt-proto { border-radius: 2px; }
+html[data-scene="hud"] .nt-body::after { left: 0; right: 0; height: 2px; opacity: .9; background: repeating-linear-gradient(90deg, #22d3ee 0 10px, transparent 10px 14px); }
+html[data-scene="retro"] .nt-body::after { left: 0; right: 0; height: 2px; opacity: 1; background: #ff3b3b; box-shadow: 0 0 10px #ff3b3b; }
+html[data-scene="glitch"] .nt-body::after, html[data-scene="nosignal"] .nt-body::after { left: 6%; right: 6%; opacity: .9; background: linear-gradient(90deg, transparent, #fff, transparent); box-shadow: -3px -1px 0 rgb(255 38 48 / .7), 3px 1px 0 rgb(32 227 208 / .6); }
+html[data-scene="holo"] .nt-body::after { left: 4%; right: 4%; height: 2px; opacity: .9; background: linear-gradient(90deg, transparent, #ff7ad6, #22d3ee, transparent); filter: blur(.5px); }
+html[data-scene="spectrum"] .nt-body::after, html[data-scene="dispersion"] .nt-body::after { left: 8%; right: 8%; opacity: .85; background: linear-gradient(90deg, transparent, #ff3b30, #ffd60a, #34c759, #0a84ff, #a855f7, transparent); }
+html[data-scene="bloom"] .nt-body::after { opacity: .9; background: linear-gradient(90deg, transparent, #bef264, #38bdf8, transparent); box-shadow: 0 0 12px #4ade80; }
+html[data-scene="rift"] .nt-body::after { opacity: .9; background: linear-gradient(90deg, transparent, #fde68a, transparent); box-shadow: 0 0 10px #fde68a; }
+html[data-scene="anime"] .nt-body { box-shadow: inset 0 0 0 1px rgb(255 45 122 / .45); }
+html[data-scene="poster"] .nt-body::after { left: auto; right: 18px; width: 16px; opacity: 1; height: 2px; background: #e11d48; }
+html[data-scene="ascii"] .nt-body::after, html[data-scene="editor"] .nt-body::after { opacity: .5; background: repeating-linear-gradient(90deg, var(--accent) 0 4px, transparent 4px 8px); }
+
+/* ─── Узлы маршрута под тему ─── */
+:where(html[data-scene="retro"]) .rn2 .ico { color: #ff3b3b; filter: drop-shadow(0 0 6px rgb(255 59 59 / .6)); }
+:where(html[data-scene="hud"]) .rn2 .ico { color: #22d3ee; filter: drop-shadow(0 0 8px rgb(34 211 238 / .5)); }
+:where(html[data-scene="bloom"]) .rn2 .ico { color: #d9f99d; filter: drop-shadow(0 0 10px rgb(74 222 128 / .5)); }
+:where(html[data-scene="runes"]) .rn2 .ico { color: #a5f3fc; filter: drop-shadow(0 0 10px rgb(34 211 238 / .55)); }
+:where(html[data-scene="holo"]) .rn2 .ico { filter: drop-shadow(0 0 10px rgb(255 122 214 / .55)) drop-shadow(0 0 16px rgb(34 211 238 / .35)); }
+:where(html[data-scene="anime"]) .rn2 .ico { color: #ffd1e2; filter: drop-shadow(0 0 8px rgb(255 45 122 / .6)); }
+:where(html[data-scene="glitch"]) .rn2 .ico, :where(html[data-scene="nosignal"]) .rn2 .ico { filter: drop-shadow(-2px 0 0 rgb(255 38 48 / .6)) drop-shadow(2px 0 0 rgb(32 227 208 / .55)); }
+:where(html[data-scene="rift"]) .rn2 .ico { color: #fff7e0; filter: drop-shadow(0 0 10px rgb(253 230 138 / .45)); }
+
+/* ─── Круг света у курсора — только у «Призмы» ───
+   У остальных тем свой отклик на курсор и щелчок рисует сцена (scenes.ts → FX). */
+html:not([data-scene="prism"]) { --light-edge: linear-gradient(transparent, transparent); }
+html:not([data-scene="prism"])[data-cursor] { --glit: 0; }
+
+/* ─── Цвета состояний в гамме темы ───
+   «На связи» — свой цвет темы (знак слева вверху, свечение, кнопка, цифры);
+   «медленно» и «нет связи» остаются отличимыми от него. */
+:root[data-scene="plexus"] { --ok: #f1f5f9; }
+:root[data-scene="web"] { --ok: #f4f4f5; }
+:root[data-scene="ascii"] { --ok: #f4f4f5; --bad: #ff6b6b; }
+:root[data-scene="spectrum"] { --ok: #22d3ee; }
+:root[data-scene="glitch"] { --ok: #20e3d0; --bad: #ff2630; }
+:root[data-scene="poster"] { --ok: #f2f2f2; --bad: #e11d48; }
+:root[data-scene="holo"] { --ok: #67e8f9; --bad: #ff4d6d; }
+:root[data-scene="dispersion"] { --ok: #7dd3fc; }
+:root[data-scene="runes"] { --ok: #67e8f9; }
+:root[data-scene="hex"] { --ok: #f4f4f4; }
+:root[data-scene="bloom"] { --ok: #bef264; }
+:root[data-scene="hud"] { --ok: #22d3ee; --warn: #fde047; --bad: #ff4d5e; }
+:root[data-scene="shards"] { --ok: #2dd4bf; }
+:root[data-scene="retro"] { --ok: #ffe4e4; --warn: #ffb340; --bad: #ff3b3b; }
+:root[data-scene="editor"] { --ok: #2dd4bf; --warn: #ffb340; --bad: #ff5a4f; }
+:root[data-scene="nosignal"] { --ok: #e5e7eb; --bad: #ff2840; }
+:root[data-scene="cracked"] { --ok: #93c5fd; }
+:root[data-scene="anime"] { --ok: #ffd1e2; --bad: #ff3b3b; }
+:root[data-scene="rift"] { --ok: #fde68a; --warn: #fb923c; --bad: #f87171; }
+
+/* ─── «Перезапустить» (кнопка связи) — в форме кнопок темы, цвет состояния ─── */
+:where(html:not([data-scene="prism"])) .btn.conn {
+  --b-base: var(--surface);
+  --b-sheen: linear-gradient(color-mix(in srgb, var(--state) 14%, transparent), transparent);
+  --b-edge: linear-gradient(160deg, var(--state), color-mix(in srgb, var(--state) 35%, transparent));
+  box-shadow: 0 0 22px -10px var(--state);
+}
+:where(html[data-scene="plexus"]) .btn.conn { --b-sheen: none; box-shadow: none; color: var(--state); }
+:where(html[data-scene="web"]) .btn.conn { --b-base: var(--bg); box-shadow: 0 0 0 4px color-mix(in srgb, var(--state) 8%, transparent); }
+:where(html[data-scene="ascii"]) .btn.conn { --b-sheen: none; --b-base: #0b0b0c; --b-edge: linear-gradient(var(--state), var(--state)); box-shadow: none; color: var(--state); }
+:where(html[data-scene="spectrum"]) .btn.conn { --b-edge: var(--rainbow); box-shadow: 0 0 22px -8px var(--state); }
+:where(html[data-scene="glitch"]) .btn.conn { --b-sheen: none; --b-base: #0d0d0d; box-shadow: -2px 0 0 rgb(255 38 48 / .7), 2px 0 0 rgb(32 227 208 / .6); color: var(--state); }
+:where(html[data-scene="poster"]) .btn.conn { --b-sheen: none; --b-base: #0a0a0a; --b-edge: linear-gradient(var(--state), var(--state)); box-shadow: 3px 3px 0 #e11d48; }
+:where(html[data-scene="holo"]) .btn.conn { --b-edge: var(--holo); --b-sheen: linear-gradient(110deg, rgb(255 31 174 / .18), rgb(34 211 238 / .12)); box-shadow: 0 0 24px -6px rgb(255 31 174 / .6), 0 0 30px -10px var(--state); }
+:where(html[data-scene="dispersion"]) .btn.conn { --b-edge: var(--prismline); --b-base: #0a0a0c; box-shadow: 0 8px 22px -12px var(--state); }
+:where(html[data-scene="runes"]) .btn.conn { --b-base: #0c1426; text-shadow: 0 0 8px var(--state); }
+:where(html[data-scene="hex"]) .btn.conn { --b-base: #1c1c1c; --b-edge: linear-gradient(var(--state), #555); }
+:where(html[data-scene="bloom"]) .btn.conn { --b-base: #06140c; box-shadow: 0 0 22px -8px var(--state), inset 0 0 14px -8px var(--state); }
+:where(html[data-scene="hud"]) .btn.conn { --b-base: color-mix(in srgb, var(--state) 12%, #031419); --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); }
+:where(html[data-scene="hud"]) .btn.conn:hover { --b-sheen: repeating-linear-gradient(-45deg, color-mix(in srgb, var(--state) 22%, transparent) 0 6px, transparent 6px 12px); }
+:where(html[data-scene="shards"]) .btn.conn { --b-base: #1a1440; --b-edge: linear-gradient(120deg, var(--state), rgb(192 132 252 / .7)); }
+:where(html[data-scene="retro"]) .btn.conn { --b-sheen: none; --b-base: #05052a; --b-edge: linear-gradient(var(--state), var(--state)); box-shadow: 3px 3px 0 color-mix(in srgb, var(--state) 45%, transparent); color: var(--state); }
+:where(html[data-scene="editor"]) .btn.conn { --b-base: #151517; --b-edge: linear-gradient(rgb(255 255 255 / .14), rgb(255 255 255 / .06)); box-shadow: inset 0 -2px 0 var(--state); }
+:where(html[data-scene="nosignal"]) .btn.conn { --b-sheen: none; --b-base: #141414; box-shadow: -1px 0 0 rgb(255 40 60 / .6), 1px 0 0 rgb(40 230 230 / .6); }
+:where(html[data-scene="cracked"]) .btn.conn { --b-sheen: linear-gradient(160deg, color-mix(in srgb, var(--state) 18%, transparent), transparent 40%, rgb(255 255 255 / .07) 41%, transparent 62%); }
+:where(html[data-scene="anime"]) .btn.conn { --b-sheen: none; --b-base: #07120b; --b-edge: linear-gradient(var(--state), var(--state)); box-shadow: 0 0 0 3px rgb(255 45 122 / .14); }
+:where(html[data-scene="rift"]) .btn.conn { --b-base: #08080a; box-shadow: 0 0 24px -8px var(--state); }
+
+/* ─── Смена раздела: страница появляется по-своему в каждой теме ─── */
+:where(html[data-scene="ascii"], html[data-scene="editor"]) .page:not([hidden]) { animation: pgType 460ms steps(16, end); }
+:where(html[data-scene="glitch"], html[data-scene="nosignal"]) .page:not([hidden]) { animation: pgGlitch 380ms steps(1, end); }
+:where(html[data-scene="retro"]) .page:not([hidden]) { animation: pgCrt 420ms cubic-bezier(.2, .8, .2, 1); transform-origin: 50% 30%; }
+:where(html[data-scene="hud"]) .page:not([hidden]) { animation: pgScan 420ms steps(14, end); }
+:where(html[data-scene="holo"]) .page:not([hidden]) { animation: pgHolo 560ms ease-out; }
+:where(html[data-scene="runes"]) .page:not([hidden]) { animation: pgRune 620ms cubic-bezier(.3, .7, .2, 1); }
+:where(html[data-scene="hex"]) .page:not([hidden]) { animation: pgHex 520ms cubic-bezier(.3, .7, .2, 1); }
+:where(html[data-scene="bloom"]) .page:not([hidden]) { animation: pgBloom 720ms ease-out; }
+:where(html[data-scene="shards"]) .page:not([hidden]) { animation: pgShards 440ms cubic-bezier(.6, 0, .2, 1); }
+:where(html[data-scene="rift"]) .page:not([hidden]) { animation: pgRift 560ms cubic-bezier(.7, 0, .2, 1); }
+:where(html[data-scene="cracked"]) .page:not([hidden]) { animation: pgCrack 320ms linear; }
+:where(html[data-scene="anime"]) .page:not([hidden]) { animation: pgWipe 420ms cubic-bezier(.7, 0, .2, 1); }
+:where(html[data-scene="poster"]) .page:not([hidden]) { animation: pgCut 220ms steps(2, end); }
+:where(html[data-scene="spectrum"]) .page:not([hidden]) { animation: pgHue 560ms ease-out; }
+:where(html[data-scene="dispersion"]) .page:not([hidden]) { animation: pgSweep 520ms cubic-bezier(.6, 0, .2, 1); }
+:where(html[data-scene="web"]) .page:not([hidden]) { animation: pgDrop 520ms cubic-bezier(.3, 1.5, .5, 1); }
+:where(html[data-scene="plexus"]) .page:not([hidden]) { animation: pgNet 360ms ease-out; }
+@keyframes pgType { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+@keyframes pgGlitch {
+  0% { clip-path: inset(20% 0 55% 0); transform: translateX(-12px); filter: drop-shadow(4px 0 #ff2630) drop-shadow(-4px 0 #20e3d0); }
+  20% { clip-path: inset(62% 0 8% 0); transform: translateX(9px); }
+  40% { clip-path: inset(4% 0 72% 0); transform: translateX(-5px); }
+  60% { clip-path: inset(0 0 34% 0); transform: translateX(3px); filter: drop-shadow(2px 0 #ff2630) drop-shadow(-2px 0 #20e3d0); }
+  80% { clip-path: inset(0); transform: translateX(-1px); filter: none; }
+  100% { clip-path: inset(0); transform: none; }
+}
+@keyframes pgCrt { 0% { transform: scale(1.04, .004); filter: brightness(5); opacity: .9; } 35% { transform: scale(1, 1.02); filter: brightness(1.8); } 100% { transform: none; filter: none; } }
+@keyframes pgScan { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+@keyframes pgHolo { 0% { opacity: 0; filter: blur(10px) hue-rotate(90deg) saturate(2); transform: scale(.985); } 45% { opacity: .85; filter: blur(2px) hue-rotate(40deg); } 100% { opacity: 1; filter: none; transform: none; } }
+@keyframes pgRune { from { clip-path: circle(0 at 0 35%); } to { clip-path: circle(160% at 0 35%); } }
+@keyframes pgHex { from { clip-path: polygon(50% 40%, 50% 40%, 50% 40%, 50% 40%, 50% 40%, 50% 40%); } to { clip-path: polygon(50% -90%, 190% -20%, 190% 120%, 50% 190%, -90% 120%, -90% -20%); } }
+@keyframes pgBloom { from { opacity: 0; filter: blur(8px) saturate(2.2); transform: scale(.985); } to { opacity: 1; filter: none; transform: none; } }
+@keyframes pgShards { from { clip-path: polygon(0 0, 0 0, -30% 100%, -30% 100%); } to { clip-path: polygon(0 0, 130% 0, 100% 100%, -30% 100%); } }
+@keyframes pgRift { from { clip-path: inset(0 49.5% 0 49.5%); filter: brightness(2); } to { clip-path: inset(0); filter: none; } }
+@keyframes pgCrack { 0% { transform: translate(4px, -2px); } 20% { transform: translate(-4px, 2px); } 40% { transform: translate(2px, 1px); filter: brightness(1.7); } 70% { transform: none; } 100% { filter: none; } }
+@keyframes pgWipe { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0); } }
+@keyframes pgCut { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes pgHue { from { filter: hue-rotate(170deg) saturate(2.6); opacity: .3; } to { filter: none; opacity: 1; } }
+@keyframes pgSweep { from { clip-path: polygon(-30% 0, -30% 0, -70% 100%, -70% 100%); } to { clip-path: polygon(-30% 0, 140% 0, 100% 100%, -70% 100%); } }
+@keyframes pgDrop { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+@keyframes pgNet { from { opacity: 0; transform: translateX(-8px); letter-spacing: .02em; } to { opacity: 1; transform: none; } }
+
+/* ─── Выбранный раздел загорается по-своему ─── */
+:where(html[data-scene="ascii"], html[data-scene="hud"]) .tabs button[aria-selected="true"] { animation: tabFill 300ms steps(8, end); }
+:where(html[data-scene="glitch"], html[data-scene="nosignal"]) .tabs button[aria-selected="true"] { animation: jolt 260ms steps(2); }
+:where(html[data-scene="retro"]) .tabs button[aria-selected="true"] { animation: tabBlink 420ms steps(1, end); }
+:where(html[data-scene="holo"], html[data-scene="bloom"], html[data-scene="runes"], html[data-scene="rift"]) .tabs button[aria-selected="true"] { animation: tabGlow 700ms ease-out; }
+:where(html[data-scene="editor"]) .tabs button[aria-selected="true"] { animation: tabLine 260ms ease-out; }
+:where(html[data-scene="poster"]) .tabs button[aria-selected="true"] { animation: tabSlam 220ms cubic-bezier(.3, 1.6, .5, 1); }
+:where(html[data-scene="anime"], html[data-scene="shards"], html[data-scene="hex"]) .tabs button[aria-selected="true"] { animation: tabWipe 320ms cubic-bezier(.7, 0, .2, 1); }
+@keyframes tabFill { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+@keyframes tabBlink { 0%, 50% { opacity: 1; } 25%, 75% { opacity: .2; } }
+@keyframes tabGlow { from { filter: brightness(2.2) drop-shadow(0 0 14px var(--accent)); } to { filter: none; } }
+@keyframes tabLine { from { box-shadow: inset 0 2px 0 transparent; } }
+@keyframes tabSlam { from { transform: translateX(-8px); } to { transform: none; } }
+@keyframes tabWipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+
+/* В капсуле «Взгляда» — обычный гротеск: японский шрифт растягивает кириллицу. */
+html[data-scene="anime"] .nt { --display: "Segoe UI Variable Display", "Segoe UI", sans-serif; }
+
+/* ═══ Меню по теме: data-nav = side | top | dock | rail (theme.ts) ═══ */
+/* Сверху: строка разделов над содержимым, левая колонка свободна для сцены. */
+html[data-nav="top"] body { grid-template: 48px auto minmax(0, 1fr) / var(--side-w) minmax(0, 1fr); }
+html[data-nav="top"] .sidebar { grid-row: 2; grid-column: 2; flex-direction: row; align-items: center; gap: 8px; padding: 2px 30px 8px 28px; min-width: 0; }
+html[data-nav="top"] .tabs { flex-direction: row; padding: 4px; border-radius: 14px; min-width: 0; }
+html[data-nav="top"] .tabs button, html[data-nav="top"] .nav-foot { height: 36px; padding: 0 13px; gap: 8px; font-size: 13.5px; border-radius: 10px; flex: none; }
+html[data-nav="top"] .tabs button svg, html[data-nav="top"] .nav-foot svg { width: 17px; height: 17px; }
+html[data-nav="top"] .nav-foot { margin: 0 0 0 auto; }
+html[data-nav="top"] #main { grid-row: 3; }
+html[data-nav="top"] .tab-dot { top: 5px; left: 22px; }
+/* Док: капсула внизу по центру; подпись раскрывается только у выбранного. */
+html[data-nav="dock"] .sidebar { position: absolute; z-index: 6; left: calc(var(--side-w) + (100% - var(--side-w)) / 2); bottom: 16px; transform: translateX(-50%); flex-direction: row; align-items: center; gap: 8px; padding: 0; }
+html[data-nav="dock"] .tabs { flex-direction: row; padding: 6px; border-radius: 22px; }
+html[data-nav="dock"] .tabs button, html[data-nav="dock"] .nav-foot { height: 42px; padding: 0 11px; gap: 0; font-size: 0; border-radius: 15px; transition: font-size 240ms cubic-bezier(.3, .7, .2, 1), gap 240ms, padding 240ms, background 120ms; }
+html[data-nav="dock"] .tabs button[aria-selected="true"] { font-size: 13.5px; gap: 8px; padding: 0 16px 0 13px; }
+html[data-nav="dock"] .tabs button:hover svg { transform: translateY(-2px) scale(1.12); }
+html[data-nav="dock"] .tabs button svg { transition: transform 160ms; }
+html[data-nav="dock"] .nav-foot { margin: 0; background: color-mix(in srgb, var(--surface) 85%, transparent); border: 1px solid var(--line-2); }
+html[data-nav="dock"] #main { padding-bottom: 92px; }
+html[data-nav="dock"] .tab-dot { top: 6px; left: 25px; }
+/* Полоса: только значки, подписи — подсказкой. */
+html[data-nav="rail"] .sidebar { padding: 10px 10px 18px; }
+html[data-nav="rail"] .tabs { padding: 6px; border-radius: 18px; }
+html[data-nav="rail"] .tabs button, html[data-nav="rail"] .nav-foot { font-size: 0; gap: 0; padding: 0; justify-content: center; height: 46px; }
+html[data-nav="rail"] .tab-dot { top: 8px; left: 30px; }
+html[data-nav="rail"] .tabs button[aria-selected="true"]::after, html[data-nav="dock"] .tabs button:not([aria-selected="true"])::after { display: none; }
+
+/* ═══ Окно настроек: разделы слева, «Сохранить» всегда внизу ═══ */
+.sheet:has(.set) { width: min(900px, calc(100vw - 40px)); height: min(720px, calc(100vh - 50px)); display: flex; flex-direction: column; overflow: hidden; padding: 20px 22px 18px; }
+.sheet:has(.set) h3 { flex: none; }
+.sheet:has(.set) .modal-body { flex: 1; min-height: 0; overflow: hidden; }
+.sheet:has(.set) .modal-actions { flex: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+.set { height: 100%; display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 20px; }
+.set-nav { display: flex; flex-direction: column; gap: 4px; }
+.set-nav button { height: 38px; text-align: left; padding: 0 12px; border-radius: 10px; border: 1px solid transparent; background: none; color: var(--muted); cursor: pointer; font: 500 13.5px var(--sans); }
+.set-nav button:hover { background: var(--glass); color: var(--ink); }
+.set-nav button[aria-selected="true"] { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--ink); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+.set-pane { overflow-y: auto; min-height: 0; padding-right: 8px; }
+.set-pane section { display: grid; gap: 12px; align-content: start; }
+.set-pane section:not([hidden]) { animation: pageIn 200ms ease-out; }
+.th-hero { position: relative; height: 160px; border-radius: 14px; overflow: hidden; border: 1px solid var(--line-2); background: var(--sbg, #050507); flex: none; }
+.th-hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.th-hero-t { position: absolute; left: 16px; bottom: 12px; display: grid; gap: 2px; text-shadow: 0 2px 10px #000, 0 0 2px #000; pointer-events: none; }
+.th-hero-t b { font: 600 22px var(--display); }
+.th-hero-t small { color: var(--ink); opacity: .75; font-size: 12.5px; }
+.set .look-h { margin-top: 6px; color: var(--muted); font: 600 11px var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+.set .scenes { grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); }
+.set .scn { padding-bottom: 7px; }
+.set .scn canvas { height: 64px; }
+.set .prefs .pref:first-child { border-top: 0; }
+
+/* ═══ Кот (основная): мел на чёрной доске ═══ */
+:root[data-scene="cat"] { --display: "Ink Free", "Segoe Print", cursive; --ok: #f5f5ff; --radius: 16px; --sketch: 255px 15px 225px 15px / 15px 225px 15px 255px; }
+:where(html[data-scene="cat"]) .btn { --b-sheen: none; --b-base: #08080a; --b-edge: linear-gradient(rgb(255 255 255 / .75), rgb(255 255 255 / .55)); border-radius: var(--sketch); box-shadow: none; font-family: "Ink Free", "Segoe Print", cursive; font-size: 14.5px; font-weight: 600; }
+:where(html[data-scene="cat"]) .btn:hover { transform: rotate(-1deg); }
+:where(html[data-scene="cat"]) .btn.primary { --b-base: #f1f1f4; --b-edge: linear-gradient(#fff, #fff); color: #050507; }
+:where(html[data-scene="cat"]) .btn.conn { --b-base: #08080a; --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); box-shadow: 0 0 18px -8px var(--state); }
+:where(html[data-scene="cat"]) .tabs { background: none; border-color: transparent; box-shadow: none; }
+:where(html[data-scene="cat"]) .tabs button { font-family: "Ink Free", "Segoe Print", cursive; font-size: 15px; }
+:where(html[data-scene="cat"]) .tabs button[aria-selected="true"] { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5 C 20 1, 35 8, 52 4 S 85 2, 98 5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") left bottom 2px / 100% 7px no-repeat; color: #fff; border-color: transparent; box-shadow: none; animation: chalkLine 360ms ease-out; }
+:where(html[data-scene="cat"]) .tabs button[aria-selected="true"] svg { color: #fff; }
+:where(html[data-scene="cat"]) #main .card.pulse { border-radius: 22px 8px 26px 10px / 10px 26px 8px 22px; background: rgb(8 8 10 / .7); border: 1.5px solid rgb(255 255 255 / .55); box-shadow: none; }
+:where(html[data-scene="cat"]) .ov-title h1 { font-size: 40px; font-weight: 600; }
+:where(html[data-scene="cat"]) .page:not([hidden]) { animation: pgChalk 520ms cubic-bezier(.4, .2, .2, 1); }
+@keyframes chalkLine { from { background-size: 0% 7px; } to { background-size: 100% 7px; } }
+@keyframes pgChalk { from { clip-path: inset(0 100% 0 0); filter: blur(1.5px); } to { clip-path: inset(0); filter: none; } }
+
+/* ═══ Рамен: гравюра — бумага, киноварь, печать ═══ */
+:root[data-scene="ramen"] { font-synthesis-weight: none; --display: "Segoe UI Variable Display", "Segoe UI", sans-serif; --hero: "Segoe UI Black", "Yu Gothic", sans-serif; --ok: #f2d7a0; --bad: #ff6b4a; --radius: 4px; }
+:where(html[data-scene="ramen"]) .btn { border-radius: 2px; --b-sheen: none; --b-base: #efe0c2; --b-edge: linear-gradient(#3b2a1a, #3b2a1a); color: #2a1d12; box-shadow: 2px 2px 0 rgb(0 0 0 / .45); font-weight: 700; }
+:where(html[data-scene="ramen"]) .btn.primary { --b-base: #d94f2b; --b-edge: linear-gradient(#a8361b, #a8361b); color: #f6ecd8; }
+:where(html[data-scene="ramen"]) .btn.conn { --b-base: #1d1822; --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); box-shadow: 2px 2px 0 #d94f2b; }
+:where(html[data-scene="ramen"]) .tabs { border-radius: 4px; background: #1d1822; box-shadow: none; }
+:where(html[data-scene="ramen"]) .tabs button { border-radius: 2px; font-weight: 600; }
+:where(html[data-scene="ramen"]) .tabs button[aria-selected="true"] { background: #d94f2b; color: #f6ecd8; border-color: transparent; box-shadow: 2px 2px 0 rgb(0 0 0 / .5); }
+:where(html[data-scene="ramen"]) .tabs button[aria-selected="true"] svg { color: #f6ecd8; }
+:where(html[data-scene="ramen"]) .ov-title h1, :where(html[data-scene="ramen"]) .page-head h1 { font-weight: 900; color: #f2e3c6; }
+:where(html[data-scene="ramen"]) #main .card.pulse { border-radius: 2px; border: 1px solid rgb(239 224 194 / .35); box-shadow: inset 0 0 0 3px #14111a, inset 0 0 0 4px rgb(239 224 194 / .2); }
+:where(html[data-scene="ramen"]) .page:not([hidden]) { animation: pgPrint 520ms ease-out; }
+@keyframes pgPrint { from { opacity: 0; filter: sepia(1) contrast(.6); transform: translateY(6px); } to { opacity: 1; filter: none; transform: none; } }
+
+/* ═══ Дерзкий: наклейки, кисть, жёлтый ═══ */
+:root[data-scene="sassy"] { font-synthesis-weight: none; --display: "Segoe UI Variable Display", "Segoe UI", sans-serif; --hero: Impact, "Segoe UI Black", sans-serif; --ok: #d9e36a; --radius: 16px; }
+:where(html[data-scene="sassy"]) .btn { --b-sheen: none; --b-base: #0b0b0e; --b-edge: linear-gradient(#fff, #fff); border-radius: 12px; box-shadow: 3px 3px 0 rgb(0 0 0 / .6); transform: rotate(-.6deg); font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+:where(html[data-scene="sassy"]) .btn:hover { transform: rotate(.8deg) scale(1.03); }
+:where(html[data-scene="sassy"]) .btn.primary { --b-base: #d9e36a; --b-edge: linear-gradient(#0b0b0e, #0b0b0e); color: #0b0b0e; }
+:where(html[data-scene="sassy"]) .btn.conn { --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); box-shadow: 3px 3px 0 color-mix(in srgb, var(--state) 40%, transparent); }
+:where(html[data-scene="sassy"]) .tabs { border-radius: 24px; background: #e8ecf5; border-color: #0b0b0e; box-shadow: 4px 4px 0 rgb(0 0 0 / .55); }
+:where(html[data-scene="sassy"]) .tabs button { color: #2a2d36; }
+:where(html[data-scene="sassy"]) .tabs button:hover { background: rgb(0 0 0 / .07); color: #0b0b0e; }
+:where(html[data-scene="sassy"]) .tabs button[aria-selected="true"] { background: #0b0b0e; color: #d9e36a; border-color: transparent; box-shadow: none; transform: rotate(-2deg); }
+:where(html[data-scene="sassy"]) .tabs button[aria-selected="true"] svg { color: #d9e36a; }
+:where(html[data-scene="sassy"]) .ov-title h1, :where(html[data-scene="sassy"]) .page-head h1 { font-style: italic; letter-spacing: .02em; text-transform: uppercase; transform: rotate(-1.5deg); }
+:where(html[data-scene="sassy"]) .page:not([hidden]) { animation: pgPop 420ms cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes pgPop { from { opacity: 0; transform: scale(.96) rotate(-1deg); } to { opacity: 1; transform: none; } }
+
+/* ═══ Фокус: бордо, беж, антиква, тишина ═══ */
+:root[data-scene="focus"] { --display: "Palatino Linotype", Georgia, serif; --ok: #e9c8a8; --bad: #ff7a6b; --radius: 6px; }
+:where(html[data-scene="focus"]) .btn { --b-sheen: none; --b-base: #1e0305; --b-edge: linear-gradient(rgb(233 200 168 / .55), rgb(233 200 168 / .25)); border-radius: 2px; box-shadow: none; text-transform: uppercase; letter-spacing: .14em; font-size: 11.5px; font-weight: 500; color: #e9c8a8; }
+:where(html[data-scene="focus"]) .btn.primary { --b-base: #e9c8a8; --b-edge: linear-gradient(#f3dcc4, #e9c8a8); color: #2a0407; }
+:where(html[data-scene="focus"]) .btn.conn { --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); }
+:where(html[data-scene="focus"]) .tabs { background: none; border-color: transparent; box-shadow: none; }
+:where(html[data-scene="focus"]) .tabs button { font-family: "Palatino Linotype", Georgia, serif; font-size: 15px; letter-spacing: .02em; }
+:where(html[data-scene="focus"]) .tabs button[aria-selected="true"] { background: none; color: #e9c8a8; border-color: transparent; box-shadow: none; }
+:where(html[data-scene="focus"]) .tabs button[aria-selected="true"]::after { content: "·"; margin-left: auto; font-size: 22px; color: #e9c8a8; }
+:where(html[data-scene="focus"]) .tabs button[aria-selected="true"] svg { color: #e9c8a8; }
+:where(html[data-scene="focus"]) .ov-title h1, :where(html[data-scene="focus"]) .page-head h1 { font-weight: 400; letter-spacing: .04em; color: #f3dcc4; }
+:where(html[data-scene="focus"]) .page:not([hidden]) { animation: pgFocus 600ms ease-out; }
+@keyframes pgFocus { from { filter: blur(10px); opacity: .3; } to { filter: none; opacity: 1; } }
+
+/* ═══ Маркировка: моно, подчёркивания, мишени ═══ */
+:root[data-scene="techmark"] { --display: "Cascadia Mono", Consolas, monospace; --ok: #67e8f9; --radius: 0; --tm: linear-gradient(90deg, #f472b6, #22d3ee); }
+:where(html[data-scene="techmark"]) .btn { border-radius: 0; font-family: var(--mono); text-transform: uppercase; letter-spacing: .06em; font-size: 11.5px; --b-sheen: none; --b-base: #050505; --b-edge: linear-gradient(#f5f5f5, #f5f5f5); box-shadow: 4px 4px 0 -1px #050505, 4px 4px 0 0 rgb(245 245 245 / .35); }
+:where(html[data-scene="techmark"]) .btn.primary { --b-base: #f5f5f5; color: #050505; }
+:where(html[data-scene="techmark"]) .btn.conn { --b-edge: linear-gradient(var(--state), var(--state)); color: var(--state); }
+:where(html[data-scene="techmark"]) .tabs { border-radius: 0; background: #050505; border: 1px dashed rgb(245 245 245 / .4); box-shadow: none; }
+:where(html[data-scene="techmark"]) .tabs button { border-radius: 0; font-family: var(--mono); text-transform: uppercase; font-size: 12px; letter-spacing: .04em; }
+:where(html[data-scene="techmark"]) .tabs button::before { content: "_"; opacity: .5; }
+:where(html[data-scene="techmark"]) .tabs button[aria-selected="true"] { background: #f5f5f5 padding-box; color: #050505; border-color: transparent; box-shadow: inset 0 -3px 0 #f472b6; }
+:where(html[data-scene="techmark"]) .tabs button[aria-selected="true"] svg { color: #050505; }
+:where(html[data-scene="techmark"]) .ov-title h1, :where(html[data-scene="techmark"]) .page-head h1 { text-transform: uppercase; letter-spacing: .04em; }
+:where(html[data-scene="techmark"]) .ov-title h1::after { content: ";"; color: #f472b6; }
+:where(html[data-scene="techmark"]) .page:not([hidden]) { animation: pgType 380ms steps(10, end); }
+
+/* ═══ Будь добр: пиксели, ночь, трава ═══ */
+:root[data-scene="bekind"] { --display: "Lucida Console", Consolas, monospace; --ok: #7ee081; --radius: 0; }
+:where(html[data-scene="bekind"]) .btn { border-radius: 0; border-color: transparent; --b-sheen: none; --b-base: #0a1430; --b-edge: linear-gradient(#0a1430, #0a1430); box-shadow: 0 -3px 0 0 #7cc4ff, 0 3px 0 0 #7cc4ff, -3px 0 0 0 #7cc4ff, 3px 0 0 0 #7cc4ff; margin: 3px; font-family: var(--display); text-transform: uppercase; font-size: 11.5px; }
+:where(html[data-scene="bekind"]) .btn.primary { --b-base: #7cc4ff; --b-edge: linear-gradient(#7cc4ff, #7cc4ff); color: #03040c; box-shadow: 0 -3px 0 0 #fff, 0 3px 0 0 #fff, -3px 0 0 0 #fff, 3px 0 0 0 #fff; }
+:where(html[data-scene="bekind"]) .btn.conn { box-shadow: 0 -3px 0 0 var(--state), 0 3px 0 0 var(--state), -3px 0 0 0 var(--state), 3px 0 0 0 var(--state); color: var(--state); }
+:where(html[data-scene="bekind"]) .tabs { border-radius: 0; background: #0a1430; border-color: transparent; box-shadow: 0 -4px 0 0 #0a1430, 0 4px 0 0 #2f7d32, -4px 0 0 0 #0a1430, 4px 0 0 0 #0a1430; }
+:where(html[data-scene="bekind"]) .tabs button { border-radius: 0; }
+:where(html[data-scene="bekind"]) .tabs button[aria-selected="true"] { background: #7cc4ff; color: #03040c; border-color: transparent; box-shadow: none; font-family: var(--display); text-transform: uppercase; }
+:where(html[data-scene="bekind"]) .tabs button[aria-selected="true"] svg { color: #03040c; }
+:where(html[data-scene="bekind"]) .ov-title h1, :where(html[data-scene="bekind"]) .page-head h1 { text-transform: uppercase; letter-spacing: .02em; text-shadow: 3px 3px 0 #1e3a8a; }
+:where(html[data-scene="bekind"]) .page:not([hidden]) { animation: pgSteps 360ms steps(4, end); }
+@keyframes pgSteps { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ═══ Луч: тонкий свет, лёгкий шрифт ═══ */
+:root[data-scene="beam"] { --display: "Segoe UI Variable Display Light", "Segoe UI Light", "Segoe UI", sans-serif; --ok: #dbe4ff; --radius: 18px; }
+:where(html[data-scene="beam"]) .btn { --b-base: #0b0e10; --b-edge: linear-gradient(180deg, rgb(255 255 255 / .5), rgb(255 255 255 / .06) 50%, rgb(255 255 255 / .12)); border-radius: 999px; box-shadow: 0 -8px 18px -12px rgb(220 228 255 / .6); font-weight: 500; }
+:where(html[data-scene="beam"]) .btn.primary { --b-base: #f5f7ff; --b-edge: linear-gradient(#fff, #dbe4ff); color: #07090a; box-shadow: 0 0 30px -4px rgb(220 228 255 / .8); }
+:where(html[data-scene="beam"]) .btn.conn { --b-edge: linear-gradient(180deg, var(--state), transparent 70%); box-shadow: 0 -10px 24px -12px var(--state); }
+:where(html[data-scene="beam"]) .tabs { border-radius: 26px; }
+:where(html[data-scene="beam"]) .tabs button { border-radius: 999px; }
+:where(html[data-scene="beam"]) .tabs button[aria-selected="true"] { background: radial-gradient(ellipse 70% 120% at 50% 0, rgb(255 255 255 / .35), transparent 70%), rgb(255 255 255 / .06); border-color: rgb(255 255 255 / .3); box-shadow: 0 -6px 20px -8px #fff; color: #fff; }
+:where(html[data-scene="beam"]) .tabs button[aria-selected="true"] svg { color: #fff; }
+:where(html[data-scene="beam"]) .ov-title h1, :where(html[data-scene="beam"]) .page-head h1 { font-weight: 200; letter-spacing: .02em; text-shadow: 0 0 24px rgb(220 228 255 / .5); }
+:where(html[data-scene="beam"]) .page:not([hidden]) { animation: pgLight 620ms ease-out; }
+@keyframes pgLight { from { clip-path: inset(0 0 100% 0); filter: brightness(2.4); } to { clip-path: inset(0); filter: none; } }
+
+/* ═══ Сфера: карточки ═══ */
+:root[data-scene="sphere"] { --ok: #93c5fd; --radius: 14px; }
+:where(html[data-scene="sphere"]) .btn { border-radius: 10px; --b-base: #0d1a33; --b-edge: linear-gradient(160deg, #60a5fa, #1e3a8a); box-shadow: 0 6px 14px -8px #000, inset 0 -6px 10px -8px rgb(0 0 0 / .6); }
+:where(html[data-scene="sphere"]) .btn.primary { --b-base: #2563eb; --b-sheen: linear-gradient(180deg, rgb(255 255 255 / .25), transparent 60%); color: #fff; }
+:where(html[data-scene="sphere"]) .tabs { border-radius: 12px; }
+:where(html[data-scene="sphere"]) .tabs button { border-radius: 9px; transition: transform 200ms, background 120ms; }
+:where(html[data-scene="sphere"]) .tabs button:hover { transform: perspective(300px) rotateX(10deg) translateY(-1px); }
+:where(html[data-scene="sphere"]) .tabs button[aria-selected="true"] { background: linear-gradient(180deg, #3b82f6, #1e40af); color: #fff; border-color: transparent; box-shadow: 0 8px 16px -8px #3b82f6; }
+:where(html[data-scene="sphere"]) .tabs button[aria-selected="true"] svg { color: #fff; }
+:where(html[data-scene="sphere"]) .page:not([hidden]) { animation: pgFlip 520ms cubic-bezier(.3, .7, .2, 1); transform-origin: 0 50%; }
+@keyframes pgFlip { from { transform: perspective(1200px) rotateY(-14deg); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* ═══ Чилл: мультяшная обводка, закат ═══ */
+:root[data-scene="chill"] { font-synthesis-weight: none; --display: "Segoe UI Variable Display", "Segoe UI", sans-serif; --hero: "Segoe UI Black", "Segoe UI", sans-serif; --ok: #7cc4ff; --radius: 18px; }
+:where(html[data-scene="chill"]) .btn { --b-sheen: none; --b-base: #2a1740; --b-edge: linear-gradient(#0b0612, #0b0612); border-width: 2px; border-radius: 14px; box-shadow: 3px 3px 0 #0b0612; font-weight: 800; }
+:where(html[data-scene="chill"]) .btn.primary { --b-base: #ff7eb6; color: #1a0b14; }
+:where(html[data-scene="chill"]) .btn.conn { --b-base: #1a0f2a; color: var(--state); box-shadow: 3px 3px 0 #0b0612, 0 0 18px -6px var(--state); }
+:where(html[data-scene="chill"]) .tabs { border-radius: 24px; background: #2a1740; border: 2px solid #0b0612; box-shadow: 4px 4px 0 #0b0612; }
+:where(html[data-scene="chill"]) .tabs button[aria-selected="true"] { background: #ff7eb6; color: #1a0b14; border-color: transparent; box-shadow: none; }
+:where(html[data-scene="chill"]) .tabs button[aria-selected="true"] svg { color: #1a0b14; }
+:where(html[data-scene="chill"]) .ov-title h1, :where(html[data-scene="chill"]) .page-head h1 { font-style: italic; text-shadow: 3px 3px 0 #ff7eb6; }
+:where(html[data-scene="chill"]) .page:not([hidden]) { animation: pgSlide 460ms cubic-bezier(.3, 1.3, .5, 1); }
+@keyframes pgSlide { from { opacity: 0; transform: translateX(-24px); } to { opacity: 1; transform: none; } }
+
+/* Капсула выреза: Кот, Рамен, Маркировка, Будь добр, Фокус. */
+/* Кот: капсула без пунктирной кромки. */
+html[data-scene="cat"] .nt-body::after { display: none; }
+html[data-scene="ramen"] .nt-body::after { left: 0; right: 0; height: 2px; opacity: 1; background: #d94f2b; }
+html[data-scene="techmark"] .nt-body::after { left: 0; right: 0; height: 2px; opacity: 1; background: var(--tm); }
+html[data-scene="techmark"] .nt-body, html[data-scene="bekind"] .nt-body, html[data-scene="ramen"] .nt-body { --rmax: 4px; }
+html[data-scene="focus"] .nt-body::after { opacity: .7; background: linear-gradient(90deg, transparent, #e9c8a8, transparent); }
+html[data-scene="cat"] .nt { --display: "Ink Free", "Segoe Print", cursive; }
+
+/* Верхнее меню в узком окне (7 вкладок + настройки): плотнее, без переноса. */
+@media (max-width: 1320px) {
+  html[data-nav="top"] .tabs button, html[data-nav="top"] .nav-foot { padding: 0 9px; gap: 6px; font-size: 12.5px; }
+  html[data-nav="top"] .sidebar { padding-left: 16px; padding-right: 18px; }
+}
+@media (max-width: 1180px) {
+  html[data-sidew="300"][data-nav="top"] .tabs button svg, html[data-sidew="290"][data-nav="top"] .tabs button svg { display: none; }
+}
