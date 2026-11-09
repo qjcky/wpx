@@ -1899,9 +1899,10 @@ async fn install(id: &str, want: Want, log: &Log) -> Result<OpResult, String> {
             } else {
                 log("ok", "Защита сервера уже включена: BBR, автообновления, fail2ban".into());
             }
-            if let Ok(f) = inspect(&c).await {
-                s.facts = Some(f);
-            }
+        }
+        // Сведения для «Обслуживания» — уже после установки (версии ядер, порты).
+        if let Ok(f) = inspect(&c).await {
+            s.facts = Some(f);
         }
         Ok::<Secrets, String>(sec)
     }
@@ -2078,6 +2079,10 @@ async fn cascade(entry_id: &str, exit_id: &str, via: Option<&str>, log: &Log) ->
         deploy(&c, &e, &esec, log).await?;
         if e.fw.is_some() {
             fw::apply(&st, &c, &e, log).await?;
+        }
+        // Сведения для «Обслуживания» — уже с трубой (sing-box, порты).
+        if let Ok(f) = inspect(&c).await {
+            e.facts = Some(f);
         }
         Ok::<Vec<Pipe>, String>(pipes)
     }
