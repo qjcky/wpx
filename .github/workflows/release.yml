@@ -66,9 +66,11 @@ jobs:
           name="SHA256SUMS-${{ runner.os }}.txt"
           (
             cd src-tauri/target/release/bundle
+            # By file name (sha256sum -c next to the download); Git Bash on Windows
+            # marks binary mode with "*" — dropped so both files look the same.
             for f in nsis/*-setup.exe deb/*.deb appimage/*.AppImage; do
-              if [ -f "$f" ]; then sha256sum "$f" | sed 's|  .*/|  |'; fi
-            done
+              if [ -f "$f" ]; then (cd "$(dirname "$f")" && sha256sum "$(basename "$f")"); fi
+            done | sed 's/ \*/  /'
           ) > "$name"
           cat "$name"
           curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Content-Type: text/plain"             --data-binary @"$name" "$UPLOAD?name=$name" > /dev/null
