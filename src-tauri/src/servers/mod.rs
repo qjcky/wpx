@@ -50,6 +50,15 @@ const AWG_IMAGE: &str = "amneziavpn/amneziawg-go@sha256:cbafc02b8373a83f428272db
 /// Подсеть внутри контейнера AWG (сервер .1, клиент .2) — в своём сетевом
 /// пространстве, с сетями хоста не пересекается.
 const AWG_NET: &str = "10.66.0";
+/// MTU AmneziaWG через вход каскада: пакет с обфускацией (до +20 байт на
+/// пакет) по умолчанию выходит ~1500 байт, на пути вход → выход он дробится,
+/// фрагменты теряются — рукопожатие проходит, а загрузка стоит.
+const AWG_MTU_VIA: u16 = 1280;
+
+/// Строка MTU в [Interface]: только через вход (напрямую — как в AmneziaVPN).
+fn mtu_line(via: bool) -> String {
+    if via { format!("MTU = {AWG_MTU_VIA}\n") } else { String::new() }
+}
 
 // ─── Модель ──────────────────────────────────────────────────────
 
@@ -97,6 +106,18 @@ pub struct Server {
     /// Файрвол wpx включён: снаружи только SSH и VPN (+ выбранное).
     #[serde(default)]
     pub fw: Option<fw::Firewall>,
+    /// Свои пиры AmneziaWG для путей через входы каскада: у WireGuard один
+    /// ключ — одно подключение, и путь напрямую с путём через вход на общем
+    /// ключе выбивали бы друг друга.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub awg_paths: Vec<AwgPath>,
+}
+
+/// Путь AmneziaWG через вход `via` (id сервера-входа): свой адрес 10.66.0.`ip`.
+#[derive(Clone, Debug, Default, Serialize, Deserialize, PartialEq)]
+pub struct AwgPath {
+    pub via: String,
+    pub ip: u8,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
@@ -177,6 +198,22 @@ struct Secrets {
     /// Ключи гостей — чтобы QR и ссылки можно было показать ещё раз.
     #[serde(default)]
     guests: Vec<GuestKeys>,
+    /// Ключи клиента AmneziaWG для путей через входы (`Server::awg_paths`).
+    #[serde(default)]
+    awg_paths: Vec<AwgPathKey>,
+}
+
+#[derive(Clone, Debug, Default, Serialize, Deserialize, PartialEq)]
+struct AwgPathKey {
+    via: String,
+    private: String,
+}
+
+/// Свободный адрес AmneziaWG (10.66.0.N): не занят ни гостем, ни путём.
+fn free_awg_ip(s: &Server) -> Result<u8, String> {
+    (3..=254u8)
+        .find(|n| !s.guests.iter().any(|g| g.awg_ip == *n) && !s.awg_paths.iter().any(|p| p.ip == *n))
+        .ok_or_else(|| "адреса AmneziaWG закончились (250 доступов)".into())
 }
 
 #[derive(Clone, Debug, Default, Serialize, Deserialize)]
@@ -378,6 +415,11 @@ fn awg_server_conf(s: &Server, a: &Awg, sec: &Secrets) -> Result<String, String>
             peers.push_str(&format!("\n[Peer]\nPublicKey = {}\nPresharedKey = {}\nAllowedIPs = {AWG_NET}.{}/32\n", wg_public(&k.awg_private)?, k.awg_psk, g.awg_ip));
         }
     }
+    for p in &s.awg_paths {
+        if let Some(k) = sec.awg_paths.iter().find(|k| k.via == p.via) {
+            peers.push_str(&format!("\n[Peer]\nPublicKey = {}\nPresharedKey = {}\nAllowedIPs = {AWG_NET}.{}/32\n", wg_public(&k.private)?, sec.awg_psk, p.ip));
+        }
+    }
     Ok(format!(
         "[Interface]\nPrivateKey = {}\nAddress = {AWG_NET}.1/24\nListenPort = {}\n{}\
          PostUp = iptables -t nat -A POSTROUTING -s {AWG_NET}.0/24 -o eth0 -j MASQUERADE; iptables -A FORWARD -i %i -o %i -j DROP; iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT\n\
@@ -388,11 +430,11 @@ fn awg_server_conf(s: &Server, a: &Awg, sec: &Secrets) -> Result<String, String>
 }
 
 /// Конфиг клиента (тот же формат, что экспорт AmneziaVPN).
-fn awg_client_conf(a: &Awg, sec: &Secrets, host: &str, port: u16) -> String {
+fn awg_client_conf(a: &Awg, private: &str, psk: &str, ip: u8, host: &str, port: u16, via: bool) -> String {
     format!(
-        "[Interface]\nPrivateKey = {}\nAddress = {AWG_NET}.2/32\nDNS = 1.1.1.1\n{}\n\
-         [Peer]\nPublicKey = {}\nPresharedKey = {}\nEndpoint = {host}:{port}\nAllowedIPs = 0.0.0.0/0\nPersistentKeepalive = 25\n",
-        sec.awg_client_private, obf_lines(a), a.server_public, sec.awg_psk
+        "[Interface]\nPrivateKey = {private}\nAddress = {AWG_NET}.{ip}/32\nDNS = 1.1.1.1\n{}{}\n\
+         [Peer]\nPublicKey = {}\nPresharedKey = {psk}\nEndpoint = {host}:{port}\nAllowedIPs = 0.0.0.0/0\nPersistentKeepalive = 25\n",
+        mtu_line(via), obf_lines(a), a.server_public
     )
 }
 
@@ -1147,8 +1189,9 @@ impl Ports {
     }
 }
 
-/// Точки подключения: `host`/порты — сам сервер или вход каскада.
-fn endpoints(s: &Server, sec: &Secrets, host: &str, ports: Ports, label: &str) -> Vec<Endpoint> {
+/// Точки подключения: `host`/порты — сам сервер или вход каскада `via`
+/// (id сервера-входа: у AmneziaWG через него — свой ключ пути).
+fn endpoints(s: &Server, sec: &Secrets, host: &str, ports: Ports, label: &str, via: Option<&str>) -> Vec<Endpoint> {
     let (vless_port, hy2_port) = (ports.vless, ports.hy2);
     let mut links = vec![];
     if let (Some(v), Some(port)) = (&s.vless, vless_port) {
@@ -1177,8 +1220,14 @@ fn endpoints(s: &Server, sec: &Secrets, host: &str, ports: Ports, label: &str) -
     }
     let mut eps: Vec<Endpoint> = links.iter().filter_map(|l| proto::parse(l).ok()).collect();
     if let (Some(a), Some(port)) = (&s.awg, ports.awg) {
-        if !sec.awg_client_private.is_empty() {
-            if let Ok(mut e) = proto::parse_awg_conf(&awg_client_conf(a, sec, host, port)) {
+        // Через вход — только своим ключом пути: на ключе владельца путь
+        // выбивал бы подключение напрямую (и наоборот). Ключа ещё нет — без AWG.
+        let key = match via {
+            None => (!sec.awg_client_private.is_empty()).then_some((sec.awg_client_private.as_str(), 2)),
+            Some(v) => s.awg_paths.iter().find(|p| p.via == v).and_then(|p| sec.awg_paths.iter().find(|k| k.via == v).map(|k| (k.private.as_str(), p.ip))),
+        };
+        if let Some((private, ip)) = key {
+            if let Ok(mut e) = proto::parse_awg_conf(&awg_client_conf(a, private, &sec.awg_psk, ip, host, port, via.is_some())) {
                 e.label = format!("{label} · AmneziaWG");
                 eps.push(e);
             }
@@ -1870,7 +1919,7 @@ async fn install(id: &str, want: Want, log: &Log) -> Result<OpResult, String> {
 
 /// Профиль сервера на этом ПК: точки проверяются с ПК и встают по рангу.
 async fn own_profile(s: &Server, sec: &Secrets, log: &Log) -> Result<(Option<String>, Vec<ProbeResult>, Option<String>), String> {
-    let eps = endpoints(s, sec, &s.host, Ports::of(s), &s.name);
+    let eps = endpoints(s, sec, &s.host, Ports::of(s), &s.name, None);
     if eps.is_empty() {
         return Ok((None, vec![], None));
     }
@@ -2039,6 +2088,14 @@ async fn cascade(entry_id: &str, exit_id: &str, via: Option<&str>, log: &Log) ->
         *s = e.clone();
     }
     save(&st)?;
+    // AmneziaWG через вход — своим ключом пути (пир на выходе, без перезапуска).
+    if x.awg.is_some() {
+        if let Err(err) = guests::path_key(&x.id, &e.id, log).await {
+            log("warn", format!("AmneziaWG через «{}»: ключ пути на «{}» не добавлен ({err}) — путь пойдёт без AmneziaWG", e.name, x.name));
+        }
+    }
+    let st = load();
+    let x = st.servers.iter().find(|s| s.id == exit_id).cloned().ok_or("сервер-выход не найден")?;
 
     let (pid, probe) = rebuild_route(&st, &x, Some(log)).await?;
     let new_ok = probe.iter().any(|r| r.ok > 0 && r.label.starts_with(&format!("{} → ", e.name)));
@@ -2059,7 +2116,7 @@ async fn rebuild_route(st: &Store, x: &Server, log: Option<&Log>) -> Result<(Opt
         let pipes: Vec<Pipe> = e.pipes.iter().filter(|p| p.to == x.id).cloned().collect();
         if !pipes.is_empty() {
             let hop = pipes[0].hop.as_deref().and_then(|h| st.servers.iter().find(|s| s.id == h)).map(|m| format!("{} → ", m.name)).unwrap_or_default();
-            via_pipes.extend(endpoints(x, &xsec, &e.host, Ports::via(x, &pipes), &format!("{} → {hop}{}", e.name, x.name)));
+            via_pipes.extend(endpoints(x, &xsec, &e.host, Ports::via(x, &pipes), &format!("{} → {hop}{}", e.name, x.name), Some(&e.id)));
         }
     }
     let mut ps = profiles::load();
@@ -2083,7 +2140,7 @@ async fn rebuild_route(st: &Store, x: &Server, log: Option<&Log>) -> Result<(Opt
         None => (via_pipes, vec![]),
     };
     if x.via.is_none() {
-        eps.extend(endpoints(x, &xsec, &x.host, Ports::of(x), &format!("{} напрямую", x.name)));
+        eps.extend(endpoints(x, &xsec, &x.host, Ports::of(x), &format!("{} напрямую", x.name), None));
     }
     let pid = profiles::upsert_origin(&mut ps, &origin, &format!("{} через каскад", x.name), &eps, "auto")?;
     profiles::save(&ps)?;
@@ -2406,10 +2463,24 @@ mod tests {
         assert_eq!((back.awg_server_private.as_str(), back.awg_psk.as_str()), (sec.awg_server_private.as_str(), sec.awg_psk.as_str()));
         assert!(back.awg_client_private.is_empty());
         // Клиент: тот же разбор, что у импортированного .conf.
-        let eps = endpoints(&s, &sec, "203.0.113.10", Ports { awg: Some(20443), ..Default::default() }, "SG → FI");
+        let piped = Ports { awg: Some(20443), ..Default::default() };
+        // Через вход без ключа пути — без AWG (ключ владельца выбивал бы прямой путь).
+        assert!(endpoints(&s, &sec, "203.0.113.10", piped, "SG → FI", Some("e1")).is_empty());
+        s.awg_paths.push(AwgPath { via: "e1".into(), ip: free_awg_ip(&s).unwrap() });
+        sec.awg_paths.push(AwgPathKey { via: "e1".into(), private: wg_keypair().0 });
+        assert_eq!(free_awg_ip(&s).unwrap(), 4, "адрес пути занят");
+        let conf = awg_server_conf(&s, &a, &sec).unwrap();
+        assert!(conf.contains(&format!("AllowedIPs = {AWG_NET}.3/32")) && conf.contains(&wg_public(&sec.awg_paths[0].private).unwrap()));
+        let eps = endpoints(&s, &sec, "203.0.113.10", piped, "SG → FI", Some("e1"));
         assert_eq!(eps.len(), 1);
         let e = &eps[0];
         assert_eq!((e.kind, e.server.as_str(), e.port), (proto::Kind::Awg, "203.0.113.10", 20443));
+        // Свой ключ и адрес у пути — не те, что у подключения напрямую.
+        let direct = endpoints(&s, &sec, &s.host, Ports { awg: Some(34567), ..Default::default() }, "FI", None);
+        assert_ne!(direct[0].secrets["private-key"], e.secrets["private-key"]);
+        assert_eq!((direct[0].params["ip"].as_str(), e.params["ip"].as_str()), (Some(format!("{AWG_NET}.2").as_str()), Some(format!("{AWG_NET}.3").as_str())));
+        // Через вход — пакеты поменьше (иначе дробятся на пути вход → выход).
+        assert_eq!((direct[0].params.get("mtu"), e.params["mtu"].as_u64()), (None, Some(u64::from(AWG_MTU_VIA))));
         assert_eq!(e.params["public-key"], json!(a.server_public));
         assert_eq!(e.params["amnezia-wg-option"]["jc"], json!(get("Jc")));
         assert_eq!(e.label, "SG → FI · AmneziaWG");
@@ -2458,19 +2529,19 @@ mod tests {
     #[test]
     fn endpoints_from_server_and_via_pipe() {
         let (s, sec) = srv();
-        let direct = endpoints(&s, &sec, &s.host, Ports::of(&s), &s.name);
+        let direct = endpoints(&s, &sec, &s.host, Ports::of(&s), &s.name, None);
         assert_eq!(direct.len(), 2);
         assert_eq!(direct[0].kind, proto::Kind::Vless);
         assert_eq!(direct[0].params["reality-opts"]["public-key"], json!(s.vless.as_ref().unwrap().public_key));
         assert_eq!(direct[1].params["fingerprint"], json!("ab".repeat(32)));
         assert_eq!(direct[1].secrets["obfs-password"], json!("ob"));
         let pipes = [Pipe { to: "s1".into(), to_host: s.host.clone(), listen: 8443, to_port: 443, ..Default::default() }];
-        let piped = endpoints(&s, &sec, "203.0.113.10", Ports::via(&s, &pipes), "SG → FI");
+        let piped = endpoints(&s, &sec, "203.0.113.10", Ports::via(&s, &pipes), "SG → FI", Some("e1"));
         assert_eq!((piped[0].server.as_str(), piped[0].port), ("203.0.113.10", 8443));
         assert!(piped[0].label.contains("SG → FI"));
         // Цепочка: вход шлёт на трубу промежуточного (:9443), выход — тот же 443.
         let chain = [Pipe { to: "s1".into(), to_host: "198.51.100.7".into(), listen: 2053, to_port: 9443, hop: Some("mid".into()), exit_port: Some(443) }];
-        let via = endpoints(&s, &sec, "203.0.113.5", Ports::via(&s, &chain), "RU → SG → FI");
+        let via = endpoints(&s, &sec, "203.0.113.5", Ports::via(&s, &chain), "RU → SG → FI", Some("e2"));
         assert_eq!((via[0].server.as_str(), via[0].port), ("203.0.113.5", 2053));
         assert_eq!(chain[0].final_port(), 443);
     }

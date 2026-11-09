@@ -142,12 +142,12 @@ pub(super) async fn run(id: &str) -> Result<ServerCheck, String> {
     // Точки, которыми ПК реально ходит к серверу: напрямую (если доступен) и трубы входов.
     let mut eps = vec![];
     if s.via.is_none() {
-        eps.extend(endpoints(&s, &sec, &s.host, Ports::of(&s), &format!("{} напрямую", s.name)));
+        eps.extend(endpoints(&s, &sec, &s.host, Ports::of(&s), &format!("{} напрямую", s.name), None));
     }
     for e in st.servers.iter().filter(|e| e.id != s.id && e.via.is_none()) {
         let pipes: Vec<Pipe> = e.pipes.iter().filter(|p| p.to == s.id).cloned().collect();
         if !pipes.is_empty() {
-            eps.extend(endpoints(&s, &sec, &e.host, Ports::via(&s, &pipes), &format!("через {}", e.name)));
+            eps.extend(endpoints(&s, &sec, &e.host, Ports::via(&s, &pipes), &format!("через {}", e.name), Some(&e.id)));
         }
     }
     let (tcp, mut udp) = our_ports(&s);

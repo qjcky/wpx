@@ -94,11 +94,11 @@ pub(super) fn qr_svg(text: &str) -> String {
 /// Конфиг AmneziaWG гостя — тот же формат, что импортируют AmneziaWG и
 /// AmneziaVPN (файлом или QR). `::/0` — IPv6 тоже в туннель (там он
 /// отбрасывается), чтобы телефон не ходил по IPv6 мимо VPN.
-fn guest_awg_conf(a: &Awg, k: &GuestKeys, ip: u8, host: &str, port: u16) -> String {
+fn guest_awg_conf(a: &Awg, k: &GuestKeys, ip: u8, host: &str, port: u16, via: bool) -> String {
     format!(
-        "[Interface]\nPrivateKey = {}\nAddress = {AWG_NET}.{ip}/32\nDNS = 1.1.1.1, 1.0.0.1\n{}\n\
+        "[Interface]\nPrivateKey = {}\nAddress = {AWG_NET}.{ip}/32\nDNS = 1.1.1.1, 1.0.0.1\n{}{}\n\
          [Peer]\nPublicKey = {}\nPresharedKey = {}\nEndpoint = {host}:{port}\nAllowedIPs = 0.0.0.0/0, ::/0\nPersistentKeepalive = 25\n",
-        k.awg_private, obf_lines(a), a.server_public, k.awg_psk
+        k.awg_private, mtu_line(via), obf_lines(a), a.server_public, k.awg_psk
     )
 }
 
@@ -120,7 +120,7 @@ fn share_of(st: &Store, x: &Server, sec: &Secrets, g: &Guest) -> Result<Share, S
     let label = format!("{} · {}", x.name, g.name);
     let mut items = vec![];
     if let (true, Some(a), Some(port)) = (g.awg_ip > 0, &x.awg, ports.awg) {
-        let text = guest_awg_conf(a, k, g.awg_ip, &host, port);
+        let text = guest_awg_conf(a, k, g.awg_ip, &host, port, g.via.is_some());
         items.push(ShareItem { kind: "awg", title: "AmneziaWG", qr: qr_svg(&text), text, apps: "AmneziaWG, AmneziaVPN (iPhone, Android, Windows, macOS)" });
     }
     if let (true, Some(v), Some(port)) = (g.vless, &x.vless, ports.vless) {
@@ -237,6 +237,25 @@ where
     Ok((st, s, sec))
 }
 
+/// Свой ключ AmneziaWG для пути к выходу `exit` через вход `via`: пир на
+/// выходе — на лету, как у гостей (подключённые не замечают). Уже есть — ничего.
+pub(super) async fn path_key(exit: &str, via: &str, log: &Log) -> Result<(), String> {
+    let has = load().servers.iter().find(|s| s.id == exit).is_some_and(|s| s.awg.is_none() || s.awg_paths.iter().any(|p| p.via == via));
+    if has {
+        return Ok(());
+    }
+    log("step", "AmneziaWG через вход: свой ключ пути на выходе".into());
+    change(exit, log, |s, sec| {
+        let ip = free_awg_ip(s)?;
+        s.awg_paths.push(AwgPath { via: via.into(), ip });
+        sec.awg_paths.retain(|k| k.via != via);
+        sec.awg_paths.push(AwgPathKey { via: via.into(), private: wg_keypair().0 });
+        Ok(Touch { sb: false, awg: true })
+    })
+    .await
+    .map(|_| ())
+}
+
 // ─── Команды окна ────────────────────────────────────────────────
 
 #[derive(Deserialize)]
@@ -287,7 +306,7 @@ async fn add(id: &str, input: GuestInput, log: &Log) -> Result<GuestOp, String> 
     log("step", format!("Новый доступ «{name}»: свои ключи{}", if awg { " и адрес AmneziaWG" } else { "" }));
     let (st, s, sec) = change(id, log, |s, sec| {
         let awg_ip = if awg {
-            (3..=254u8).find(|n| !s.guests.iter().any(|g| g.awg_ip == *n)).ok_or("адреса AmneziaWG закончились (250 доступов)")?
+            free_awg_ip(s)?
         } else {
             0
         };
