@@ -55,7 +55,7 @@ function card(s: ServerView) {
       ${s.runtime ? `<span class="tag">${s.runtime === "docker" ? "Docker" : "systemd"}</span>` : ""}
       ${others.length ? `<span class="tag" title="Чужие контейнеры — wpx их не трогает">рядом: ${esc(others.join(", "))}</span>` : ""}</div>
     ${pipes}
-    ${s.entries.length ? `<div class="srv-pipe route"><span>маршрут: через <b>${s.entries.map(esc).join("</b>, <b>")}</b>${s.via ? "" : " · напрямую"} — движок держит быстрый живой путь</span></div>` : ""}
+    ${s.entries.length ? `<div class="srv-pipe srv-route"><span>маршрут: через <b>${s.entries.map(esc).join("</b>, <b>")}</b>${s.via ? "" : " · напрямую"} — движок держит быстрый живой путь</span></div>` : ""}
     </div>
     <div class="acts">
       ${installed ? "" : `<button class="btn primary" data-act="install" data-id="${s.id}">Установить VPN</button>`}

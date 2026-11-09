@@ -666,7 +666,7 @@ html:not([data-scene="prism"]) .look-row[data-only="prism"] { display: none; }
 .srv-facts .warn { color: var(--warn); }
 .srv-pipe { display: flex; align-items: center; justify-content: space-between; gap: 8px; font: 12px var(--mono); color: var(--muted); background: var(--glass); border: 1px solid var(--line); border-radius: 12px; padding: 7px 11px; }
 .srv-pipe b { color: var(--ink); font-weight: 600; }
-.srv-pipe.route { color: var(--accent); background: transparent; border-style: dashed; border-color: var(--line-2); }
+.srv-pipe.srv-route { color: var(--accent); background: transparent; border-style: dashed; border-color: var(--line-2); }
 .acts-inline { display: inline-flex; gap: 4px; }
 .pe-test { display: grid; gap: 4px; margin: 4px 0 2px; font: 12px var(--mono); }
 .pe-test .ok { color: var(--ok); }
