@@ -1,13 +1,17 @@
 # wpx
 
-**A tunnel manager for your whole PC — and for your own VPN servers.**
+**A VPN client for your whole PC — and a manager for your own self-hosted VPN servers.**
 
-wpx keeps every connection of the computer behind a tunnel ([mihomo](https://github.com/MetaCubeX/mihomo) in TUN mode),
-guards it with a kill switch, and changes the setup only through transactions that roll back by themselves if the
-tunnel does not come up. It also deploys and maintains VPN servers on your own VPS over SSH — no panel, no agent on
-the server.
+wpx keeps every connection of the computer behind a tunnel ([mihomo](https://github.com/MetaCubeX/mihomo) / Clash Meta
+in TUN mode), guards it with a kill switch, and changes the setup only through transactions that roll back by
+themselves if the tunnel does not come up. Split tunneling per app and per site sends each program or site through
+the profile you choose — VPN, proxy, directly or blocked. It also deploys and maintains VPN servers on your own VPS
+over SSH — no panel, no agent on the server.
 
-Windows 10/11 and Linux (x86-64). Interface in Russian and English.
+Protocols: **VLESS + Reality**, **XHTTP + Reality**, **Hysteria2**, **AmneziaWG** (WireGuard with obfuscation),
+Trojan, Shadowsocks, MTProxy, HTTP(S) and SOCKS5 proxies; cascades (multi-hop) and routes with automatic failover.
+
+Windows 10/11 and Linux (x86-64). Interface in Russian and English. Free and open source (GPL-3.0).
 
 > **Status: beta.** Windows is the main platform; Linux support is experimental. Installers are not code-signed yet —
 > see [Install](#install).
