@@ -192,7 +192,11 @@ export interface ServerFacts {
   uptime_s: number; load: string; net_rx: number; net_tx: number; cc: string; bbr_avail: boolean;
   autoupd: boolean; f2b: boolean; updates: number; sec_updates: number; reboot: boolean; sb_ver: string; apt: boolean;
   public: [string, number, string][]; fw: boolean;
+  /** Сторож на сервере и его последние записи. */
+  heal: boolean; heal_log: HealEvent[];
 }
+
+export interface HealEvent { at: number; svc: string; what: string }
 
 export interface ServerView {
   id: string; name: string; host: string; port: number; user: string; host_key: string;

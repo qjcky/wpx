@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- Your servers: a watchdog on the server checks wpx's services every minute (containers, listening ports, the
+  AmneziaWG interface and Docker's rule for its port, Hysteria2 port hopping) and restarts what fell; after five
+  restarts in an hour it backs off. What it did is shown on the server card, in Maintenance and in "Where it breaks".
+  Installed with VPN or a cascade — on existing servers, "Edit VPN" puts it there.
+- AmneziaWG on the server: the container had too little memory (100 MB), and under steady traffic the kernel killed
+  amneziawg-go while the container kept "running" — AWG was down until a manual restart. Now 384 MB with a Go memory
+  limit, and the container restarts itself when its interface is gone.
+- Where it breaks: says when AmneziaWG was killed for memory; no longer reports this PC's keys as missing while the
+  interface is down; one piece of advice per action.
+
 ## 0.1.2
 
 - Rules: tick several rules and change their route at once ("N selected → route through…").

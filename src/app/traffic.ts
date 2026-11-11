@@ -3,7 +3,7 @@
 
 import type { Api } from "../core/api";
 import type { Conn, SpeedResult } from "../core/types";
-import { $, esc, modal } from "../core/ui";
+import { $, esc, modal, when } from "../core/ui";
 
 let api: Api;
 let visible = false;
@@ -15,8 +15,6 @@ let rates = new Map<string, { up: number; down: number }>();
 let conns: Conn[] = [];
 const open = new Set<string>();
 
-const two = (n: number) => String(n).padStart(2, "0");
-const when = (t: number) => { const d = new Date(t); return `${two(d.getDate())}.${two(d.getMonth() + 1)} ${two(d.getHours())}:${two(d.getMinutes())}`; };
 function bytes(b: number) {
   if (b < 1024) return `${b} Б`;
   if (b < 1024 ** 2) return `${(b / 1024).toFixed(0)} КБ`;

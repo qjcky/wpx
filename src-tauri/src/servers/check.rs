@@ -45,7 +45,7 @@ if docker inspect wpx-awg >/dev/null 2>&1; then
   echo "awg_port=$(docker exec wpx-awg awg show wg0 listen-port 2>/dev/null)"
   echo "awg_oom=$(journalctl -k --since -2d 2>/dev/null | grep -c 'Killed process.*amneziawg-go')"
   if [ -n "${AWGP:-}" ] && command -v iptables >/dev/null 2>&1; then
-    echo "awg_nat=$(iptables -t nat -S 2>/dev/null | grep -c -- "--dport $AWGP ")"
+    echo "awg_nat=$(iptables -t nat -S 2>/dev/null | grep -c -- "--dport $AWGP -j DNAT")"
   fi
 else echo awg=none; fi
 for p in $TCP; do ss -tlnH "sport = :$p" | grep -q . && echo "tcp_ok=$p" || echo "tcp_no=$p"; done
@@ -75,6 +75,8 @@ struct State {
     awg_nat: Option<u32>,
     /// Сколько раз за 2 дня система убила amneziawg-go за нехватку памяти.
     awg_oom: u32,
+    /// Журнал сторожа на сервере.
+    heal: Vec<heal::HealEvent>,
     hs: Vec<(String, i64)>,
     tcp_no: Vec<u16>,
     udp_no: Vec<u16>,
@@ -98,6 +100,7 @@ fn parse_state(out: &str) -> State {
             "awg_port" => s.awg_port = v.trim().into(),
             "awg_nat" => s.awg_nat = v.trim().parse().ok(),
             "awg_oom" => s.awg_oom = v.trim().parse().unwrap_or(0),
+            "heal" => s.heal.extend(heal::parse(v)),
             "hs" => {
                 let mut f = v.split_whitespace();
                 if let (Some(k), Some(t)) = (f.next(), f.next()) {
@@ -181,7 +184,7 @@ pub(super) async fn run(id: &str) -> Result<ServerCheck, String> {
         let (c, via, err) = reach(&st, &s).await;
         let Some(c) = c else { return (None, via, err) };
         let awgp = s.awg.as_ref().map(|a| a.port.to_string()).unwrap_or_default();
-        let o = c.sh(&[("TCP", list(&tcp)), ("UDP", list(&udp)), ("AWGP", awgp)], STATE, b"", 60).await;
+        let o = c.sh(&[("TCP", list(&tcp)), ("UDP", list(&udp)), ("AWGP", awgp)], &format!("{STATE}{}", heal::READ), b"", 60).await;
         c.close().await;
         (o.ok().map(|o| parse_state(&o.out)), via, err)
     };
@@ -244,6 +247,9 @@ pub(super) async fn run(id: &str) -> Result<ServerCheck, String> {
         }
         services_bad = bad;
         steps.push(step("Службы VPN на сервере", if bad { "bad" } else { "ok" }, bits.join(" · ")));
+        if let Some(t) = heal::day(&x.heal) {
+            steps.push(step("Сторож на сервере", "warn", t));
+        }
         if bad {
             advice.push(Advice { kind: "redeploy", text: "Перезапустить VPN на сервере (конфиг и ключи прежние)".into(), entry: None });
         }

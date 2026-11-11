@@ -48,7 +48,7 @@ export function mockApi(): Api {
     facts: { os: "Debian GNU/Linux 12 (bookworm)", arch: "x86_64", cpus: 1, ram_mb: 1024, avail_mb: 600, swap_mb: 1024, disk_free_mb: 20480, country, city, org: "Hosting LLC",
       root: true, docker: true, systemd: true, containers: ["amnezia-awg2", "wpx-singbox"], tcp: [], udp: [], wpx: true, ufw: false, at: Date.now(),
       uptime_s: 363600, load: "0.00 0.01 0.00", net_rx: 1_587_000_000, net_tx: 1_300_000_000, cc: "hybla", bbr_avail: true, autoupd: false, f2b: false,
-      updates: 94, sec_updates: 38, reboot: true, sb_ver: "1.14.4", apt: true, public: [], fw: false },
+      updates: 94, sec_updates: 38, reboot: true, sb_ver: "1.14.4", apt: true, public: [], fw: false, heal: true, heal_log: [] },
   });
   let servers: ServerView[] = [
     { ...srv("s1", "Singapore", "203.0.113.10", "SG", "Singapore"), runtime: "docker", vless: { port: 443, dest: "www.apple.com", public_key: "k", short_id: "s" },
@@ -64,6 +64,9 @@ export function mockApi(): Api {
     // ?free — чистый сервер для окна переезда.
     ...(q.has("free") ? [srv("s3", "Франкфурт", "198.51.100.20", "DE", "Frankfurt")] : []),
   ];
+  // Сторож на «Singapore» недавно поднимал AWG; на «Helsinki» его ещё нет.
+  servers[0].facts!.heal_log = [{ at: Date.now() - 3 * 3_600_000, svc: "AmneziaWG", what: "не хватило памяти — Docker перезапустил" }];
+  servers[1].facts!.heal = false;
   /** Картинка вместо настоящего QR (в демо ключей нет). */
   const mockQr = (seed: number) => {
     let x = seed, cells = "";

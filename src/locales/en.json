@@ -1531,7 +1531,26 @@
   "отметьте правила, чтобы сменить им путь разом": "tick rules to change their route at once",
   "Отметить правило": "Select rule",
   "Как человек будет подключаться": "How the person will connect",
-  "AmneziaWG упал: не хватило памяти контейнеру": "AmneziaWG crashed: the container ran out of memory"
+  "AmneziaWG упал: не хватило памяти контейнеру": "AmneziaWG crashed: the container ran out of memory",
+  "был остановлен — запустил": "was stopped — started it",
+  "не слушал порт — перезапустил": "wasn't listening on its port — restarted",
+  "пропал интерфейс — перезапустил": "the interface was gone — restarted",
+  "не хватило памяти — перезапустил": "ran out of memory — restarted",
+  "пропало правило Docker для порта — перезапустил": "Docker's port rule was gone — restarted",
+  "пропали правила — вернул": "the rules were gone — restored",
+  "не хватило памяти — Docker перезапустил": "ran out of memory — Docker restarted it",
+  "упал — Docker перезапустил": "crashed — Docker restarted it",
+  "упал, перезапустить не вышло": "down, restart failed",
+  "падает снова и снова — сторож не трогает его час": "keeps failing — the watchdog leaves it for an hour",
+  "смена портов Hysteria2": "Hysteria2 port hopping",
+  "Сторож на сервере": "Server watchdog",
+  "Сторож": "Watchdog",
+  "без сторожа": "no watchdog",
+  "«Изменить VPN» поставит": "“Edit VPN” installs it",
+  "не установлен — «Изменить VPN» поставит": "not installed — “Edit VPN” installs it",
+  "поднимать ничего не пришлось": "nothing needed restarting",
+  "Сторож на сервере: раз в минуту проверяет службы VPN и поднимает упавшие": "Server watchdog: checks the VPN services every minute and restarts fallen ones",
+  "Сторож не поставлен: на сервере нет systemd": "Watchdog not installed: the server has no systemd"
  },
  "patterns": [
   [
@@ -3801,6 +3820,22 @@
   [
    "— если {} у человека не открывается или его режут; сайты всё равно увидят IP {}",
    "— if {} doesn't open for the person or is throttled; sites still see the IP of {}"
+  ],
+  [
+   "Сторож не поставлен: {}",
+   "Watchdog not installed: {}"
+  ],
+  [
+   "за сутки: {}",
+   "in the last day: {}"
+  ],
+  [
+   "в {} — {}: {}",
+   "at {} — {}: {}"
+  ],
+  [
+   "сторож поднимал: {}",
+   "watchdog restarted: {}"
   ]
  ]
 }

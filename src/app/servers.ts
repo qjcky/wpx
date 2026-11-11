@@ -3,8 +3,8 @@
 // из Rust (событие server-log) и показывается вживую.
 
 import type { Api } from "../core/api";
-import type { Guest, GuestInput, GuestStat, ProbeResult, ServerCheck, ServerLog, ServerOpResult, ServersState, ServerView, Share, ShareItem } from "../core/types";
-import { $, esc, modal, probeBadge } from "../core/ui";
+import type { Guest, GuestInput, GuestStat, HealEvent, ProbeResult, ServerCheck, ServerLog, ServerOpResult, ServersState, ServerView, Share, ShareItem } from "../core/types";
+import { $, esc, modal, probeBadge, when } from "../core/ui";
 import { TYPE_ICON } from "../core/icons";
 import { lang } from "../core/i18n";
 
@@ -82,11 +82,19 @@ function health(f: NonNullable<ServerView["facts"]>, s: ServerView) {
   const bits = [`работает ${Math.floor(f.uptime_s / 86400) ? `${Math.floor(f.uptime_s / 86400)} д ` : ""}${Math.floor((f.uptime_s % 86400) / 3600)} ч`, `нагрузка ${esc(f.load.split(" ")[0] ?? "")}`];
   if (f.apt) bits.push(f.updates ? `<span class="warn">обновлений ${f.updates}${f.sec_updates ? ` (безопасности ${f.sec_updates})` : ""}</span>` : "обновления поставлены");
   if (f.reboot) bits.push('<span class="warn">ждёт перезагрузки</span>');
+  const fell = f.heal_log.filter((e) => e.at > Date.now() - 86_400_000);
+  if (fell.length) bits.push(`<span class="warn" title="${esc(fell.map((e) => `в ${when(e.at)} — ${e.svc}: ${e.what}`).join(" · "))}">сторож поднимал: ${esc([...new Set(fell.map((e) => e.svc))].join(", "))}</span>`);
+  else if (!f.heal && (s.vless || s.hy2 || s.awg || s.xhttp || s.mtproxy || s.pipes.length)) bits.push('<span class="warn" title="«Изменить VPN» поставит">без сторожа</span>');
   if (s.updates.length) bits.push(`<span class="warn">обновить: ${esc(s.updates.join(", "))}</span>`);
   const prot = [f.cc === "bbr" ? "BBR" : "", f.autoupd ? "автообновления" : "", f.f2b ? "fail2ban" : "", f.fw ? "файрвол" : ""].filter(Boolean);
   bits.push(prot.length ? `защита: ${prot.join(", ")}` : '<span class="warn">не усилен</span>');
   return bits.join(" · ");
 }
+
+/** Журнал сторожа: последние пять записей, свежие сверху. */
+const healLog = (log: HealEvent[]) => log.length
+  ? log.slice(-5).reverse().map((e) => `${when(e.at)} <b>${esc(e.svc)}</b> ${esc(e.what)}`).join("<br>")
+  : "включён · поднимать ничего не пришлось";
 
 let moveAsked = false;
 
@@ -113,6 +121,7 @@ async function careDialog(s: ServerView) {
       ${row("TCP", `${esc(f.cc)}${f.cc !== "bbr" && f.bbr_avail ? " (можно BBR)" : ""}`)}
       ${f.apt ? row("Обновления", f.updates ? `${f.updates}, из них безопасности ${f.sec_updates}` : "всё поставлено") : ""}
       ${f.reboot ? row("Перезагрузка", "система ждёт перезагрузки после обновлений") : ""}
+      ${row("Сторож", f.heal ? healLog(f.heal_log) : "не установлен — «Изменить VPN» поставит")}
       ${row("sing-box", f.sb_ver ? `${esc(f.sb_ver)}${f.sb_ver !== st.version ? ` → в wpx ${esc(st.version)}: «Изменить VPN» обновит` : " — актуальный"}` : "не установлен")}
     </table>
     ${chk("hBbr", f.bbr_avail, f.cc === "bbr", "BBR", "быстрее TCP на дальних и загруженных каналах (VLESS, трубы)")}

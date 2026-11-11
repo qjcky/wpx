@@ -11,6 +11,10 @@ export const NOTCH_AT: [NotchAnchor, string][] = [
   ["bottom", "Снизу по центру"], ["bottom-left", "Снизу слева"], ["bottom-right", "Снизу справа"],
 ];
 
+const two = (n: number) => String(n).padStart(2, "0");
+/** «12.11 18:11» — местное время. */
+export const when = (t: number) => { const d = new Date(t); return `${two(d.getDate())}.${two(d.getMonth() + 1)} ${two(d.getHours())}:${two(d.getMinutes())}`; };
+
 export const esc = (s: string) =>
   s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
 

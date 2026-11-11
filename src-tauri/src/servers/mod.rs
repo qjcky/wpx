@@ -27,6 +27,7 @@ pub mod check;
 pub mod extra;
 pub mod fw;
 pub mod guests;
+pub mod heal;
 pub mod moving;
 pub mod rtt;
 pub mod ssh;
@@ -265,6 +266,9 @@ pub struct Facts {
     /// Образы контейнеров wpx (сравнить с закреплёнными в wpx).
     pub sb_img: String,
     pub awg_img: String,
+    /// Стоит сторож (wpx-heal.timer); его последние записи.
+    pub heal: bool,
+    pub heal_log: Vec<heal::HealEvent>,
 }
 
 #[derive(Default, Serialize, Deserialize)]
@@ -673,6 +677,8 @@ fn parse_facts(out: &str) -> Facts {
             "fw" => f.fw = true,
             "sb_img" => f.sb_img = v.trim().into(),
             "awg_img" => f.awg_img = v.trim().into(),
+            "heal_on" => f.heal = true,
+            "heal" => f.heal_log.extend(heal::parse(v)),
             "wpx" => f.wpx = true,
             "ufw" => f.ufw = true,
             "uptime_s" => f.uptime_s = v.trim().parse().unwrap_or(0),
@@ -994,6 +1000,8 @@ elif [ -f /etc/systemd/system/wpx-singbox.service ]; then echo systemd; fi
 "#;
 
 const UNINSTALL: &str = r#"
+systemctl disable --now wpx-heal.timer >/dev/null 2>&1 || true
+rm -f /etc/systemd/system/wpx-heal.service /etc/systemd/system/wpx-heal.timer
 docker rm -f wpx-singbox wpx-awg wpx-xray wpx-mtg >/dev/null 2>&1 || true
 if [ -f /etc/systemd/system/wpx-singbox.service ]; then
   systemctl disable --now wpx-singbox >/dev/null 2>&1 || true
@@ -1091,7 +1099,7 @@ async fn open(store: &Store, s: &Server, log: &Log) -> Result<Conn, String> {
 }
 
 async fn inspect(c: &Conn) -> Result<Facts, String> {
-    let o = c.sh(&[], INSPECT, b"", 60).await?;
+    let o = c.sh(&[], &format!("{INSPECT}{}", heal::READ), b"", 60).await?;
     Ok(parse_facts(&o.out))
 }
 
@@ -1896,6 +1904,7 @@ async fn install(id: &str, want: Want, log: &Log) -> Result<OpResult, String> {
         if s.fw.is_some() {
             fw::apply(&st, &c, &s, log).await?;
         }
+        heal::install(&c, log).await;
         if want.harden {
             let (bbr, upd, f2b) = (f.bbr_avail && f.cc != "bbr", f.apt && !f.autoupd, f.apt && !f.f2b);
             if bbr || upd || f2b {
@@ -2084,6 +2093,7 @@ async fn cascade(entry_id: &str, exit_id: &str, via: Option<&str>, log: &Log) ->
         if e.fw.is_some() {
             fw::apply(&st, &c, &e, log).await?;
         }
+        heal::install(&c, log).await;
         // Сведения для «Обслуживания» — уже с трубой (sing-box, порты).
         if let Ok(f) = inspect(&c).await {
             e.facts = Some(f);
