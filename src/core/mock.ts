@@ -57,8 +57,10 @@ export function mockApi(): Api {
         { id: "g1", name: "iPhone", created: Date.now() - 86_400_000 * 3, expires: null, vless: false, hy2: false, awg_ip: 3, via: null, off: false },
         { id: "g2", name: "Маша", created: Date.now() - 86_400_000 * 10, expires: Date.now() + 86_400_000 * 20, vless: true, hy2: true, awg_ip: 4, via: null, off: false },
         { id: "g3", name: "Коллега", created: Date.now() - 86_400_000 * 40, expires: Date.now() - 86_400_000 * 2, vless: true, hy2: false, awg_ip: 0, via: null, off: true },
-      ] },
-    { ...srv("s2", "Helsinki", "198.51.100.20", "FI", "Helsinki"), via: "s1", via_name: "Singapore", runtime: "docker", vless: { port: 443, dest: "www.apple.com", public_key: "k", short_id: "s" } },
+      ],
+      // Каскад: Singapore — вход, пересылает на Helsinki (карточка маршрута, «Поделиться» через вход).
+      pipes: [{ to: "s2", to_name: "Helsinki", to_host: "198.51.100.20", listen: 8443, to_port: 443, profile: null }] },
+    { ...srv("s2", "Helsinki", "198.51.100.20", "FI", "Helsinki"), via: "s1", via_name: "Singapore", runtime: "docker", vless: { port: 443, dest: "www.apple.com", public_key: "k", short_id: "s" }, entries: ["Singapore"] },
     // ?free — чистый сервер для окна переезда.
     ...(q.has("free") ? [srv("s3", "Франкфурт", "198.51.100.20", "DE", "Frankfurt")] : []),
   ];

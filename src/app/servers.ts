@@ -430,8 +430,9 @@ function accessHtml(s: ServerView, stats: GuestStat[] | null) {
       ${chk("gAwg", !!s.awg, "AmneziaWG", "проще всего для телефона: приложение AmneziaWG, «+» → QR-код")}
       ${chk("gVless", !!s.vless, "VLESS + Reality", "v2RayTun, Happ, Streisand, Hiddify, Shadowrocket")}
       ${chk("gHy2", !!s.hy2, "Hysteria2", "быстрый на плохих каналах (UDP)")}
-      ${entries.length ? `<label class="field"><span>Путь</span><select id="gVia"><option value="">напрямую на ${esc(s.host)}</option>
-        ${entries.map((e) => `<option value="${e.id}">через «${esc(e.name)}» (${esc(e.host)}) — если ${esc(s.name)} у человека не открывается</option>`).join("")}</select></label>` : ""}
+      ${entries.length ? `<div class="field"><span>Как человек будет подключаться</span>
+        <label class="chk"><input type="radio" name="gVia" value="" checked><span><b>Напрямую к ${esc(s.name)}</b> — ${esc(s.host)}</span></label>
+        ${entries.map((e) => `<label class="chk"><input type="radio" name="gVia" value="${e.id}"><span><b>Через каскад: ${esc(e.name)} → ${esc(s.name)}</b> — если ${esc(s.name)} у человека не открывается или его режут; сайты всё равно увидят IP ${esc(s.name)}</span></label>`).join("")}</div>` : ""}
       <div class="result bad" id="gErr" hidden></div>
       <button class="btn primary" data-g="new">Создать доступ</button>
     </div>`;
@@ -455,7 +456,7 @@ function pickAccess(s: ServerView): Promise<GAct | null> {
           name: $<HTMLInputElement>("gName").value.trim(),
           vless: v("gVless"), hy2: v("gHy2"), awg: v("gAwg"),
           expires: termAt(Number($<HTMLSelectElement>("gTerm").value)),
-          via: document.querySelector<HTMLSelectElement>("#gVia")?.value || null,
+          via: document.querySelector<HTMLInputElement>('input[name="gVia"]:checked')?.value || null,
         };
         const why = !input.vless && !input.hy2 && !input.awg ? "Выберите хотя бы один протокол"
           : s.guests.some((g) => g.name === input.name) ? `Доступ «${input.name}» уже есть — дайте другое имя` : "";

@@ -1525,7 +1525,12 @@
   "Ключи AmneziaWG этого ПК": "This PC's AmneziaWG keys",
   "Вернуть ключи AmneziaWG этого ПК на сервер (VPN перезапустится, ключи прежние)": "Put this PC's AmneziaWG keys back on the server (VPN restarts, same keys)",
   "на месте, но рукопожатий не было — AmneziaWG с этого ПК не доходит до сервера (провайдер режет?)": "in place, but no handshakes — AmneziaWG from this PC doesn't reach the server (blocked by the ISP?)",
-  "AmneziaWG: контейнер запущен, но интерфейс не поднят": "AmneziaWG: the container runs, but the interface isn't up"
+  "AmneziaWG: контейнер запущен, но интерфейс не поднят": "AmneziaWG: the container runs, but the interface isn't up",
+  "через что пускать…": "route through…",
+  "снять выбор": "clear selection",
+  "отметьте правила, чтобы сменить им путь разом": "tick rules to change their route at once",
+  "Отметить правило": "Select rule",
+  "Как человек будет подключаться": "How the person will connect"
  },
  "patterns": [
   [
@@ -3779,6 +3784,22 @@
   [
    "AmneziaWG: пропало правило Docker для порта {}/udp — снаружи до него не доходит",
    "AmneziaWG: Docker's rule for port {}/udp is gone — nothing reaches it from outside"
+  ],
+  [
+   "выбрано {} →",
+   "{} selected →"
+  ],
+  [
+   "Напрямую к {}",
+   "Directly to {}"
+  ],
+  [
+   "Через каскад: {} → {}",
+   "Via cascade: {} → {}"
+  ],
+  [
+   "— если {} у человека не открывается или его режут; сайты всё равно увидят IP {}",
+   "— if {} doesn't open for the person or is throttled; sites still see the IP of {}"
   ]
  ]
 }

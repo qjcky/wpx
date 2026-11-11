@@ -17,6 +17,9 @@ let sets: UserSet[] = [];
 let hidden: string[] = [];
 let mode: NetSettings["mode"] = "strict";
 let dirty = false;
+/** Отмеченные правила (вид:значение) — сменить им путь разом. */
+const chosen = new Set<string>();
+const keyOf = (r: RouteRule) => `${r.kind}:${r.value.toLowerCase()}`;
 let conns: Conn[] = [];
 let picked: Cand | null = null;
 let showAllApps = false;
@@ -47,12 +50,29 @@ function what(r: RouteRule) {
   return r.kind === "app" ? r.value.replace(/\.exe$/i, "") : r.value;
 }
 
+const targetName = (x: ReturnType<typeof targets>[number]) =>
+  x.cls === "main" ? `Рабочий «${x.sub}»` : x.cls === "exit" ? `Постоянный IP ${x.sub}` : x.cls === "prof" ? `${x.label} (${x.sub})` : x.label;
+
 /** Выбор цели в строке правила — <select> в цветной метке. */
 function targetSelect(i: number, cur: string) {
   const ts = targets(profiles, info);
   const t = targetOf(ts, cur);
   return `<label class="rr-to ${t?.cls ?? "prof"}"><select data-i="${i}">${ts.map((x) =>
-    `<option value="${esc(x.v)}" ${x.v === cur ? "selected" : ""}>${esc(x.cls === "main" ? `Рабочий «${x.sub}»` : x.cls === "exit" ? `Постоянный IP ${x.sub}` : x.cls === "prof" ? `${x.label} (${x.sub})` : x.label)}</option>`).join("")}</select></label>`;
+    `<option value="${esc(x.v)}" ${x.v === cur ? "selected" : ""}>${esc(targetName(x))}</option>`).join("")}</select></label>`;
+}
+
+/** Над списком: «все» и путь для отмеченных разом. */
+function renderBulk() {
+  for (const k of [...chosen]) if (!rules.some((r) => keyOf(r) === k)) chosen.delete(k);
+  const box = $("ruBulk");
+  box.hidden = rules.length < 2;
+  if (box.hidden) return;
+  const n = chosen.size;
+  const all = n === rules.length;
+  box.innerHTML = `<label class="ru-all"><input type="checkbox" id="ruAll" ${all ? "checked" : ""}> все</label>` + (n
+    ? `<span>выбрано ${n} →</span><label class="rr-to prof"><select id="ruBulkTo"><option value="" selected disabled>через что пускать…</option>${targets(profiles, info).map((x) =>
+        `<option value="${esc(x.v)}">${esc(targetName(x))}</option>`).join("")}</select></label><button type="button" class="link" id="ruNone">снять выбор</button>`
+    : `<span class="hint">отметьте правила, чтобы сменить им путь разом</span>`);
 }
 
 function render() {
@@ -66,7 +86,8 @@ function render() {
     : "Всё, что не попало в правила, идёт напрямую. Если на роутере kill switch, он прямой трафик не выпустит — тогда выберите «через рабочий профиль».";
   $("ruCount").textContent = rules.length ? `${rules.length}` : "";
   $("ruList").innerHTML = rules.length
-    ? rules.map((r, i) => `<li class="rr${flash && `${r.kind}:${r.value}` === flash ? " new" : ""}">
+    ? rules.map((r, i) => `<li class="rr${flash && `${r.kind}:${r.value}` === flash ? " new" : ""}${chosen.has(keyOf(r)) ? " chosen" : ""}">
+        <input type="checkbox" class="rr-pick" data-pick="${i}" ${chosen.has(keyOf(r)) ? "checked" : ""} aria-label="Отметить правило">
         <span class="rr-ico ${r.kind}">${KIND_ICON[r.kind] ?? ICON.layers}</span>
         <span class="rr-what"><b title="${esc(r.value)}">${esc(what(r))}</b><small>${KIND_LABEL[r.kind] ?? r.kind}</small>${follows(r, i)}${insideBtn(r.kind, r.value)}</span>
         <span class="rr-arrow">→</span>
@@ -76,6 +97,7 @@ function render() {
           <button type="button" data-ru="down" data-i="${i}" ${i === rules.length - 1 ? "disabled" : ""} title="Ниже" aria-label="Ниже">↓</button>
           <button type="button" class="del" data-ru="del" data-i="${i}" title="Убрать правило" aria-label="Убрать правило">✕</button></span></li>`).join("")
     : `<li class="empty">Правил пока нет — всё идёт по «Всё остальное». Выберите приложение или сайт выше.</li>`;
+  renderBulk();
   $("ruSave").toggleAttribute("disabled", !dirty);
   $("ruApply").toggleAttribute("disabled", !dirty);
   $("ruDirty").hidden = !dirty;
@@ -366,6 +388,29 @@ export function initRules(a: Api) {
   $("ruList").addEventListener("change", (e) => {
     const c = (e.target as HTMLElement).closest<HTMLInputElement>("input[data-follow]");
     if (c) { rules[Number(c.dataset.follow)].follow = c.checked; change(); }
+    const p = (e.target as HTMLElement).closest<HTMLInputElement>("input[data-pick]");
+    if (p) {
+      const k = keyOf(rules[Number(p.dataset.pick)]);
+      if (p.checked) chosen.add(k); else chosen.delete(k);
+      render();
+    }
+  });
+  $("ruBulk").addEventListener("change", (e) => {
+    const el = e.target as HTMLElement;
+    if (el.id === "ruAll") {
+      chosen.clear();
+      if ((el as HTMLInputElement).checked) rules.forEach((r) => chosen.add(keyOf(r)));
+      render();
+    }
+    if (el.id === "ruBulkTo") {
+      const to = (el as HTMLSelectElement).value;
+      rules.forEach((r) => { if (chosen.has(keyOf(r))) r.target = to; });
+      chosen.clear();
+      change();
+    }
+  });
+  $("ruBulk").addEventListener("click", (e) => {
+    if ((e.target as HTMLElement).id === "ruNone") { chosen.clear(); render(); }
   });
   $("ruList").addEventListener("click", (e) => {
     // Найденное убирается сразу — и из движка (без «Применить»).
