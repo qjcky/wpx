@@ -1,6 +1,6 @@
 [package]
 name = "wpx"
-version = "0.1.1"
+version = "0.1.2"
 description = "Tunnel manager for your PC and your own VPN servers"
 repository = "https://github.com/qjcky/wpx"
 license = "GPL-3.0-or-later"

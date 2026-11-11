@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.2
+
+- Rules: tick several rules and change their route at once ("N selected → route through…").
+- "…and everything it launches" and "…and what it loads" learn only addresses that don't open directly. Russian zones
+  (.ru, .su, .рф), Windows and certificate service domains and sites with a "direct" rule are never added; a removed
+  item doesn't come back; such sites learned by earlier versions are cleaned up on start.
+- Share: connecting through a cascade entry is an explicit choice ("How the person will connect").
+- Where it breaks: checks that AmneziaWG on the server really accepts traffic (interface up, Docker's rule for its
+  port in place) and that this PC's AmneziaWG keys are on the server; the fix is restarting VPN with the same keys.
+
 ## 0.1.1
 
 - Your servers: if a path through a cascade entry has no AmneziaWG key of its own yet (cascades made before 0.1.0),
