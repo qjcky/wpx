@@ -375,9 +375,9 @@ mod tests {
         assert_eq!(s.hs, vec![("AAA=".to_string(), 1793990000), ("BBB=".to_string(), 0)]);
         assert_eq!((s.tcp_no.clone(), s.pc_tcp, s.avail), (vec![8443], Some(2), 900));
         // Интерфейс AWG и правило Docker для его порта.
-        let s = parse_state("awg=true\nawg_port=41064\nawg_nat=0\n");
-        assert_eq!((s.awg_port.as_str(), s.awg_nat), ("41064", Some(0)));
-        assert_eq!(parse_state("awg=true\nawg_port=\n").awg_nat, None);
         assert_eq!(s.errs.len(), 1);
+        let a = parse_state("awg=true\nawg_port=41064\nawg_nat=0\n");
+        assert_eq!((a.awg_port.as_str(), a.awg_nat), ("41064", Some(0)));
+        assert_eq!(parse_state("awg=true\nawg_port=\n").awg_nat, None);
     }
 }
