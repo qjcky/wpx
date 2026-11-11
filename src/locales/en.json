@@ -1521,7 +1521,10 @@
   "Программы получают настоящие адреса сайтов, а адрес сайта, который идёт через VPN, узнаётся через туннель. Выключено — wpx отдаёт временные адреса (198.18.x.x): ускорители игр (ExitLag и т.п.) и некоторые античиты с ними не работают": "Programs get real site addresses, and the address of a site that goes through the VPN is looked up through the tunnel. Off — wpx hands out temporary addresses (198.18.x.x): game boosters (ExitLag etc.) and some anti-cheats don't work with them",
   "закрыто": "blocked",
   "через VPN и прокси": "via VPN and proxy",
-  "AmneziaWG через вход: свой ключ пути на выходе": "AmneziaWG via an entry: its own path key on the exit"
+  "AmneziaWG через вход: свой ключ пути на выходе": "AmneziaWG via an entry: its own path key on the exit",
+  "Ключи AmneziaWG этого ПК": "This PC's AmneziaWG keys",
+  "Вернуть ключи AmneziaWG этого ПК на сервер (VPN перезапустится, ключи прежние)": "Put this PC's AmneziaWG keys back on the server (VPN restarts, same keys)",
+  "на месте, но рукопожатий не было — AmneziaWG с этого ПК не доходит до сервера (провайдер режет?)": "in place, but no handshakes — AmneziaWG from this PC doesn't reach the server (blocked by the ISP?)"
  },
  "patterns": [
   [
@@ -3763,6 +3766,14 @@
   [
    "AmneziaWG через «{}»: ключ пути на «{}» не добавлен ({}) — путь пойдёт без AmneziaWG",
    "AmneziaWG via “{}”: the path key wasn’t added on “{}” ({}) — the path goes without AmneziaWG"
+  ],
+  [
+   "на сервере их нет ({}) — список ключей переписали, например wpx с другого ПК",
+   "not on the server ({}) — the key list was rewritten, e.g. by wpx on another PC"
+  ],
+  [
+   "на месте, последнее рукопожатие {} мин назад — сейчас AmneziaWG не доходит (провайдер режет?)",
+   "in place, last handshake {} min ago — AmneziaWG doesn't get through now (blocked by the ISP?)"
   ]
  ]
 }

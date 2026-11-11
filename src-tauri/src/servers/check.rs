@@ -253,6 +253,37 @@ pub(super) async fn run(id: &str) -> Result<ServerCheck, String> {
         if !seen.is_empty() {
             steps.push(step("Сервер видит ваш ПК", "ok", seen.join(" · ")));
         }
+        // Ключи AmneziaWG этого ПК (напрямую и через входы): нет на сервере —
+        // их убрали (wpx с другого ПК переписал список); есть, но рукопожатий
+        // давно нет — сервер их просто не получает (режет сеть).
+        if s.awg.is_some() && x.awg == "true" {
+            let mut mine: Vec<(String, String)> = vec![];
+            if let Ok(pk) = wg_public(&sec.awg_client_private) {
+                mine.push(("напрямую".into(), pk));
+            }
+            for p in &s.awg_paths {
+                if let Some(pk) = sec.awg_paths.iter().find(|k| k.via == p.via).and_then(|k| wg_public(&k.private).ok()) {
+                    mine.push((format!("через {}", name(&p.via)), pk));
+                }
+            }
+            let now = chrono::Utc::now().timestamp();
+            let missing: Vec<&str> = mine.iter().filter(|(_, pk)| !x.hs.iter().any(|(k, _)| k == pk)).map(|(n, _)| n.as_str()).collect();
+            let last = mine.iter().filter_map(|(_, pk)| x.hs.iter().find(|(k, _)| k == pk).map(|(_, t)| *t)).max().unwrap_or(0);
+            if !missing.is_empty() {
+                steps.push(step(
+                    "Ключи AmneziaWG этого ПК",
+                    "bad",
+                    format!("на сервере их нет ({}) — список ключей переписали, например wpx с другого ПК", missing.join(", ")),
+                ));
+                advice.push(Advice { kind: "redeploy", text: "Вернуть ключи AmneziaWG этого ПК на сервер (VPN перезапустится, ключи прежние)".into(), entry: None });
+            } else if !mine.is_empty() && (last == 0 || now - last > 600) {
+                steps.push(step(
+                    "Ключи AmneziaWG этого ПК",
+                    "warn",
+                    if last == 0 { "на месте, но рукопожатий не было — AmneziaWG с этого ПК не доходит до сервера (провайдер режет?)".to_string() } else { format!("на месте, последнее рукопожатие {} мин назад — сейчас AmneziaWG не доходит (провайдер режет?)", (now - last) / 60) },
+                ));
+            }
+        }
     } else {
         steps.push(step("Службы VPN на сервере", "skip", "не проверить — нет SSH"));
     }
