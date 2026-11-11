@@ -1550,7 +1550,9 @@
   "не установлен — «Изменить VPN» поставит": "not installed — “Edit VPN” installs it",
   "поднимать ничего не пришлось": "nothing needed restarting",
   "Сторож на сервере: раз в минуту проверяет службы VPN и поднимает упавшие": "Server watchdog: checks the VPN services every minute and restarts fallen ones",
-  "Сторож не поставлен: на сервере нет systemd": "Watchdog not installed: the server has no systemd"
+  "Сторож не поставлен: на сервере нет systemd": "Watchdog not installed: the server has no systemd",
+  "поставит повторный «Каскад»": "running “Cascade” again installs it",
+  "не установлен — поставит повторный «Каскад»": "not installed — running “Cascade” again installs it"
  },
  "patterns": [
   [

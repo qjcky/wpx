@@ -84,12 +84,15 @@ function health(f: NonNullable<ServerView["facts"]>, s: ServerView) {
   if (f.reboot) bits.push('<span class="warn">ждёт перезагрузки</span>');
   const fell = f.heal_log.filter((e) => e.at > Date.now() - 86_400_000);
   if (fell.length) bits.push(`<span class="warn" title="${esc(fell.map((e) => `в ${when(e.at)} — ${e.svc}: ${e.what}`).join(" · "))}">сторож поднимал: ${esc([...new Set(fell.map((e) => e.svc))].join(", "))}</span>`);
-  else if (!f.heal && (s.vless || s.hy2 || s.awg || s.xhttp || s.mtproxy || s.pipes.length)) bits.push('<span class="warn" title="«Изменить VPN» поставит">без сторожа</span>');
+  else if (!f.heal && (s.vless || s.hy2 || s.awg || s.xhttp || s.mtproxy || s.pipes.length)) bits.push(`<span class="warn" title="${healHow(s)}">без сторожа</span>`);
   if (s.updates.length) bits.push(`<span class="warn">обновить: ${esc(s.updates.join(", "))}</span>`);
   const prot = [f.cc === "bbr" ? "BBR" : "", f.autoupd ? "автообновления" : "", f.f2b ? "fail2ban" : "", f.fw ? "файрвол" : ""].filter(Boolean);
   bits.push(prot.length ? `защита: ${prot.join(", ")}` : '<span class="warn">не усилен</span>');
   return bits.join(" · ");
 }
+
+/** Чем поставить сторожа: на сервере с VPN — «Изменить VPN», у входа каскада без своего VPN — повторный «Каскад». */
+const healHow = (s: ServerView) => (s.vless || s.hy2 || s.awg || s.xhttp || s.mtproxy ? "«Изменить VPN» поставит" : "поставит повторный «Каскад»");
 
 /** Журнал сторожа: последние пять записей, свежие сверху. */
 const healLog = (log: HealEvent[]) => log.length
@@ -121,7 +124,7 @@ async function careDialog(s: ServerView) {
       ${row("TCP", `${esc(f.cc)}${f.cc !== "bbr" && f.bbr_avail ? " (можно BBR)" : ""}`)}
       ${f.apt ? row("Обновления", f.updates ? `${f.updates}, из них безопасности ${f.sec_updates}` : "всё поставлено") : ""}
       ${f.reboot ? row("Перезагрузка", "система ждёт перезагрузки после обновлений") : ""}
-      ${row("Сторож", f.heal ? healLog(f.heal_log) : "не установлен — «Изменить VPN» поставит")}
+      ${row("Сторож", f.heal ? healLog(f.heal_log) : `не установлен — ${healHow(s)}`)}
       ${row("sing-box", f.sb_ver ? `${esc(f.sb_ver)}${f.sb_ver !== st.version ? ` → в wpx ${esc(st.version)}: «Изменить VPN» обновит` : " — актуальный"}` : "не установлен")}
     </table>
     ${chk("hBbr", f.bbr_avail, f.cc === "bbr", "BBR", "быстрее TCP на дальних и загруженных каналах (VLESS, трубы)")}
