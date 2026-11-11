@@ -1,6 +1,6 @@
-//! Сторож на сервере: systemd-таймер раз в минуту проверяет службы wpx, поднимает
+//! Самовосстановление на сервере: systemd-таймер раз в минуту проверяет службы wpx, поднимает
 //! упавшие и ведёт журнал — wpx показывает его на карточке сервера и в «Где рвётся?».
-//! Что проверять, сторож берёт из конфигов на сервере, так что смена портов и
+//! Что проверять, скрипт берёт из конфигов на сервере, так что смена портов и
 //! протоколов его не касается. Чужие контейнеры (AmneziaVPN и др.) не трогает.
 
 use super::*;
@@ -126,13 +126,13 @@ systemctl daemon-reload
 systemctl enable --now wpx-heal.timer >/dev/null 2>&1 && echo HEAL-ON
 "#;
 
-/// Включён ли сторож и последние записи журнала: строки `heal_on=1` и `heal=…`.
+/// Включено ли самовосстановление и последние записи журнала: строки `heal_on=1` и `heal=…`.
 pub(super) const READ: &str = r#"
 systemctl is-enabled --quiet wpx-heal.timer 2>/dev/null && echo heal_on=1
 tail -n 20 /opt/wpx/heal.log 2>/dev/null | sed 's/^/heal=/'
 "#;
 
-/// Запись журнала сторожа.
+/// Запись журнала самовосстановления.
 #[derive(Clone, Debug, Default, Serialize, Deserialize, PartialEq)]
 pub struct HealEvent {
     /// Когда, мс.
@@ -143,13 +143,13 @@ pub struct HealEvent {
     pub what: String,
 }
 
-/// Поставить или обновить сторожа. Не вышло — VPN это не мешает: только предупреждение.
+/// Включить или обновить самовосстановление. Не вышло — VPN это не мешает: только предупреждение.
 pub(super) async fn install(c: &Conn, log: &Log) {
     match c.sh(&[], INSTALL, SCRIPT.as_bytes(), 60).await {
-        Ok(o) if o.out.contains("HEAL-ON") => log("ok", "Сторож на сервере: раз в минуту проверяет службы VPN и поднимает упавшие".into()),
-        Ok(o) if o.out.contains("HEAL-NO-SYSTEMD") => log("warn", "Сторож не поставлен: на сервере нет systemd".into()),
-        Ok(o) => log("warn", format!("Сторож не поставлен: {}", o.reason())),
-        Err(e) => log("warn", format!("Сторож не поставлен: {e}")),
+        Ok(o) if o.out.contains("HEAL-ON") => log("ok", "Самовосстановление на сервере: раз в минуту проверяет службы VPN и поднимает упавшие".into()),
+        Ok(o) if o.out.contains("HEAL-NO-SYSTEMD") => log("warn", "Самовосстановление не включено: на сервере нет systemd".into()),
+        Ok(o) => log("warn", format!("Самовосстановление не включено: {}", o.reason())),
+        Err(e) => log("warn", format!("Самовосстановление не включено: {e}")),
     }
 }
 
@@ -176,7 +176,7 @@ pub(super) fn parse(line: &str) -> Option<HealEvent> {
         ("restarted", "oom") => "не хватило памяти — Docker перезапустил",
         ("restarted", _) => "упал — Docker перезапустил",
         ("fail", _) => "упал, перезапустить не вышло",
-        ("giveup", _) => "падает снова и снова — сторож не трогает его час",
+        ("giveup", _) => "падает снова и снова — перезапуски отложены на час",
         _ => return None,
     };
     Some(HealEvent { at, svc: svc.into(), what: what.into() })

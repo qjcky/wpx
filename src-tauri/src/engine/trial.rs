@@ -19,7 +19,7 @@ use crate::profiles;
 use crate::engine::sandbox;
 use crate::platform::Hidden;
 
-/// Своё имя процесса пробного запуска (монитор и сторож его не спутают).
+/// Своё имя процесса пробного запуска (монитор и самовосстановление его не спутают).
 fn exe() -> String {
     crate::platform::exe("wpx-trial")
 }

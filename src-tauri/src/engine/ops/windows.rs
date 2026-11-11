@@ -552,7 +552,7 @@ fn tx_start(loc: &EngineLoc) -> Tx {
 }
 
 fn tx_stop(loc: &EngineLoc) -> Tx {
-    // Метка «остановлен вручную» — сторож не будет поднимать движок.
+    // Метка «остановлен вручную» — самовосстановление не будет поднимать движок.
     let mark = if loc.kind == EngineKind::Wpx {
         format!("  Set-Content -LiteralPath '{d}\\wpx-stopped' -Value '1' -Encoding ASCII\n", d = WPX_DIR)
     } else {

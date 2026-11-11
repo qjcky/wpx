@@ -843,7 +843,7 @@ fn same_value(a: &serde_json::Value, b: &serde_json::Value) -> bool {
     }
 }
 
-/// Идёт операция с движком (своя или сторожа): конфиг на диске уже новый,
+/// Идёт операция с движком (своя или самовосстановления): конфиг на диске уже новый,
 /// а движок ещё прежний — сверять рано.
 fn engine_busy(shared: &Shared) -> bool {
     let maint = std::fs::metadata(std::path::Path::new(config::WPX_DIR).join("wpx-maint"))
@@ -1368,7 +1368,7 @@ async fn guard_task(shared: Shared) {
 }
 
 /// Хвост журнала движка (раз в 2 с). При смене движка — новый файл.
-/// Заодно — журнал сторожа самовосстановления (heal.log).
+/// Заодно — журнал самовосстановления (heal.log).
 async fn log_task(app: AppHandle, shared: Shared) {
     let mut path = config::engine_log_path();
     let mut tail = LogTail::new(path.clone());

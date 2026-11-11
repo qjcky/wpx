@@ -23,7 +23,7 @@ pub enum Kind {
     Link,
     EngineStart,
     EngineStop,
-    /// Действие сторожа самовосстановления.
+    /// Действие самовосстановления.
     Heal,
     /// Движок перешёл на другую точку или вход (маршрут, резерв).
     PathSwitch,
@@ -142,7 +142,7 @@ pub fn parse_line(line: &str) -> Option<LogEvent> {
     Some(LogEvent { t, kind, dest, count: 1, text })
 }
 
-/// Строка heal.log сторожа: `ISO-время|действие|причина`.
+/// Строка heal.log самовосстановления: `ISO-время|действие|причина`.
 /// Возвращает событие и признак «стоит уведомить» (был перезапуск/запуск).
 pub fn parse_heal(line: &str) -> Option<(LogEvent, bool)> {
     let mut p = line.splitn(3, '|');

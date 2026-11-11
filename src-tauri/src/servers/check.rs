@@ -75,7 +75,7 @@ struct State {
     awg_nat: Option<u32>,
     /// Сколько раз за 2 дня система убила amneziawg-go за нехватку памяти.
     awg_oom: u32,
-    /// Журнал сторожа на сервере.
+    /// Журнал самовосстановления на сервере.
     heal: Vec<heal::HealEvent>,
     hs: Vec<(String, i64)>,
     tcp_no: Vec<u16>,
@@ -248,7 +248,7 @@ pub(super) async fn run(id: &str) -> Result<ServerCheck, String> {
         services_bad = bad;
         steps.push(step("Службы VPN на сервере", if bad { "bad" } else { "ok" }, bits.join(" · ")));
         if let Some(t) = heal::day(&x.heal) {
-            steps.push(step("Сторож на сервере", "warn", t));
+            steps.push(step("Самовосстановление на сервере", "warn", t));
         }
         if bad {
             advice.push(Advice { kind: "redeploy", text: "Перезапустить VPN на сервере (конфиг и ключи прежние)".into(), entry: None });

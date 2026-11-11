@@ -93,7 +93,7 @@ pub fn wpx_boot_enabled() -> Option<bool> {
     Some(t.trim() == "1")
 }
 
-/// Самовосстановление (сторож wpx-watchdog) включено.
+/// Самовосстановление (задача wpx-watchdog) включено.
 pub fn wpx_heal_enabled() -> bool {
     std::fs::read_to_string(PathBuf::from(WPX_DIR).join("wpx-heal"))
         .map(|t| t.trim() == "1")

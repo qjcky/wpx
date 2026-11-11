@@ -266,7 +266,7 @@ pub struct Facts {
     /// Образы контейнеров wpx (сравнить с закреплёнными в wpx).
     pub sb_img: String,
     pub awg_img: String,
-    /// Стоит сторож (wpx-heal.timer); его последние записи.
+    /// Включено самовосстановление (wpx-heal.timer); его последние записи.
     pub heal: bool,
     pub heal_log: Vec<heal::HealEvent>,
 }

@@ -1211,8 +1211,6 @@
   "Подтверждение прав администратора": "Administrator confirmation",
   "Туннель будет подниматься при включении ПК, ещё до входа в систему.": "The tunnel will come up when the PC boots, even before sign-in.",
   "Изменение автозапуска wpx-engine": "Changing wpx-engine autostart",
-  "Включение сторожа wpx-watchdog": "Turning on the wpx-watchdog",
-  "Выключение сторожа wpx-watchdog": "Turning off the wpx-watchdog",
   "как в системе": "like the system",
   "Применяю правила — подтвердите права администратора": "Applying rules — confirm administrator rights",
   "Выключаю игровой режим — подтвердите права администратора": "Turning game mode off — confirm administrator rights",
@@ -1541,18 +1539,20 @@
   "не хватило памяти — Docker перезапустил": "ran out of memory — Docker restarted it",
   "упал — Docker перезапустил": "crashed — Docker restarted it",
   "упал, перезапустить не вышло": "down, restart failed",
-  "падает снова и снова — сторож не трогает его час": "keeps failing — the watchdog leaves it for an hour",
   "смена портов Hysteria2": "Hysteria2 port hopping",
-  "Сторож на сервере": "Server watchdog",
-  "Сторож": "Watchdog",
-  "без сторожа": "no watchdog",
-  "«Изменить VPN» поставит": "“Edit VPN” installs it",
-  "не установлен — «Изменить VPN» поставит": "not installed — “Edit VPN” installs it",
-  "поднимать ничего не пришлось": "nothing needed restarting",
-  "Сторож на сервере: раз в минуту проверяет службы VPN и поднимает упавшие": "Server watchdog: checks the VPN services every minute and restarts fallen ones",
-  "Сторож не поставлен: на сервере нет systemd": "Watchdog not installed: the server has no systemd",
-  "поставит повторный «Каскад»": "running “Cascade” again installs it",
-  "не установлен — поставит повторный «Каскад»": "not installed — running “Cascade” again installs it"
+  "Включение задачи wpx-watchdog": "Turning on the wpx-watchdog task",
+  "Выключение задачи wpx-watchdog": "Turning off the wpx-watchdog task",
+  "падает снова и снова — перезапуски отложены на час": "keeps failing — restarts paused for an hour",
+  "Самовосстановление на сервере": "Self-healing on the server",
+  "без самовосстановления": "no self-healing",
+  "Самовосстановление на сервере: раз в минуту проверяет службы VPN и поднимает упавшие": "Self-healing on the server: checks the VPN services every minute and restarts fallen ones",
+  "Самовосстановление не включено: на сервере нет systemd": "Self-healing not turned on: the server has no systemd",
+  "«Изменить VPN» включит": "“Edit VPN” turns it on",
+  "включит повторный «Каскад»": "running “Cascade” again turns it on",
+  "не включено — «Изменить VPN» включит": "off — “Edit VPN” turns it on",
+  "не включено — включит повторный «Каскад»": "off — running “Cascade” again turns it on",
+  "чинить ничего не пришлось": "nothing needed fixing",
+  "включено": "on"
  },
  "patterns": [
   [
@@ -3824,10 +3824,6 @@
    "— if {} doesn't open for the person or is throttled; sites still see the IP of {}"
   ],
   [
-   "Сторож не поставлен: {}",
-   "Watchdog not installed: {}"
-  ],
-  [
    "за сутки: {}",
    "in the last day: {}"
   ],
@@ -3836,8 +3832,12 @@
    "at {} — {}: {}"
   ],
   [
-   "сторож поднимал: {}",
-   "watchdog restarted: {}"
+   "Самовосстановление не включено: {}",
+   "Self-healing not turned on: {}"
+  ],
+  [
+   "самовосстановление: {}",
+   "self-healing: {}"
   ]
  ]
 }
