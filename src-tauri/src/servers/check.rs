@@ -43,6 +43,7 @@ if docker inspect wpx-awg >/dev/null 2>&1; then
   # Интерфейс поднят на своём порту и правило Docker для порта есть (его стирает
   # перезагрузка правил файрвола — контейнер «работает», а пакеты не доходят).
   echo "awg_port=$(docker exec wpx-awg awg show wg0 listen-port 2>/dev/null)"
+  echo "awg_oom=$(journalctl -k --since -2d 2>/dev/null | grep -c 'Killed process.*amneziawg-go')"
   if [ -n "${AWGP:-}" ] && command -v iptables >/dev/null 2>&1; then
     echo "awg_nat=$(iptables -t nat -S 2>/dev/null | grep -c -- "--dport $AWGP ")"
   fi
@@ -72,6 +73,8 @@ struct State {
     awg_port: String,
     /// Сколько правил NAT Docker ведут на порт AWG (None — не проверить).
     awg_nat: Option<u32>,
+    /// Сколько раз за 2 дня система убила amneziawg-go за нехватку памяти.
+    awg_oom: u32,
     hs: Vec<(String, i64)>,
     tcp_no: Vec<u16>,
     udp_no: Vec<u16>,
@@ -94,6 +97,7 @@ fn parse_state(out: &str) -> State {
             "awg" => s.awg = v.trim().into(),
             "awg_port" => s.awg_port = v.trim().into(),
             "awg_nat" => s.awg_nat = v.trim().parse().ok(),
+            "awg_oom" => s.awg_oom = v.trim().parse().unwrap_or(0),
             "hs" => {
                 let mut f = v.split_whitespace();
                 if let (Some(k), Some(t)) = (f.next(), f.next()) {
@@ -219,7 +223,7 @@ pub(super) async fn run(id: &str) -> Result<ServerCheck, String> {
                 bits.push("AmneziaWG не запущен".into());
             } else if x.awg_port != a.port.to_string() {
                 bad = true;
-                bits.push("AmneziaWG: контейнер запущен, но интерфейс не поднят".into());
+                bits.push(if x.awg_oom > 0 { "AmneziaWG упал: не хватило памяти контейнеру" } else { "AmneziaWG: контейнер запущен, но интерфейс не поднят" }.into());
             } else if x.awg_nat == Some(0) {
                 // Правило стёрла перезагрузка правил файрвола на сервере — порт
                 // «слушает», а снаружи до AmneziaWG ничего не доходит.
@@ -277,7 +281,7 @@ pub(super) async fn run(id: &str) -> Result<ServerCheck, String> {
         // Ключи AmneziaWG этого ПК (напрямую и через входы): нет на сервере —
         // их убрали (wpx с другого ПК переписал список); есть, но рукопожатий
         // давно нет — сервер их просто не получает (режет сеть).
-        if s.awg.is_some() && x.awg == "true" {
+        if s.awg.as_ref().is_some_and(|a| x.awg == "true" && x.awg_port == a.port.to_string()) {
             let mut mine: Vec<(String, String)> = vec![];
             if let Ok(pk) = wg_public(&sec.awg_client_private) {
                 mine.push(("напрямую".into(), pk));
@@ -355,6 +359,8 @@ pub(super) async fn run(id: &str) -> Result<ServerCheck, String> {
     if state.is_none() && ok.is_empty() {
         advice.push(Advice { kind: "hoster", text: "Проверьте сервер в панели хостера (включён ли, не закончилась ли аренда)".into(), entry: None });
     }
+    let mut seen = std::collections::HashSet::new();
+    advice.retain(|a| seen.insert((a.kind, a.entry.clone())));
     Ok(ServerCheck { server: s.name.clone(), verdict, summary, steps, advice })
 }
 
@@ -379,5 +385,6 @@ mod tests {
         let a = parse_state("awg=true\nawg_port=41064\nawg_nat=0\n");
         assert_eq!((a.awg_port.as_str(), a.awg_nat), ("41064", Some(0)));
         assert_eq!(parse_state("awg=true\nawg_port=\n").awg_nat, None);
+        assert_eq!(parse_state("awg=true\nawg_port=\nawg_oom=2\n").awg_oom, 2);
     }
 }

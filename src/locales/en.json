@@ -1530,7 +1530,8 @@
   "снять выбор": "clear selection",
   "отметьте правила, чтобы сменить им путь разом": "tick rules to change their route at once",
   "Отметить правило": "Select rule",
-  "Как человек будет подключаться": "How the person will connect"
+  "Как человек будет подключаться": "How the person will connect",
+  "AmneziaWG упал: не хватило памяти контейнеру": "AmneziaWG crashed: the container ran out of memory"
  },
  "patterns": [
   [

@@ -767,14 +767,15 @@ sb_up() {
 }
 "#;
 
-/// Запуск контейнера AmneziaWG (установка и обновление — одинаково).
+/// Запуск контейнера AmneziaWG (установка и обновление — одинаково). Память с запасом:
+/// amneziawg-go под нагрузкой раздувает буферы, при 100 МБ его убивала система.
 const AWG_FUNCS: &str = r#"
 A=/opt/wpx/awg
 awg_run() {
   p=$(sed -n 's/^ListenPort *= *//p' "$A/wg0.conf")
   docker rm -f wpx-awg >/dev/null 2>&1
   docker run -d --name wpx-awg --restart unless-stopped --cap-add NET_ADMIN --device /dev/net/tun \
-    --sysctl net.ipv4.ip_forward=1 --sysctl net.ipv4.conf.all.src_valid_mark=1 --memory 100m \
+    --sysctl net.ipv4.ip_forward=1 --sysctl net.ipv4.conf.all.src_valid_mark=1 --memory 384m -e GOMEMLIMIT=192MiB \
     -p "$p:$p/udp" -v "$A:$A:ro" --entrypoint sh "$1" "$A/start.sh" >/dev/null
 }
 awg_up() {
@@ -905,7 +906,10 @@ cp /opt/wpx/awg/wg0.conf /etc/amnezia/amneziawg/wg0.conf
 chmod 600 /etc/amnezia/amneziawg/wg0.conf
 awg-quick up wg0
 trap 'awg-quick down wg0; exit 0' TERM INT
-while :; do sleep 3600 & wait $!; done
+# amneziawg-go живёт в фоне: пропал интерфейс — выходим, Docker поднимет контейнер заново.
+while awg show wg0 >/dev/null 2>&1; do sleep 10 & wait $!; done
+echo "wg0 пропал — перезапуск контейнера" >&2
+exit 1
 SH
 chmod 700 "$A/start.sh"
 docker pull -q "$AWG_IMG" >/dev/null || { echo "не скачался образ $AWG_IMG" >&2; exit 3; }
