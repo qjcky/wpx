@@ -115,6 +115,10 @@ pub fn follows(r: &RouteRule) -> bool {
 /// Найденное на лету: «app:имя.exe» или «site:домен». Попадает в файл правил
 /// движка построчно — без запятых, путей и управляющих символов.
 pub fn valid_learned(x: &str) -> bool {
+    // «skip:site:…» — убрано вручную, больше не находить.
+    if let Some(inner) = x.strip_prefix("skip:") {
+        return !inner.starts_with("skip:") && valid_learned(inner);
+    }
     match x.split_once(':') {
         Some(("app", v)) => !v.is_empty() && v.len() <= 128 && !v.contains([',', '\\', '/']) && !v.chars().any(char::is_control),
         Some(("site", v)) => valid_domain(v),

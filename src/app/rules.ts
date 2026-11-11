@@ -87,7 +87,7 @@ function follows(r: RouteRule, i: number) {
   const site = r.kind === "site";
   // Только для правил в туннель: «найденное» движок берёт по 127.0.0.1.
   if (!(r.kind === "app" || site) || r.target === "direct" || r.target === "block") return "";
-  const found = (r.learned ?? []).map((x) => `<span class="rr-found ${x.startsWith("site:") ? "site" : "app"}">${esc(learnedLabel(x))}<button type="button" data-forget="${esc(x)}" data-i="${i}" title="Убрать" aria-label="Убрать">✕</button></span>`).join("");
+  const found = (r.learned ?? []).filter((x) => !x.startsWith("skip:")).map((x) => `<span class="rr-found ${x.startsWith("site:") ? "site" : "app"}">${esc(learnedLabel(x))}<button type="button" data-forget="${esc(x)}" data-i="${i}" title="Убрать" aria-label="Убрать">✕</button></span>`).join("");
   const [label, title] = site
     ? ["и что он подгружает", "wpx сам найдёт адреса, с которых сайт грузит картинки и видео и которые напрямую не открываются (как cdninstagram.com у Instagram), — и поведёт их тем же путём, на лету"]
     : ["и всё, что она запускает", "wpx сам найдёт, что программа запускает (как Codex у ChatGPT), и сайты её помощников — и поведёт тем же путём, на лету"];

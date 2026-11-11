@@ -29,6 +29,30 @@ const SHARED: &[&str] = &[
     "svchost.exe", "explorer.exe", "werfault.exe", "crashpad_handler.exe",
 ];
 
+/// Не запоминаем вовсе: российские зоны и служебные адреса Windows и центров
+/// сертификации — у любого приложения они открываются напрямую.
+const NEVER_TLD: &[&str] = &["ru", "su", "xn--p1ai"];
+const NEVER: &[&str] = &[
+    "windowsupdate.com", "msftconnecttest.com", "msftncsi.com", "digicert.com", "sectigo.com", "usertrust.com", "lencr.org",
+    "letsencrypt.org", "globalsign.com", "verisign.com", "comodoca.com", "pki.goog",
+];
+
+/// Стоит ли запоминать адрес `d` у правила `r`: не российская зона, не
+/// служебный адрес, не убран вручную (`skip:`) и на него нет правила «напрямую».
+fn worth(d: &str, r: &RouteRule, n: &NetSettings) -> bool {
+    let item = format!("site:{d}");
+    !NEVER_TLD.contains(&d.rsplit('.').next().unwrap_or(""))
+        && !NEVER.iter().any(|s| under(d, s))
+        && !r.learned.iter().any(|x| *x == item || x.strip_prefix("skip:") == Some(item.as_str()))
+        && !n.rules.iter().any(|x| x.kind == "site" && x.target == "direct" && under(d, &x.value.to_ascii_lowercase()))
+}
+
+/// Висит напрямую: ушло мимо всех правил, отправили, а за 4 с ни байта —
+/// значит, напрямую закрыто. Что открывается напрямую, не запоминаем.
+fn stuck(c: &Conn, now: i64) -> bool {
+    c.route == "direct" && c.rule == "Match" && c.up > 0 && c.down == 0 && now - c.start >= 4000 && c.process != "—"
+}
+
 /// Что нашлось — окну и вырезу.
 #[derive(serde::Serialize, Clone)]
 struct Learned {
@@ -143,9 +167,10 @@ async fn scan(sys: &mut System, n: &NetSettings) -> Vec<(String, Vec<String>)> {
     }
     let windir = std::env::var("SystemRoot").unwrap_or_else(|_| r"C:\Windows".into()).to_lowercase();
     let mut out: Vec<(String, Vec<String>)> = vec![];
+    let rules: Vec<&RouteRule> = n.rules.iter().filter(|r| r.kind == "app" && netcfg::follows(r)).collect();
     // Процесс общего помощника → правило, чьи сайты он открывает.
     let mut shared: HashMap<u32, usize> = HashMap::new();
-    for r in n.rules.iter().filter(|r| r.kind == "app" && netcfg::follows(r)) {
+    for r in rules.iter().copied() {
         let want = base(&r.value).to_lowercase();
         let known: HashSet<String> = r.learned.iter().filter_map(|x| x.strip_prefix("app:")).map(str::to_lowercase).collect();
         let mut stack: Vec<Pid> = sys
@@ -181,7 +206,7 @@ async fn scan(sys: &mut System, n: &NetSettings) -> Vec<(String, Vec<String>)> {
                 continue;
             }
             let it = format!("app:{name}");
-            if !items.contains(&it) {
+            if !items.contains(&it) && !r.learned.contains(&format!("skip:{it}")) {
                 items.push(it);
             }
         }
@@ -191,12 +216,13 @@ async fn scan(sys: &mut System, n: &NetSettings) -> Vec<(String, Vec<String>)> {
         if let Ok((addr, secret)) = crate::app::cmd::controller() {
             if let Ok(list) = crate::engine::controller::connections(&addr, &secret).await {
                 let owners = tcp_owners();
-                for c in list.conns.iter().filter(|c| c.network == "tcp") {
+                let now = chrono::Utc::now().timestamp_millis();
+                // Только то, что напрямую не открывается: остальное и так работает.
+                for c in list.conns.iter().filter(|c| c.network == "tcp" && stuck(c, now)) {
                     let Some(ri) = owners.get(&c.sport).and_then(|pid| shared.get(pid)) else { continue };
                     let Some(d) = domain_of(&c.host) else { continue };
                     let it = format!("site:{d}");
-                    let r = n.rules.iter().filter(|r| r.kind == "app" && r.follow).nth(*ri);
-                    if r.is_some_and(|r| !r.learned.contains(&it)) && !out[*ri].1.contains(&it) {
+                    if worth(&d, rules[*ri], n) && !out[*ri].1.contains(&it) {
                         out[*ri].1.push(it);
                     }
                 }
@@ -227,7 +253,7 @@ impl SiteWatch {
     /// не дальше 30 с от того, как X качал, D ушёл напрямую мимо всех правил
     /// и висит без ответа: отправили, а за 4 с не пришло ни байта. Значит,
     /// напрямую D закрыт, а без него X не догружается. Возвращает (сайт, "site:D").
-    fn scan(&mut self, sites: &[&RouteRule], conns: &[Conn], now: i64) -> Vec<(String, String)> {
+    fn scan(&mut self, sites: &[&RouteRule], conns: &[Conn], now: i64, n: &NetSettings) -> Vec<(String, String)> {
         let mut bytes = HashMap::new();
         for c in conns {
             let b = c.up + c.down;
@@ -242,8 +268,7 @@ impl SiteWatch {
         self.active.retain(|_, t| now - *t < 120_000);
         let mut out: Vec<(String, String)> = vec![];
         for c in conns {
-            let stuck = c.route == "direct" && c.rule == "Match" && c.up > 0 && c.down == 0 && now - c.start >= 4000 && c.process != "—";
-            let Some(d) = domain_of(&c.host).filter(|_| stuck) else { continue };
+            let Some(d) = domain_of(&c.host).filter(|_| stuck(c, now)) else { continue };
             let item = format!("site:{d}");
             let p = c.process.to_ascii_lowercase();
             let near = sites
@@ -251,7 +276,7 @@ impl SiteWatch {
                 .filter_map(|r| {
                     let x = r.value.to_ascii_lowercase();
                     let t = *self.active.get(&(x.clone(), p.clone()))?;
-                    ((t - c.start).abs() <= 30_000 && !under(&d, &x) && !r.learned.contains(&item)).then(|| (t, r.value.clone()))
+                    ((t - c.start).abs() <= 30_000 && !under(&d, &x) && worth(&d, r, n)).then(|| (t, r.value.clone()))
                 })
                 .max_by_key(|(t, _)| *t);
             if let Some((_, site)) = near {
@@ -321,6 +346,7 @@ pub fn spawn(app: AppHandle) {
         tauri::async_runtime::spawn(serve());
     }
     tauri::async_runtime::spawn(async move {
+        tidy().await;
         let mut sys = System::new();
         let mut watch = SiteWatch::default();
         loop {
@@ -338,7 +364,7 @@ pub fn spawn(app: AppHandle) {
                 if let Ok((addr, secret)) = crate::app::cmd::controller() {
                     if let Ok(list) = crate::engine::controller::connections(&addr, &secret).await {
                         let now = chrono::Utc::now().timestamp_millis();
-                        found.extend(watch.scan(&sites, &list.conns, now).into_iter().map(|(v, it)| ("site", v, vec![it])));
+                        found.extend(watch.scan(&sites, &list.conns, now, &n).into_iter().map(|(v, it)| ("site", v, vec![it])));
                     }
                 }
             }
@@ -351,7 +377,7 @@ pub fn spawn(app: AppHandle) {
             for (kind, value, items) in found {
                 let Some(r) = n.rules.iter_mut().find(|r| r.kind == kind && r.follow && r.value.eq_ignore_ascii_case(&value)) else { continue };
                 for it in items {
-                    if !r.learned.contains(&it) {
+                    if !r.learned.contains(&it) && !r.learned.contains(&format!("skip:{it}")) {
                         r.learned.push(it.clone());
                         news.push(Learned { kind, app: r.value.clone(), item: it });
                     }
@@ -368,12 +394,39 @@ pub fn spawn(app: AppHandle) {
     });
 }
 
+/// Найденное прежними версиями без фильтра: российские зоны и служебные
+/// адреса открываются напрямую — убрать (насовсем, как вручную).
+async fn tidy() {
+    let mut n = netcfg::load();
+    let mut changed = false;
+    for r in n.rules.iter_mut().filter(|r| r.follow) {
+        let bad: Vec<String> = r
+            .learned
+            .iter()
+            .filter(|x| x.strip_prefix("site:").is_some_and(|d| NEVER_TLD.contains(&d.rsplit('.').next().unwrap_or("")) || NEVER.iter().any(|s| under(d, s))))
+            .cloned()
+            .collect();
+        for x in bad {
+            r.learned.retain(|y| y != &x);
+            r.learned.push(format!("skip:{x}"));
+            changed = true;
+        }
+    }
+    if changed && netcfg::save(&n).is_ok() {
+        push(&n).await;
+    }
+}
+
 /// Убрать найденное из правила (и сразу из движка).
 #[tauri::command]
 pub async fn follow_forget(app: String, item: String) -> Result<(), String> {
     let mut n = netcfg::load();
     let r = n.rules.iter_mut().find(|r| netcfg::follows(r) && r.value.eq_ignore_ascii_case(&app)).ok_or("нет такого правила")?;
     r.learned.retain(|x| x != &item);
+    let skip = format!("skip:{item}");
+    if netcfg::valid_learned(&skip) && !r.learned.contains(&skip) {
+        r.learned.push(skip);
+    }
     netcfg::save(&n)?;
     push(&n).await;
     Ok(())
@@ -435,9 +488,27 @@ mod tests {
             conn("5", "vk.com", "direct", "DomainSuffix", 517, 0, t0),
         ];
         let pair = |d: &str| ("instagram.com".to_string(), format!("site:{d}"));
-        assert_eq!(w.scan(&[&ig(&[])], &conns, t0 + 9_000), vec![pair("cdninstagram.com")]);
+        assert_eq!(w.scan(&[&ig(&[])], &conns, t0 + 9_000, &NetSettings::default()), vec![pair("cdninstagram.com")]);
         // Уже найденное второй раз не предлагаем; fbcdn к этому времени завис.
-        assert_eq!(w.scan(&[&ig(&["site:cdninstagram.com"])], &conns, t0 + 12_000), vec![pair("fbcdn.net")]);
+        assert_eq!(w.scan(&[&ig(&["site:cdninstagram.com"])], &conns, t0 + 12_000, &NetSettings::default()), vec![pair("fbcdn.net")]);
+    }
+
+    /// Не запоминаем то, что открывается напрямую: российские зоны, служебные
+    /// адреса, убранное вручную и сайты с правилом «напрямую».
+    #[test]
+    fn learns_only_what_is_worth_it() {
+        let mut n = NetSettings::default();
+        n.rules.push(RouteRule { kind: "site".into(), value: "platipomiru.com".into(), target: "direct".into(), ..Default::default() });
+        let r = ig(&["skip:site:example.net"]);
+        assert!(worth("cdninstagram.com", &r, &n));
+        for d in ["yandex.ru", "vk.su", "xn--d1acj3b.xn--p1ai", "windowsupdate.com", "digicert.com", "example.net", "platipomiru.com"] {
+            assert!(!worth(d, &r, &n), "{d}");
+        }
+        // Убранное вручную хранится как «skip:» и проходит проверку настроек.
+        assert!(netcfg::valid_learned("skip:site:example.net") && !netcfg::valid_learned("skip:skip:site:x.com"));
+        // Отвечает напрямую — не «висит»; молчит 4 с и дольше — висит.
+        assert!(!stuck(&conn("1", "yandex.ru", "direct", "Match", 600, 9_000, 0), 10_000));
+        assert!(stuck(&conn("2", "x.com", "direct", "Match", 517, 0, 0), 10_000));
     }
 
     #[test]
@@ -445,7 +516,7 @@ mod tests {
         let mut w = SiteWatch::default();
         // Instagram не открыт — висящий адрес чужой, не берём.
         let conns = vec![conn("2", "cdninstagram.com", "direct", "Match", 517, 0, 0)];
-        assert!(w.scan(&[&ig(&[])], &conns, 9_000).is_empty());
+        assert!(w.scan(&[&ig(&[])], &conns, 9_000, &NetSettings::default()).is_empty());
     }
 
     #[test]
