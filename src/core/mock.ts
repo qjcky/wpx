@@ -121,10 +121,17 @@ export function mockApi(): Api {
     { t: now - 20_005_000, kind: "engine_start", dest: null, count: 1, text: "Движок запущен" },
   ];
 
+  const speeds = [{ at: Date.now() - 3_600_000, ping_ms: 398, down_mbps: 12.9, up_mbps: 3.6, down_mb: 19.4, up_mb: 6, error: null as string | null }];
   const snap = (): Snapshot => {
     const t = Date.now();
     const down = health === "down";
     const v = down || health === "engine_off" ? null : Math.round(360 + Math.random() * 140);
+    // Переключились на VPN-профиль — точки берём из него, а не из прокси «Singapore».
+    const act = profiles.find((p) => p.active);
+    const own = !q.has("vpn") && act?.endpoints.length ? act : null;
+    const ownLegs = own ? own.endpoints.map((e, i) => ({ name: e.label, label: `${own.name} · ${e.summary.split(" · ")[0]}`, kind: e.kind === "awg" ? "wireguard" : e.kind, net: "",
+      role: "exit" as const, server: own.server, port: Number(e.summary.split(":").pop()), active: i === 0,
+      result: { ok: true, connect_ms: null, ready_ms: 380 + i * 160, err: null }, at: t - 4000 })) : null;
     return {
       t, health, health_since: now - 4_000_000,
       cause: down ? "Сервер прокси не отвечает ни по одному порту" : health === "engine_off" ? "Движок (mihomo) не запущен" : null,
@@ -136,7 +143,7 @@ export function mockApi(): Api {
           { name: "wpx-1", label: "Сингапур → Хельсинки · VLESS", kind: "vless", net: "", role: "exit" as const, server: "203.0.113.10", port: 8443, active: false, result: { ok: true, connect_ms: 301, ready_ms: 1959, err: null }, at: t - 4000 },
           { name: "wpx-3", label: "Сингапур → Хельсинки · XHTTP", kind: "vless", net: "xhttp", role: "exit" as const, server: "203.0.113.10", port: 2053, active: false, result: { ok: true, connect_ms: 299, ready_ms: 1720, err: null }, at: t - 4000 },
           { name: "wpx-2", label: "Сингапур → Хельсинки · AmneziaWG", kind: "wireguard", net: "", role: "exit" as const, server: "203.0.113.10", port: 9443, active: false, result: { ok: false, connect_ms: null, ready_ms: null, err: "нет ответа (таймаут)" }, at: t - 4000 },
-        ] : [
+        ] : ownLegs ?? [
           { name: "HTTP", label: "HTTP", kind: "http", net: "", role: "exit" as const, server: "203.0.113.50", port: 59100, active: true, result: { ok: !down, connect_ms: 352, ready_ms: 712, err: down ? "нет ответа (таймаут)" : null }, at: t - 4000 },
           { name: "SOCKS5", label: "SOCKS5", kind: "socks5", net: "", role: "exit" as const, server: "203.0.113.50", port: 59101, active: false, result: { ok: !down, connect_ms: 348, ready_ms: 1391, err: down ? "нет ответа (таймаут)" : null }, at: t - 4000 },
         ]),
@@ -156,7 +163,7 @@ export function mockApi(): Api {
       guard_at: t - 12_000, ip: "203.0.113.50", ip_expected: true,
       events, latency_tail: [[t, v]], traffic_tail: [[t, Math.round(Math.random() * 300_000), Math.round(Math.random() * 30_000)]],
       current_outage: null, slow_ms: prefs.slow_ms,
-      dual: true, active_leg: q.has("vpn") ? "Сингапур → Хельсинки · Hysteria2" : "HTTP", legs_trial: q.has("vpn") ? "Хельсинки через каскад" : null, busy: false, engine_kind: engineKind, boot: engineKind === "wpx" ? boot : null,
+      dual: true, active_leg: q.has("vpn") ? "Сингапур → Хельсинки · Hysteria2" : ownLegs?.[0].label ?? "HTTP", legs_trial: q.has("vpn") ? "Хельсинки через каскад" : null, busy: false, engine_kind: engineKind, boot: engineKind === "wpx" ? boot : null,
       profile: profiles.find((p) => p.active)?.name ?? null, tun_device: engineKind === "wpx" ? "wpx" : "SG-TUN",
       heal,
       reserve: q.has("vpn") ? ["singapore", "Singapore"] : null, on_reserve: q.has("vpn") && down,
@@ -329,7 +336,7 @@ export function mockApi(): Api {
     serverCascade: async (entry, exit, via) => {
       const e = servers.find((x) => x.id === entry)!, x = servers.find((s) => s.id === exit)!;
       void via;
-      await steps([["step", `Труба на «${e.name}»: :8443 → ${x.host}`], ["ok", "Запущено: TCP 443 8443 · UDP 8443"], ["ok", `${e.name} → ${x.name} · VLESS: 3/3 · 1180 мс`]]);
+      await steps([["step", `Труба на «${e.name}»: :8443 → ${x.host}:443 (без ключей шифрования)`], ["ok", "Запущено: TCP 443 8443 · UDP 8443"], ["ok", `${e.name} → ${x.name} · VLESS: 3/3 · 1180 мс`]]);
       e.pipes = [...e.pipes.filter((p) => p.to !== exit), { to: exit, to_name: x.name, to_host: x.host, listen: 8443, to_port: 443, profile: "pp" }];
       x.entries = [...new Set([...x.entries, e.name])];
       return { state: srvState(), profile: "pp", note: null, probe: [{ index: 0, label: `${e.name} → ${x.name} · VLESS`, kind: "vless", summary: "", ok: 3, rounds: 3, median_ms: 1180, best_ms: 1100, error: null }] };
@@ -471,8 +478,9 @@ export function mockApi(): Api {
         : [".ua", "1337x.to", "4pda.to", "chatgpt.com", "discord.com", "instagram.com", "linkedin.com", "medium.com", "rutracker.org", "youtube.com"],
       source: "fresh" as const, url: "https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Russia/inside-clashx.lst",
     }, 700),
-    speedTest: () => later({ at: Date.now(), ping_ms: 412, down_mbps: 13.6, up_mbps: 3.5, down_mb: 20.4, up_mb: 6, error: null }, 4000),
-    speedHistory: async () => [{ at: Date.now() - 3_600_000, ping_ms: 398, down_mbps: 12.9, up_mbps: 3.6, down_mb: 19.4, up_mb: 6, error: null }],
+    // Как в приложении: результат теста ложится в историю, свежий — первым.
+    speedTest: async () => { const r = await later({ at: Date.now(), ping_ms: 341, down_mbps: 48.7, up_mbps: 21.3, down_mb: 24.6, up_mb: 6, error: null }, 4000); speeds.unshift(r); return r; },
+    speedHistory: async () => [...speeds],
     widgetToggle: () => window.open("/?view=widget", "wpxwidget", "width=240,height=150"),
     widgetClose: () => window.close(),
     widgetPin: async (on) => { pinned = on; return on; },

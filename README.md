@@ -1,6 +1,25 @@
-# wpx
+<h1 align="center">
+  <img src="src-tauri/icons/128x128.png" width="72" alt=""><br>
+  wpx
+</h1>
 
-**A VPN client for your whole PC — and a manager for your own self-hosted VPN servers.**
+<p align="center"><b>A VPN client for your whole PC — and a manager for your own self-hosted VPN servers.</b></p>
+
+<p align="center">
+  <a href="https://github.com/qjcky/wpx/releases/latest"><img src="https://img.shields.io/github/v/release/qjcky/wpx?label=release" alt="Latest release"></a>
+  <a href="https://github.com/qjcky/wpx/releases"><img src="https://img.shields.io/github/downloads/qjcky/wpx/total" alt="Downloads"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0-blue" alt="License: GPL-3.0"></a>
+  <img src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux-lightgrey" alt="Platforms: Windows, Linux">
+</p>
+
+<p align="center">
+  <a href="https://github.com/qjcky/wpx/releases/latest"><b>Download</b></a> ·
+  <a href="#features">Features</a> ·
+  <a href="#install">Install</a> ·
+  <a href="README.ru.md">Русская версия</a>
+</p>
+
+<p align="center"><img src="docs/clips/overview.webp" width="900" alt="Switching the whole PC to another server: checks, confirmation, automatic rollback"></p>
 
 wpx keeps every connection of the computer behind a tunnel ([mihomo](https://github.com/MetaCubeX/mihomo) / Clash Meta
 in TUN mode), guards it with a kill switch, and changes the setup only through transactions that roll back by
@@ -16,9 +35,24 @@ Windows 10/11 and Linux (x86-64). Interface in Russian and English. Free and ope
 > **Status: beta.** Windows is the main platform; Linux support is experimental. Installers are not code-signed yet —
 > see [Install](#install).
 
-[Русская версия](README.ru.md)
-
 ---
+
+## In action
+
+<table>
+  <tr>
+    <td width="50%" valign="top"><b>Rules in two clicks</b><br><sub>Discord → through the Amsterdam VPN, applied with automatic rollback</sub><br><br>
+      <img src="docs/clips/rules.webp" alt="Adding a rule and applying it"></td>
+    <td width="50%" valign="top"><b>Traffic</b><br><sub>Speed through the tunnel and which apps go via VPN or directly</sub><br><br>
+      <img src="docs/clips/traffic.webp" alt="Speed test and connections by app"></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>Where does it break?</b><br><sub>The ISP blocks your server — wpx finds it and routes around it through a cascade</sub><br><br>
+      <img src="docs/clips/check.webp" alt="Path check and a one-click cascade"></td>
+    <td valign="top"><b>Themes</b><br><sub>Plain light and dark ones and 40+ animated scenes, applied instantly</sub><br><br>
+      <img src="docs/clips/themes.webp" alt="Switching themes"></td>
+  </tr>
+</table>
 
 ## Screenshots
 
