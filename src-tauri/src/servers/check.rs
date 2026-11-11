@@ -40,6 +40,12 @@ else echo sb=none; fi
 if docker inspect wpx-awg >/dev/null 2>&1; then
   echo "awg=$(docker inspect -f '{{.State.Running}}' wpx-awg)"
   docker exec wpx-awg awg show wg0 latest-handshakes 2>/dev/null | sed 's/^/hs=/'
+  # Интерфейс поднят на своём порту и правило Docker для порта есть (его стирает
+  # перезагрузка правил файрвола — контейнер «работает», а пакеты не доходят).
+  echo "awg_port=$(docker exec wpx-awg awg show wg0 listen-port 2>/dev/null)"
+  if [ -n "${AWGP:-}" ] && command -v iptables >/dev/null 2>&1; then
+    echo "awg_nat=$(iptables -t nat -S 2>/dev/null | grep -c -- "--dport $AWGP ")"
+  fi
 else echo awg=none; fi
 for p in $TCP; do ss -tlnH "sport = :$p" | grep -q . && echo "tcp_ok=$p" || echo "tcp_no=$p"; done
 for p in $UDP; do ss -ulnH "sport = :$p" | grep -q . && echo "udp_ok=$p" || echo "udp_no=$p"; done
@@ -62,6 +68,10 @@ true
 struct State {
     sb: String,
     awg: String,
+    /// Порт, на котором слушает интерфейс AWG в контейнере (пусто — не поднят).
+    awg_port: String,
+    /// Сколько правил NAT Docker ведут на порт AWG (None — не проверить).
+    awg_nat: Option<u32>,
     hs: Vec<(String, i64)>,
     tcp_no: Vec<u16>,
     udp_no: Vec<u16>,
@@ -82,6 +92,8 @@ fn parse_state(out: &str) -> State {
         match k {
             "sb" => s.sb = v.trim().into(),
             "awg" => s.awg = v.trim().into(),
+            "awg_port" => s.awg_port = v.trim().into(),
+            "awg_nat" => s.awg_nat = v.trim().parse().ok(),
             "hs" => {
                 let mut f = v.split_whitespace();
                 if let (Some(k), Some(t)) = (f.next(), f.next()) {
@@ -164,7 +176,8 @@ pub(super) async fn run(id: &str) -> Result<ServerCheck, String> {
     let remote = async {
         let (c, via, err) = reach(&st, &s).await;
         let Some(c) = c else { return (None, via, err) };
-        let o = c.sh(&[("TCP", list(&tcp)), ("UDP", list(&udp))], STATE, b"", 60).await;
+        let awgp = s.awg.as_ref().map(|a| a.port.to_string()).unwrap_or_default();
+        let o = c.sh(&[("TCP", list(&tcp)), ("UDP", list(&udp)), ("AWGP", awgp)], STATE, b"", 60).await;
         c.close().await;
         (o.ok().map(|o| parse_state(&o.out)), via, err)
     };
@@ -200,12 +213,20 @@ pub(super) async fn run(id: &str) -> Result<ServerCheck, String> {
                 }
             }
         }
-        if s.awg.is_some() {
-            if x.awg == "true" {
-                bits.push("AmneziaWG работает".into());
-            } else {
+        if let Some(a) = &s.awg {
+            if x.awg != "true" {
                 bad = true;
                 bits.push("AmneziaWG не запущен".into());
+            } else if x.awg_port != a.port.to_string() {
+                bad = true;
+                bits.push("AmneziaWG: контейнер запущен, но интерфейс не поднят".into());
+            } else if x.awg_nat == Some(0) {
+                // Правило стёрла перезагрузка правил файрвола на сервере — порт
+                // «слушает», а снаружи до AmneziaWG ничего не доходит.
+                bad = true;
+                bits.push(format!("AmneziaWG: пропало правило Docker для порта {}/udp — снаружи до него не доходит", a.port));
+            } else {
+                bits.push("AmneziaWG работает".into());
             }
         }
         if !x.tcp_no.is_empty() || !x.udp_no.is_empty() {
@@ -353,6 +374,10 @@ mod tests {
         assert_eq!((s.sb.as_str(), s.awg.as_str(), s.net_code.as_str(), s.dns), ("true", "true", "204", true));
         assert_eq!(s.hs, vec![("AAA=".to_string(), 1793990000), ("BBB=".to_string(), 0)]);
         assert_eq!((s.tcp_no.clone(), s.pc_tcp, s.avail), (vec![8443], Some(2), 900));
+        // Интерфейс AWG и правило Docker для его порта.
+        let s = parse_state("awg=true\nawg_port=41064\nawg_nat=0\n");
+        assert_eq!((s.awg_port.as_str(), s.awg_nat), ("41064", Some(0)));
+        assert_eq!(parse_state("awg=true\nawg_port=\n").awg_nat, None);
         assert_eq!(s.errs.len(), 1);
     }
 }

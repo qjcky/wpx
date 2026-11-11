@@ -1524,7 +1524,8 @@
   "AmneziaWG через вход: свой ключ пути на выходе": "AmneziaWG via an entry: its own path key on the exit",
   "Ключи AmneziaWG этого ПК": "This PC's AmneziaWG keys",
   "Вернуть ключи AmneziaWG этого ПК на сервер (VPN перезапустится, ключи прежние)": "Put this PC's AmneziaWG keys back on the server (VPN restarts, same keys)",
-  "на месте, но рукопожатий не было — AmneziaWG с этого ПК не доходит до сервера (провайдер режет?)": "in place, but no handshakes — AmneziaWG from this PC doesn't reach the server (blocked by the ISP?)"
+  "на месте, но рукопожатий не было — AmneziaWG с этого ПК не доходит до сервера (провайдер режет?)": "in place, but no handshakes — AmneziaWG from this PC doesn't reach the server (blocked by the ISP?)",
+  "AmneziaWG: контейнер запущен, но интерфейс не поднят": "AmneziaWG: the container runs, but the interface isn't up"
  },
  "patterns": [
   [
@@ -3774,6 +3775,10 @@
   [
    "на месте, последнее рукопожатие {} мин назад — сейчас AmneziaWG не доходит (провайдер режет?)",
    "in place, last handshake {} min ago — AmneziaWG doesn't get through now (blocked by the ISP?)"
+  ],
+  [
+   "AmneziaWG: пропало правило Docker для порта {}/udp — снаружи до него не доходит",
+   "AmneziaWG: Docker's rule for port {}/udp is gone — nothing reaches it from outside"
   ]
  ]
 }
