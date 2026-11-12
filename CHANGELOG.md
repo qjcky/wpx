@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- The Discord set took the Riot launcher (and anything else on Cloudflare or Google Cloud) along with it: its subnet
+  list from itdoginfo also holds all of Cloudflare and big parts of Google Cloud. The set now uses only Discord's own
+  networks, built into wpx; Discord's domains (voice included) are unchanged.
+- Rules: tick several site rules → "into a set…" — the sites and what they load become one rule of a new or existing
+  set of your own, with the same route.
 - Cascades find their path. You set the first hop and the final server; before laying a pipe wpx checks from the
   first hop that the next server answers and the path holds (TCP over IPv4 and the server's IPv6, its SSH key must
   match, then about half a minute of steadiness — some filters let traffic through in waves). If IPv4 is filtered and

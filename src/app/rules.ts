@@ -71,8 +71,37 @@ function renderBulk() {
   const all = n === rules.length;
   box.innerHTML = `<label class="ru-all"><input type="checkbox" id="ruAll" ${all ? "checked" : ""}> все</label>` + (n
     ? `<span>выбрано ${n} →</span><label class="rr-to prof"><select id="ruBulkTo"><option value="" selected disabled>через что пускать…</option>${targets(profiles, info).map((x) =>
-        `<option value="${esc(x.v)}">${esc(targetName(x))}</option>`).join("")}</select></label><button type="button" class="link" id="ruNone">снять выбор</button>`
+        `<option value="${esc(x.v)}">${esc(targetName(x))}</option>`).join("")}</select></label>`
+      + (pickedSites().length >= 2 ? `<button type="button" class="btn sm" id="ruToSet" title="Отмеченные сайты и то, что они подгружают, станут одним правилом набора">в свой набор…</button>` : "")
+      + `<button type="button" class="link" id="ruNone">снять выбор</button>`
     : `<span class="hint">отметьте правила, чтобы сменить им путь разом</span>`);
+}
+
+/** Отмеченные правила-сайты. */
+const pickedSites = () => rules.filter((r) => r.kind === "site" && chosen.has(keyOf(r)));
+
+/** Отмеченные сайты — в свой набор: вместо россыпи правил одно правило набора с тем же путём. */
+async function toSet() {
+  const picked = pickedSites();
+  const items = [...new Set(picked.flatMap((r) => [r.value, ...(r.learned ?? []).filter((x) => x.startsWith("site:")).map((x) => x.slice(5))]))];
+  const target = picked[0].target;
+  const route = targets(profiles, info).find((x) => x.v === target);
+  const same = picked.every((r) => r.target === target);
+  if (!(await modal("Свой набор из отмеченных сайтов", `
+    <p>Отмеченные сайты (${picked.length}) и то, что они подгружают, станут одним правилом набора — всего адресов: ${items.length}. Путь — ${esc(route ? targetName(route) : target)}${same ? "" : ", как у первого отмеченного"}.</p>
+    <label class="field"><span>Куда</span><select id="tsTo"><option value="">новый набор</option>${sets.map((u) => `<option value="${esc(u.id)}">в «${esc(u.name)}»</option>`).join("")}</select></label>
+    <label class="field"><span>Название нового набора</span><input id="tsName" value="Мои сайты" maxlength="60"></label>`, "Объединить", "Отмена"))) return;
+  const name = $<HTMLInputElement>("tsName").value.trim() || "Мои сайты";
+  // Набор с таким названием уже есть — дописываем в него.
+  const id = $<HTMLSelectElement>("tsTo").value || sets.find((u) => u.name === name)?.id || `u${Date.now().toString(36)}`;
+  sets = sets.some((u) => u.id === id)
+    ? sets.map((u) => (u.id === id ? { ...u, items: [...new Set([...u.items, ...items])] } : u))
+    : [...sets, { id, name, items }];
+  const at = rules.indexOf(picked[0]);
+  rules = rules.filter((r) => !picked.includes(r));
+  if (!rules.some((r) => r.kind === "preset" && r.value === id)) rules.splice(at, 0, { kind: "preset", value: id, target });
+  chosen.clear();
+  change();
 }
 
 function render() {
@@ -130,7 +159,7 @@ async function inside(kind: string, id: string) {
   const body = (domains.length ? `<div class="in-sec"><h3>Адреса — с поддоменами</h3><ol class="in-list">${domains.map((d) => `<li>${esc(d.includes(".") ? d : `.${d === "xn--p1ai" ? "рф" : d} — вся зона`)}</li>`).join("")}</ol></div>` : "")
     + lists.map((l) => `<div class="in-sec" data-list="${esc(l)}"><h3>${esc(listTitle(l))}</h3><p class="hint">загружаю…</p></div>`).join("");
   const done = modal(`Что внутри «${kind === "list" ? listTitle(id) : preset?.[1] ?? id}»`, body || "<p>Набор пуст.</p>", null, "Закрыть");
-  const FROM = { engine: "копия движка — он обновляет список раз в сутки", cache: "скачан за последние сутки", fresh: "скачан сейчас" };
+  const FROM = { builtin: "встроен в wpx — только собственные сети сервиса", engine: "копия движка — он обновляет список раз в сутки", cache: "скачан за последние сутки", fresh: "скачан сейчас" };
   await Promise.all(lists.map(async (l) => {
     const box = document.querySelector<HTMLElement>(`#modalBody [data-list="${CSS.escape(l)}"]`);
     if (!box) return;
@@ -410,7 +439,9 @@ export function initRules(a: Api) {
     }
   });
   $("ruBulk").addEventListener("click", (e) => {
-    if ((e.target as HTMLElement).id === "ruNone") { chosen.clear(); render(); }
+    const id = (e.target as HTMLElement).id;
+    if (id === "ruNone") { chosen.clear(); render(); }
+    if (id === "ruToSet") void toSet();
   });
   $("ruList").addEventListener("click", (e) => {
     // Найденное убирается сразу — и из движка (без «Применить»).

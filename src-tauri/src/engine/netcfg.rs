@@ -58,7 +58,7 @@ pub const LISTS: &[(&str, &str, &str, &str)] = &[
      "https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Russia/inside-clashx.lst", "classical"),
     ("telegram-ip", "Telegram — подсети", "https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Subnets/IPv4/telegram.lst", "ipcidr"),
     ("meta-ip", "Meta (Instagram, WhatsApp, Facebook) — подсети", "https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Subnets/IPv4/meta.lst", "ipcidr"),
-    ("discord-ip", "Discord — подсети (голос)", "https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Subnets/IPv4/discord.lst", "ipcidr"),
+    ("discord-ip", "Discord — свои подсети (голос)", "", "ipcidr"),
     ("twitter-ip", "X (Twitter) — подсети", "https://raw.githubusercontent.com/itdoginfo/allow-domains/main/Subnets/IPv4/twitter.lst", "ipcidr"),
     ("antifilter-ip", "antifilter: подсети от сообщества (~900)", "https://community.antifilter.download/list/community.lst", "ipcidr"),
     // Не для туннеля, а наоборот — напрямую: в «только заблокированное» не входит.
@@ -67,6 +67,12 @@ pub const LISTS: &[(&str, &str, &str, &str)] = &[
 ];
 
 pub const MODES: &[&str] = &["strict", "apps", "blocked"];
+
+/// Подсети, заданные прямо в wpx, без внешнего списка. У Discord это его
+/// собственная сеть (AS49544): в списке itdoginfo к ней добавлены весь Cloudflare
+/// и куски Google Cloud, и набор «Discord» утаскивал на свой путь чужие сайты
+/// и игры (лаунчер Riot — весь на Cloudflare).
+pub const INLINE: &[(&str, &[&str])] = &[("discord-ip", &["66.22.192.0/18", "138.128.136.0/21", "5.200.14.128/25"])];
 
 /// Готовые наборы для правил: (id, название, домены с поддоменами, списки из LISTS).
 pub const PRESETS: &[(&str, &str, &[&str], &[&str])] = &[
@@ -842,10 +848,14 @@ pub fn build_with(ch: &Chain, n: &NetSettings, extras: &[Extra], reserve: Option
         let mut matchers: Vec<(String, bool)> = vec![];
         let mut add_list = |id: &str, matchers: &mut Vec<(String, bool)>| {
             if let Some((_, _, url, behavior)) = LISTS.iter().find(|l| l.0 == id) {
-                providers.insert(id.to_string(), json!({
-                    "type": "http", "behavior": behavior, "format": "text", "url": url,
-                    "path": format!("./rules/{id}.txt"), "interval": 86400, "proxy": GROUP
-                }));
+                let provider = match INLINE.iter().find(|(i, _)| *i == id) {
+                    Some((_, payload)) => json!({ "type": "inline", "behavior": behavior, "payload": payload }),
+                    None => json!({
+                        "type": "http", "behavior": behavior, "format": "text", "url": url,
+                        "path": format!("./rules/{id}.txt"), "interval": 86400, "proxy": GROUP
+                    }),
+                };
+                providers.insert(id.to_string(), provider);
                 matchers.push((format!("RULE-SET,{id}"), *behavior == "ipcidr"));
             }
         };
@@ -1136,6 +1146,13 @@ mod tests {
         assert_eq!(c["rule-providers"]["telegram-ip"]["behavior"], "ipcidr");
         assert_eq!(c["rule-providers"]["ru-inside"]["proxy"], "PROXY");
         assert_eq!(r.last().unwrap(), "MATCH,DIRECT");
+        // Discord — только его собственные сети, без Cloudflare и Google Cloud из чужого списка.
+        let n = NetSettings { rules: vec![rule("preset", "discord", "main")], secret: "s".into(), ..Default::default() };
+        let c = build(&ch, &n).unwrap();
+        assert!(rules(&c).contains(&"RULE-SET,discord-ip,PROXY,no-resolve".to_string()));
+        let p = &c["rule-providers"]["discord-ip"];
+        assert_eq!((p["type"].as_str(), p["payload"].as_array().map(|a| a.len())), (Some("inline"), Some(3)));
+        assert!(!p["payload"].to_string().contains("104.16.0.0"));
         // Строгий: всё через туннель.
         let c = build(&ch, &NetSettings { secret: "s".into(), ..Default::default() }).unwrap();
         assert_eq!(rules(&c).last().unwrap(), "MATCH,PROXY");

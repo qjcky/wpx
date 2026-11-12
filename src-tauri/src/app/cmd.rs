@@ -714,7 +714,7 @@ pub(crate) fn controller() -> Result<(String, String), String> {
 #[derive(Serialize)]
 pub struct ListItems {
     pub items: Vec<String>,
-    /// Откуда взят: копия движка, своя копия или скачан сейчас.
+    /// Откуда взят: встроен в wpx, копия движка, своя копия или скачан сейчас.
     pub source: &'static str,
     pub url: &'static str,
 }
@@ -741,6 +741,9 @@ fn list_lines(text: &str) -> Vec<String> {
 #[tauri::command]
 pub async fn list_items(id: String) -> Result<ListItems, String> {
     let (_, _, url, _) = *netcfg::LISTS.iter().find(|l| l.0 == id).ok_or("нет такого списка")?;
+    if let Some((_, payload)) = netcfg::INLINE.iter().find(|(i, _)| *i == id) {
+        return Ok(ListItems { items: payload.iter().map(|s| s.to_string()).collect(), source: "builtin", url });
+    }
     // Копия движка: в домашней папке mihomo (прежние установки — в папке движка).
     let engine = [config::WPX_HOME, config::WPX_DIR].iter().map(|d| std::path::PathBuf::from(d).join("rules").join(format!("{id}.txt"))).find(|p| p.is_file()).unwrap_or_default();
     if let Ok(t) = std::fs::read_to_string(&engine).map(|t| list_lines(&t)).map_err(|_| ()).and_then(|v| if v.is_empty() { Err(()) } else { Ok(v) }) {

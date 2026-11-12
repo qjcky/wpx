@@ -455,7 +455,7 @@ export function mockApi(): Api {
     engineInfo: async (): Promise<EngineInfo> => ({
       kind: engineKind, boot: engineKind === "wpx" ? boot : null, heal, net: { ...net }, interfaces: ["Ethernet", "Wi-Fi"],
       lists: [["ru-inside", "Заблокированное и замедленное в РФ — домены (itdoginfo, ~1200)"], ["telegram-ip", "Telegram — подсети"], ["meta-ip", "Meta — подсети"],
-        ["discord-ip", "Discord — подсети (голос)"], ["twitter-ip", "X (Twitter) — подсети"], ["antifilter-ip", "antifilter: подсети от сообщества (~900)"], ["ru-outside", "Российские сайты, которые не открываются из-за границы (itdoginfo)"]],
+        ["discord-ip", "Discord — свои подсети (голос)"], ["twitter-ip", "X (Twitter) — подсети"], ["antifilter-ip", "antifilter: подсети от сообщества (~900)"], ["ru-outside", "Российские сайты, которые не открываются из-за границы (itdoginfo)"]],
       exits: [{ ip: "203.0.113.10", name: "Сингапур", ways: ["Hysteria2", "AmneziaWG", "VLESS"] }, { ip: "198.51.100.20", name: "Хельсинки", ways: ["Hysteria2 через Сингапур", "AmneziaWG через Сингапур", "VLESS через Сингапур"] }],
       presets: [["ai", "ИИ-сервисы (ChatGPT, Claude, Gemini, Perplexity, Grok, Copilot)"], ["youtube", "YouTube", ["youtube.com", "youtu.be", "googlevideo.com", "ytimg.com"]], ["telegram", "Telegram", ["telegram.org", "t.me"], ["telegram-ip"]], ["meta", "Instagram, WhatsApp, Facebook", ["instagram.com", "cdninstagram.com", "facebook.com", "fbcdn.net"]],
         ["discord", "Discord"], ["twitter", "X (Twitter)"], ["blocked", "Заблокированное и замедленное в РФ (itdoginfo, ~1200 сайтов)", [], ["ru-inside"]],

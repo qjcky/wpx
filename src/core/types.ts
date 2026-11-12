@@ -96,7 +96,7 @@ export interface Snapshot {
 export type Preset = [string, string, string[]?, string[]?];
 
 /** Состав списка: адреса или подсети; откуда взят. */
-export interface ListItems { items: string[]; source: "engine" | "cache" | "fresh"; url: string }
+export interface ListItems { items: string[]; source: "builtin" | "engine" | "cache" | "fresh"; url: string }
 
 export interface Conn {
   id: string;

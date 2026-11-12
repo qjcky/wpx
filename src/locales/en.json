@@ -491,7 +491,7 @@
   "SSH, службы VPN на сервере, его интернет, протоколы с ПК (с проверкой на заморозку) — до 30 секунд": "SSH, VPN services on the server, its internet, protocols from the PC (with a stall check) — up to 30 seconds",
   "Если сервер просто заблокировали — можно не переезжать, а пустить через вход:": "If the server is just blocked, you don’t have to move — you can route through an entry:",
   "Нужен новый сервер: «Добавить сервер» → IP и пароль. Установку VPN на нём можно пропустить — при переезде wpx поставит всё сам, с прежними ключами.": "You need a new server: “Add server” → IP and password. You can skip installing VPN on it — wpx installs everything during the move, with the same keys.",
-  "Куда": "Where to",
+  "Куда": "Where",
   "Составляю план…": "Making a plan…",
   "Убрать всё со старого сервера": "Remove everything from the old server",
   "после переезда (если он доступен); иначе он продолжит работать, как работал": "after the move (if it’s reachable); otherwise it keeps running as before",
@@ -1577,7 +1577,16 @@
   "Первый прыжок и конечный — один и тот же сервер": "The first hop and the final one are the same server",
   "Промежуточный должен отличаться от первого прыжка и конечного": "The middle server must differ from the first hop and the final one",
   "Ищу промежуточный среди ваших серверов": "Looking for a middle server among yours",
-  "каскад: через": "cascade: via"
+  "каскад: через": "cascade: via",
+  "Discord — свои подсети (голос)": "Discord — its own subnets (voice)",
+  "встроен в wpx — только собственные сети сервиса": "built into wpx — only the service’s own networks",
+  "в свой набор…": "into a set…",
+  "Отмеченные сайты и то, что они подгружают, станут одним правилом набора": "The ticked sites and what they load become one set rule",
+  "Свой набор из отмеченных сайтов": "A set from the ticked sites",
+  "новый набор": "new set",
+  "Название нового набора": "Name of the new set",
+  "Объединить": "Combine",
+  "Мои сайты": "My sites"
  },
  "patterns": [
   [
@@ -3975,6 +3984,18 @@
   [
    "{} Ни через один ваш сервер путь до «{}» тоже не держится — похоже на блокировку у его провайдера: напишите хостеру или переезжайте на другой VPS.",
    "{} The path to “{}” doesn’t hold through any of your servers either — looks like a block at its provider: write to the host or move to another VPS."
+  ],
+  [
+   "в «{}»",
+   "into “{}”"
+  ],
+  [
+   "Отмеченные сайты ({}) и то, что они подгружают, станут одним правилом набора — всего адресов: {}. Путь — {}, как у первого отмеченного.",
+   "The ticked sites ({}) and what they load become one set rule — {} addresses in all. Route — {}, as the first ticked one has."
+  ],
+  [
+   "Отмеченные сайты ({}) и то, что они подгружают, станут одним правилом набора — всего адресов: {}. Путь — {}.",
+   "The ticked sites ({}) and what they load become one set rule — {} addresses in all. Route — {}."
   ]
  ]
 }
