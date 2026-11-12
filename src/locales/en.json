@@ -380,7 +380,6 @@
   "Чужие контейнеры — wpx их не трогает": "Other containers — wpx leaves them alone",
   "маршрут: через": "route: via",
   ",": ",",
-  "· напрямую — движок держит быстрый живой путь": "· direct — the engine keeps the fastest live path",
   "— движок держит быстрый живой путь": "— the engine keeps the fastest live path",
   "Установить VPN": "Install VPN",
   "Личный доступ для телефона или друга: QR-код и ссылка, срок, отключить в один клик": "Personal access for a phone or a friend: QR code and link, expiry, disable in one click",
@@ -1577,7 +1576,8 @@
   "подобрать, если нужен": "pick one if needed",
   "Первый прыжок и конечный — один и тот же сервер": "The first hop and the final one are the same server",
   "Промежуточный должен отличаться от первого прыжка и конечного": "The middle server must differ from the first hop and the final one",
-  "Ищу промежуточный среди ваших серверов": "Looking for a middle server among yours"
+  "Ищу промежуточный среди ваших серверов": "Looking for a middle server among yours",
+  "каскад: через": "cascade: via"
  },
  "patterns": [
   [

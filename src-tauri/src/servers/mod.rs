@@ -2188,9 +2188,9 @@ async fn cascade(entry_id: &str, exit_id: &str, via: Option<&str>, log: &Log) ->
     Ok(OpResult { state: state(&st), probe, profile: pid, note })
 }
 
-/// Маршрут к выходу: один профиль со всеми путями — трубы на любых входах
-/// и прямой путь (если выход достижим с ПК). Движок держит самый быстрый
-/// живой путь (url-test) и сам уходит на другой, если вход упал.
+/// Профиль каскада к выходу: только пути через входы — трубы на любых входах.
+/// Движок держит самый быстрый живой (url-test) и сам уходит на другой вход,
+/// если этот упал. Прямой путь к выходу — в его собственном профиле.
 /// `log` — проверить пути в песочнице и расставить по рангу.
 async fn rebuild_route(st: &Store, x: &Server, log: Option<&Log>) -> Result<(Option<String>, Vec<ProbeResult>), String> {
     let xsec = secrets_of(x)?;
@@ -2224,13 +2224,10 @@ async fn rebuild_route(st: &Store, x: &Server, log: Option<&Log>) -> Result<(Opt
         profiles::save(&ps)?;
         return Ok((None, vec![]));
     }
-    let (mut eps, probe) = match log {
+    let (eps, probe) = match log {
         Some(l) => rank_endpoints(via_pipes, l).await,
         None => (via_pipes, vec![]),
     };
-    if x.via.is_none() {
-        eps.extend(endpoints(x, &xsec, &x.host, Ports::of(x), &format!("{} напрямую", x.name), None));
-    }
     let pid = profiles::upsert_origin(&mut ps, &origin, &format!("{} через каскад", x.name), &eps, "auto")?;
     profiles::save(&ps)?;
     if let Some(l) = log {

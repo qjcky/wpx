@@ -11,6 +11,8 @@
   through it. Servers can be added by IPv6 address.
 - Where it breaks: a step "entry → server" (both addresses, steadiness), and "it answers ping, but connections reach
   it from nowhere — looks like a block at the server's provider" with a note for the host.
+- A cascade profile ("X via cascade") holds only paths through entries; the direct path to the server stays in its
+  own profile (set it as the reserve profile if you want a fallback).
 - "Profile on this PC" for a server reachable only through a jump no longer makes a direct profile that can't work.
 - Self-healing no longer reports Hysteria2 port hopping as restarted right after installation.
 - Profiles: "Take out of use" for the active profile (⋯). When no profile responds there is nothing to switch to, and
