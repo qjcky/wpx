@@ -788,7 +788,6 @@
   "Конфиг: проверка, замена, запуск (при сбое — откат)": "Config: check, replace, start (rollback on failure)",
   "Проверка с этого ПК через провайдера (песочница, мимо туннеля)": "Testing from this PC via your ISP (sandbox, bypassing the tunnel)",
   "Уже идёт операция с сервером": "A server operation is already running",
-  "Адрес сервера — IPv4 вида 203.0.113.10": "The server address must be IPv4, like 203.0.113.10",
   "Нужен пароль или файл ключа": "A password or key file is needed",
   "сервер-посредник не найден": "jump server not found",
   "Ставлю отдельный ключ wpx (пароль не сохраняется)": "Installing a separate wpx key (the password isn’t stored)",
@@ -1560,7 +1559,9 @@
   "Интернета на этом ПК не будет": "This PC will have no internet",
   "до выбора другого рабочего профиля — kill switch не пускает трафик мимо туннеля.": "until you make another profile active — the kill switch lets nothing bypass the tunnel.",
   "Движок остановится, интернет пойдёт напрямую, без VPN, пока не сделаете рабочим другой профиль.": "The engine will stop and the internet will go direct, without VPN, until you make another profile active.",
-  "После этого профиль, его сервер и каскад можно удалить.": "After that the profile, its server and cascade can be deleted."
+  "После этого профиль, его сервер и каскад можно удалить.": "After that the profile, its server and cascade can be deleted.",
+  "IP-адрес (IPv4 или IPv6)": "IP address (IPv4 or IPv6)",
+  "Адрес сервера — IP вида 203.0.113.10 или 2001:db8::10": "Server address — an IP like 203.0.113.10 or 2001:db8::10"
  },
  "patterns": [
   [
@@ -1600,8 +1601,8 @@
    "wpx will remove its key from “{}” and forget the server. What’s installed there keeps running, and profiles stay."
   ],
   [
-   "Ни одна точка подключения не отвечает напрямую ({}). Если это новый сервер — разрешите его IP на роутере.",
-   "No endpoint responds directly ({}). If it’s a new server, allow its IP on the router."
+   "Ни одна точка подключения не отвечает с этого ПК ({}). Если это новый сервер — разрешите его IP на роутере.",
+   "No endpoint responds from this PC ({}). If it’s a new server, allow its IP on the router."
   ],
   [
    "Выход «{}» работает только по UDP ({}), а вход «{}» ({}) UDP не передаёт — выберите другой вход или выход",
@@ -3854,6 +3855,22 @@
   [
    "Снять «{}» с работы",
    "Take “{}” out of use"
+  ],
+  [
+   "С этого ПК «{}» доступен только через посредника — его профиль на этом ПК — каскад с выходом «{}».",
+   "From this PC “{}” is reachable only through a jump server — its profile on this PC is a cascade with “{}” as the exit."
+  ],
+  [
+   "{} Сделайте его: «Каскад» вверху страницы.",
+   "{} Make it with “Cascade” at the top of the page."
+  ],
+  [
+   "Подключаюсь к {}@{}{}",
+   "Connecting to {}@{}{}"
+  ],
+  [
+   "сервер-посредник не открыл путь до {}: {}",
+   "the jump server couldn’t open a path to {}: {}"
   ]
  ]
 }

@@ -932,11 +932,13 @@ pub fn build_with(ch: &Chain, n: &NetSettings, extras: &[Extra], reserve: Option
     }
     let mut exclude: Vec<String> = lan.iter().chain(&direct).cloned().collect();
     for s in &servers {
-        if let Ok(std::net::IpAddr::V4(a)) = s.parse::<std::net::IpAddr>() {
-            let c = format!("{a}/32");
-            if !exclude.contains(&c) {
-                exclude.push(c);
-            }
+        let c = match s.parse::<std::net::IpAddr>() {
+            Ok(std::net::IpAddr::V4(a)) => format!("{a}/32"),
+            Ok(std::net::IpAddr::V6(a)) => format!("{a}/128"),
+            Err(_) => continue,
+        };
+        if !exclude.contains(&c) {
+            exclude.push(c);
         }
     }
 

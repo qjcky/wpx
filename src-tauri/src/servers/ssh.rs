@@ -134,7 +134,7 @@ async fn handshake(host: &str, port: u16, route: Route<'_>, expected: Option<&st
                 .handle
                 .channel_open_direct_tcpip(host, port as u32, "127.0.0.1", 0)
                 .await
-                .map_err(|e| format!("сервер-посредник не открыл путь до {host}:{port}: {e}"))?;
+                .map_err(|e| format!("сервер-посредник не открыл путь до {}: {e}", super::host_port(host, port)))?;
             tokio::time::timeout(Duration::from_secs(20), client::connect_stream(config(), ch.into_stream(), h)).await
         }
     };

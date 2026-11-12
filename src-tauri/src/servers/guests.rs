@@ -97,8 +97,8 @@ pub(super) fn qr_svg(text: &str) -> String {
 fn guest_awg_conf(a: &Awg, k: &GuestKeys, ip: u8, host: &str, port: u16, via: bool) -> String {
     format!(
         "[Interface]\nPrivateKey = {}\nAddress = {AWG_NET}.{ip}/32\nDNS = 1.1.1.1, 1.0.0.1\n{}{}\n\
-         [Peer]\nPublicKey = {}\nPresharedKey = {}\nEndpoint = {host}:{port}\nAllowedIPs = 0.0.0.0/0, ::/0\nPersistentKeepalive = 25\n",
-        k.awg_private, mtu_line(via), obf_lines(a), a.server_public, k.awg_psk
+         [Peer]\nPublicKey = {}\nPresharedKey = {}\nEndpoint = {at}\nAllowedIPs = 0.0.0.0/0, ::/0\nPersistentKeepalive = 25\n",
+        k.awg_private, mtu_line(via), obf_lines(a), a.server_public, k.awg_psk, at = host_port(host, port)
     )
 }
 
@@ -125,15 +125,15 @@ fn share_of(st: &Store, x: &Server, sec: &Secrets, g: &Guest) -> Result<Share, S
     }
     if let (true, Some(v), Some(port)) = (g.vless, &x.vless, ports.vless) {
         let text = format!(
-            "vless://{}@{host}:{port}?encryption=none&security=reality&sni={}&fp=chrome&pbk={}&sid={}&type=tcp&flow=xtls-rprx-vision#{}",
-            k.uuid, v.dest, v.public_key, v.short_id, enc_label(&label)
+            "vless://{}@{at}?encryption=none&security=reality&sni={}&fp=chrome&pbk={}&sid={}&type=tcp&flow=xtls-rprx-vision#{}",
+            k.uuid, v.dest, v.public_key, v.short_id, enc_label(&label), at = host_port(&host, port)
         );
         items.push(ShareItem { kind: "vless", title: "VLESS + Reality", qr: qr_svg(&text), text, apps: "v2RayTun, Happ, Streisand, Hiddify, Shadowrocket, v2rayNG" });
     }
     if let (true, Some(xh), Some(port)) = (g.vless, &x.xhttp, ports.xhttp) {
         let text = format!(
-            "vless://{}@{host}:{port}?encryption=none&security=reality&sni={}&fp=chrome&pbk={}&sid={}&type=xhttp&path={}&mode=auto#{}",
-            k.uuid, xh.dest, xh.public_key, xh.short_id, enc_label(&xh.path), enc_label(&format!("{label} · XHTTP"))
+            "vless://{}@{at}?encryption=none&security=reality&sni={}&fp=chrome&pbk={}&sid={}&type=xhttp&path={}&mode=auto#{}",
+            k.uuid, xh.dest, xh.public_key, xh.short_id, enc_label(&xh.path), enc_label(&format!("{label} · XHTTP")), at = host_port(&host, port)
         );
         items.push(ShareItem { kind: "xhttp", title: "VLESS + XHTTP + Reality", qr: qr_svg(&text), text, apps: "v2RayTun, Happ, Hiddify, v2rayNG, Streisand" });
     }
@@ -142,8 +142,8 @@ fn share_of(st: &Store, x: &Server, sec: &Secrets, g: &Guest) -> Result<Share, S
         // insecure=1 — для остальных (без пароля salamander трафик не разобрать).
         let mport = h.hop.filter(|_| port == h.port).map(|(lo, hi)| format!("&mport={lo}-{hi}")).unwrap_or_default();
         let text = format!(
-            "hysteria2://{}@{host}:{port}?sni={}&obfs=salamander&obfs-password={}&insecure=1&pinSHA256={}{mport}#{}",
-            k.hy2_password, h.sni, sec.hy2_obfs, h.cert_sha256, enc_label(&label)
+            "hysteria2://{}@{at}?sni={}&obfs=salamander&obfs-password={}&insecure=1&pinSHA256={}{mport}#{}",
+            k.hy2_password, h.sni, sec.hy2_obfs, h.cert_sha256, enc_label(&label), at = host_port(&host, port)
         );
         items.push(ShareItem { kind: "hy2", title: "Hysteria2", qr: qr_svg(&text), text, apps: "Hiddify, Streisand, Shadowrocket, v2RayTun, Happ" });
     }

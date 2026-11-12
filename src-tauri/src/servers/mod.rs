@@ -433,12 +433,26 @@ fn awg_server_conf(s: &Server, a: &Awg, sec: &Secrets) -> Result<String, String>
     ))
 }
 
+/// Адрес сервера — IPv4 или IPv6, в каноническом виде (IPv6 — без скобок).
+fn server_ip(host: &str) -> Result<String, String> {
+    host.trim()
+        .trim_matches(|c| c == '[' || c == ']')
+        .parse::<std::net::IpAddr>()
+        .map(|ip| ip.to_string())
+        .map_err(|_| "Адрес сервера — IP вида 203.0.113.10 или 2001:db8::10".into())
+}
+
+/// «адрес:порт» для ссылок и конфигов: IPv6 — в квадратных скобках.
+fn host_port(host: &str, port: u16) -> String {
+    if host.contains(':') { format!("[{host}]:{port}") } else { format!("{host}:{port}") }
+}
+
 /// Конфиг клиента (тот же формат, что экспорт AmneziaVPN).
 fn awg_client_conf(a: &Awg, private: &str, psk: &str, ip: u8, host: &str, port: u16, via: bool) -> String {
     format!(
         "[Interface]\nPrivateKey = {private}\nAddress = {AWG_NET}.{ip}/32\nDNS = 1.1.1.1\n{}{}\n\
-         [Peer]\nPublicKey = {}\nPresharedKey = {psk}\nEndpoint = {host}:{port}\nAllowedIPs = 0.0.0.0/0\nPersistentKeepalive = 25\n",
-        mtu_line(via), obf_lines(a), a.server_public
+         [Peer]\nPublicKey = {}\nPresharedKey = {psk}\nEndpoint = {at}\nAllowedIPs = 0.0.0.0/0\nPersistentKeepalive = 25\n",
+        mtu_line(via), obf_lines(a), a.server_public, at = host_port(host, port)
     )
 }
 
@@ -1208,26 +1222,29 @@ fn endpoints(s: &Server, sec: &Secrets, host: &str, ports: Ports, label: &str, v
     let mut links = vec![];
     if let (Some(v), Some(port)) = (&s.vless, vless_port) {
         links.push(format!(
-            "vless://{}@{host}:{port}?security=reality&sni={}&fp=chrome&pbk={}&sid={}&type=tcp&flow=xtls-rprx-vision#{}",
+            "vless://{}@{at}?security=reality&sni={}&fp=chrome&pbk={}&sid={}&type=tcp&flow=xtls-rprx-vision#{}",
             sec.uuid, v.dest, v.public_key, v.short_id,
-            percent_encoding::utf8_percent_encode(&format!("{label} · VLESS"), percent_encoding::NON_ALPHANUMERIC)
+            percent_encoding::utf8_percent_encode(&format!("{label} · VLESS"), percent_encoding::NON_ALPHANUMERIC),
+            at = host_port(host, port)
         ));
     }
     if let (Some(x), Some(port)) = (&s.xhttp, ports.xhttp) {
         links.push(format!(
-            "vless://{}@{host}:{port}?security=reality&sni={}&fp=chrome&pbk={}&sid={}&type=xhttp&path={}&mode=auto#{}",
+            "vless://{}@{at}?security=reality&sni={}&fp=chrome&pbk={}&sid={}&type=xhttp&path={}&mode=auto#{}",
             sec.uuid, x.dest, x.public_key, x.short_id,
             percent_encoding::utf8_percent_encode(&x.path, percent_encoding::NON_ALPHANUMERIC),
-            percent_encoding::utf8_percent_encode(&format!("{label} · XHTTP"), percent_encoding::NON_ALPHANUMERIC)
+            percent_encoding::utf8_percent_encode(&format!("{label} · XHTTP"), percent_encoding::NON_ALPHANUMERIC),
+            at = host_port(host, port)
         ));
     }
     if let (Some(h), Some(port)) = (&s.hy2, hy2_port) {
         // Смена портов — только напрямую к серверу (труба входа пересылает один порт).
         let mport = h.hop.filter(|_| port == h.port).map(|(lo, hi)| format!("&mport={lo}-{hi}")).unwrap_or_default();
         links.push(format!(
-            "hysteria2://{}@{host}:{port}?sni={}&obfs=salamander&obfs-password={}&pinSHA256={}{mport}#{}",
+            "hysteria2://{}@{at}?sni={}&obfs=salamander&obfs-password={}&pinSHA256={}{mport}#{}",
             sec.hy2_password, h.sni, sec.hy2_obfs, h.cert_sha256,
-            percent_encoding::utf8_percent_encode(&format!("{label} · Hysteria2"), percent_encoding::NON_ALPHANUMERIC)
+            percent_encoding::utf8_percent_encode(&format!("{label} · Hysteria2"), percent_encoding::NON_ALPHANUMERIC),
+            at = host_port(host, port)
         ));
     }
     let mut eps: Vec<Endpoint> = links.iter().filter_map(|l| proto::parse(l).ok()).collect();
@@ -1417,10 +1434,7 @@ pub struct ServerInput {
 /// отправляются, пока пользователь его не сверит. `via` — через свой сервер.
 #[tauri::command]
 pub async fn server_fingerprint(host: String, port: Option<u16>, via: Option<String>) -> Result<String, String> {
-    let host = host.trim().to_string();
-    if host.parse::<std::net::Ipv4Addr>().is_err() {
-        return Err("Адрес сервера — IPv4 вида 203.0.113.10".into());
-    }
+    let host = server_ip(&host)?;
     let port = port.unwrap_or(22);
     let bind = bind_ip().await;
     match via.as_deref().filter(|v| !v.is_empty()) {
@@ -1448,10 +1462,7 @@ pub async fn server_add(app: AppHandle, input: ServerInput) -> Result<ServersSta
 }
 
 async fn add(input: ServerInput, log: &Log) -> Result<ServersState, String> {
-    let host = input.host.trim().to_string();
-    if host.parse::<std::net::Ipv4Addr>().is_err() {
-        return Err("Адрес сервера — IPv4 вида 203.0.113.10".into());
-    }
+    let host = server_ip(&input.host)?;
     let mut st = load();
     if st.servers.iter().any(|s| s.host == host) {
         return Err(format!("{host} уже есть в списке серверов"));
@@ -1495,7 +1506,7 @@ async fn add(input: ServerInput, log: &Log) -> Result<ServersState, String> {
             fp
         }
     };
-    log("step", format!("Подключаюсь к {user}@{host}:{port}{}", if jump.is_some() { " через посредника" } else { " напрямую (мимо туннеля)" }));
+    log("step", format!("Подключаюсь к {user}@{}{}", host_port(&host, port), if jump.is_some() { " через посредника" } else { " напрямую (мимо туннеля)" }));
     let first = ssh::connect(&host, port, &user, &auth, &expected, route()).await.map_err(&hint)?;
     log("ok", format!("Ключ сервера совпал: {}", first.host_key));
 
@@ -1518,7 +1529,7 @@ async fn add(input: ServerInput, log: &Log) -> Result<ServersState, String> {
     let mut s = Server {
         // id от адреса: «Забыть» и добавить снова — тот же сервер, его профили
         // обновятся, а не задвоятся.
-        id: format!("s{}", host.replace('.', "-")),
+        id: format!("s{}", host.replace(['.', ':'], "-")),
         name: input.name.trim().to_string(),
         host: host.clone(),
         port,
@@ -1937,14 +1948,12 @@ async fn own_profile(s: &Server, sec: &Secrets, log: &Log) -> Result<(Option<Str
     if eps.is_empty() {
         return Ok((None, vec![], None));
     }
-    let (eps, probe, note) = if s.via.is_some() {
-        (eps, vec![], Some(format!("С этого ПК {} напрямую недоступен — используйте его выходом каскада.", s.host)))
-    } else {
-        let (e, p) = rank_endpoints(eps, log).await;
-        let note = (!p.is_empty() && p.iter().all(|x| x.ok == 0))
-            .then(|| format!("С этого ПК сервер не ответил. Если на роутере kill switch — разрешите {} (TCP и UDP).", s.host));
-        (e, p, note)
-    };
+    if s.via.is_some() {
+        return Ok((None, vec![], Some(format!("С этого ПК «{}» доступен только через посредника — его профиль на этом ПК — каскад с выходом «{}».", s.name, s.name))));
+    }
+    let (eps, probe) = rank_endpoints(eps, log).await;
+    let note = (!probe.is_empty() && probe.iter().all(|x| x.ok == 0))
+        .then(|| format!("С этого ПК сервер не ответил. Если на роутере kill switch — разрешите {} (TCP и UDP).", s.host));
     let mut ps = profiles::load();
     let pid = profiles::upsert_origin(&mut ps, &format!("server:{}", s.id), &s.name, &eps, "fallback")?;
     profiles::save(&ps)?;
@@ -1989,7 +1998,10 @@ pub async fn server_profile(app: AppHandle, id: String) -> Result<OpResult, Stri
         let s = st.servers.iter().find(|x| x.id == id).ok_or("сервер не найден")?;
         let (pid, probe, note) = local_profiles(&st, s, &log).await?;
         if pid.is_none() {
-            return Err("На сервере нет VPN от wpx — сначала «Установить VPN»".to_string());
+            return Err(match note {
+                Some(n) if s.via.is_some() => format!("{n} Сделайте его: «Каскад» вверху страницы."),
+                _ => "На сервере нет VPN от wpx — сначала «Установить VPN»".to_string(),
+            });
         }
         Ok(OpResult { state: state(&st), probe, profile: pid, note })
     }
@@ -2568,6 +2580,21 @@ mod tests {
         let via = endpoints(&s, &sec, "203.0.113.5", Ports::via(&s, &chain), "RU → SG → FI", Some("e2"));
         assert_eq!((via[0].server.as_str(), via[0].port), ("203.0.113.5", 2053));
         assert_eq!(chain[0].final_port(), 443);
+    }
+
+    #[test]
+    fn ipv6_server_address() {
+        assert_eq!(server_ip(" [2001:DB8:503D::2] ").unwrap(), "2001:db8:503d::2");
+        assert_eq!(server_ip("203.0.113.10").unwrap(), "203.0.113.10");
+        assert!(server_ip("vpn.example.com").is_err());
+        assert_eq!(host_port("2001:db8:503d::2", 443), "[2001:db8:503d::2]:443");
+        assert_eq!(host_port("203.0.113.10", 443), "203.0.113.10:443");
+        let (mut s, sec) = srv();
+        s.host = "2001:db8:503d::2".into();
+        let eps = endpoints(&s, &sec, &s.host, Ports::of(&s), &s.name, None);
+        assert!(eps.iter().all(|e| e.server == "2001:db8:503d::2"), "ссылки с IPv6 читаются обратно без скобок");
+        let a = Awg { port: 41064, server_public: "k".into(), obf: vec![] };
+        assert!(awg_client_conf(&a, "p", "q", 2, &s.host, 41064, false).contains("Endpoint = [2001:db8:503d::2]:41064"));
     }
 
     #[test]
