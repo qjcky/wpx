@@ -3996,6 +3996,10 @@
   [
    "Отмеченные сайты ({}) и то, что они подгружают, станут одним правилом набора — всего адресов: {}. Путь — {}.",
    "The ticked sites ({}) and what they load become one set rule — {} addresses in all. Route — {}."
+  ],
+  [
+   ".{} — вся зона",
+   ".{} — the whole zone"
   ]
  ]
 }

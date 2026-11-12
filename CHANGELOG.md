@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Rules for whole zones: type ".io", ".ai" or ".ru" in the rule search → "the whole zone", then any route — direct, a VPN,
+  a cascade or a proxy. Zones also work inside your own sets.
+
 ## 0.1.4
 
 - "…and what it loads" no longer learns shared and background domains (Google, Microsoft, ad networks, browser

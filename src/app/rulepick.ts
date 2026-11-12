@@ -82,7 +82,9 @@ export function filter(all: Cand[], q: string): Cand[] {
   const dom = isExe ? null : domainOf(t);
   if (isExe && !all.some((c) => c.kind === "app" && c.value.toLowerCase() === t.split(/[\\/]/).pop()))
     extra.push({ kind: "app", value: q.trim(), label: q.trim().split(/[\\/]/).pop()!.replace(/\.exe$/i, ""), bytes: 0, fresh: true });
-  if (dom && !all.some((c) => c.kind === "site" && c.value === dom)) extra.push({ kind: "site", value: dom, label: dom, bytes: 0, fresh: true });
+  const zone = /^\.([a-z][a-z0-9-]{1,23})$/.exec(t)?.[1];
+  if (zone) extra.push({ kind: "site", value: zone, label: `.${zone} — вся зона`, bytes: 0, fresh: true });
+  else if (dom && !all.some((c) => c.kind === "site" && c.value === dom)) extra.push({ kind: "site", value: dom, label: dom, bytes: 0, fresh: true });
   // Просто слово без совпадений — может, это программа: «telegram» → telegram.exe.
   if (!hit.length && !extra.length && /^[\w-]+$/.test(t)) {
     extra.push({ kind: "app", value: `${t}.exe`, label: t, bytes: 0, fresh: true });

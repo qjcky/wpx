@@ -418,11 +418,12 @@ pub fn load() -> NetSettings {
     s
 }
 
+/// Домен с поддоменами или целая зона («io», «ai», «xn--p1ai»): правило по суффиксу.
 pub fn valid_domain(s: &str) -> bool {
     !s.is_empty()
         && s.len() < 254
-        && s.contains('.')
         && s.split('.').all(|p| !p.is_empty() && p.chars().all(|c| c.is_ascii_alphanumeric() || c == '-'))
+        && (s.contains('.') || (s.len() >= 2 && s.starts_with(|c: char| c.is_ascii_alphabetic())))
 }
 
 pub fn save(s: &NetSettings) -> Result<(), String> {
@@ -1407,6 +1408,8 @@ mod tests {
     #[test]
     fn cidr_validation() {
         assert!(valid_cidr("192.168.1.0/24") && valid_cidr("8.8.8.8"));
+        assert!(valid_domain("io") && valid_domain("xn--p1ai") && valid_domain("example.org"));
+        assert!(!valid_domain("a") && !valid_domain("42") && !valid_domain("ex ample.org"));
         assert!(!valid_cidr("192.168.1.0/33") && !valid_cidr("host.local"));
     }
 }
