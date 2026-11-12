@@ -35,6 +35,11 @@ const NEVER_TLD: &[&str] = &["ru", "su", "xn--p1ai"];
 const NEVER: &[&str] = &[
     "windowsupdate.com", "msftconnecttest.com", "msftncsi.com", "digicert.com", "sectigo.com", "usertrust.com", "lencr.org",
     "letsencrypt.org", "globalsign.com", "verisign.com", "comodoca.com", "pki.goog",
+    // Общее для всех сайтов и фон браузера: выученное, оно увело бы через туннель
+    // весь Google, Microsoft, рекламу и расширения, а не «то, что грузит сайт».
+    "google.com", "gstatic.com", "googleapis.com", "gvt1.com", "gvt2.com", "microsoft.com", "live.com",
+    "doubleclick.net", "googlesyndication.com", "googleadservices.com", "google-analytics.com", "googletagmanager.com",
+    "ipify.org", "getadblock.com", "adblockplus.org",
 ];
 
 /// Стоит ли запоминать адрес `d` у правила `r`: не российская зона, не
@@ -501,6 +506,7 @@ mod tests {
         n.rules.push(RouteRule { kind: "site".into(), value: "platipomiru.com".into(), target: "direct".into(), ..Default::default() });
         let r = ig(&["skip:site:example.net"]);
         assert!(worth("cdninstagram.com", &r, &n));
+        assert!(!worth("google.com", &r, &n) && !worth("beacons.gvt2.com", &r, &n) && !worth("ad.doubleclick.net", &r, &n));
         for d in ["yandex.ru", "vk.su", "xn--d1acj3b.xn--p1ai", "windowsupdate.com", "digicert.com", "example.net", "platipomiru.com"] {
             assert!(!worth(d, &r, &n), "{d}");
         }

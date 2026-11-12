@@ -1,7 +1,9 @@
 # Changelog
 
-## Unreleased
+## 0.1.4
 
+- "…and what it loads" no longer learns shared and background domains (Google, Microsoft, ad networks, browser
+  extensions): x.com had pulled all of google.com into the tunnel.
 - The Discord set took the Riot launcher (and anything else on Cloudflare or Google Cloud) along with it: its subnet
   list from itdoginfo also holds all of Cloudflare and big parts of Google Cloud. The set now uses only Discord's own
   networks, built into wpx; Discord's domains (voice included) are unchanged.
