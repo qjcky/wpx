@@ -102,6 +102,7 @@ pub fn run() {
             cmd::profile_delete,
             cmd::profile_test,
             cmd::profile_activate,
+            cmd::profile_deactivate,
             cmd::links_parse,
             cmd::links_probe,
             cmd::profile_import,

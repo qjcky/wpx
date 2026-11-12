@@ -441,6 +441,11 @@ export function mockApi(): Api {
       http: i.http_port ? { ok: true, connect_ms: 341, ready_ms: 702, err: null } : null,
       socks: i.socks_port ? { ok: false, connect_ms: null, ready_ms: null, err: "нет ответа (таймаут)" } : null,
     }),
+    profileDeactivate: async () => {
+      await later(null, 2000);
+      profiles = profiles.map((p) => ({ ...p, active: false }));
+      return ok("Движок остановлен");
+    },
     profileActivate: async (id) => {
       await later(null, 7000);
       engineKind = "wpx";

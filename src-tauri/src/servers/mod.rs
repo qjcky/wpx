@@ -2147,7 +2147,7 @@ async fn rebuild_route(st: &Store, x: &Server, log: Option<&Log>) -> Result<(Opt
     let active = ps.active.clone().unwrap_or_default();
     if via_pipes.is_empty() {
         if let Some(p) = ps.profiles.iter().find(|p| p.origin == origin && p.id == active) {
-            return Err(format!("Профиль «{}» сейчас в работе — сначала включите другой", p.name));
+            return Err(format!("Профиль «{}» сейчас в работе — {}", p.name, profiles::BUSY_HINT));
         }
         if let Some(p) = ps.profiles.iter().find(|p| p.origin == origin) {
             let users = profiles::used_by_cascades(&ps, &p.id);
@@ -2200,7 +2200,7 @@ async fn cascade_remove(entry: String, exit: String, log: &Log) -> Result<Server
         let ps = profiles::load();
         if let Some(p) = ps.profiles.iter().find(|p| p.origin == format!("route:{exit}")) {
             if paths <= 1 && ps.active.as_deref() == Some(&p.id) {
-                return Err(format!("Профиль «{}» сейчас в работе, а это его последний путь — сначала включите другой", p.name));
+                return Err(format!("Профиль «{}» сейчас в работе, а это его последний путь — {}", p.name, profiles::BUSY_HINT));
             }
             let users = profiles::used_by_cascades(&ps, &p.id);
             if paths <= 1 && !users.is_empty() {
@@ -2272,7 +2272,7 @@ async fn uninstall(s: &Server, log: &Log) -> Result<ServersState, String> {
         let mut ps = profiles::load();
         let mine = |o: &str| o == format!("server:{id}");
         if let Some(p) = ps.profiles.iter().find(|p| mine(&p.origin) && ps.active.as_deref() == Some(&p.id)) {
-            return Err(format!("Профиль «{}» сейчас в работе — сначала включите другой", p.name));
+            return Err(format!("Профиль «{}» сейчас в работе — {}", p.name, profiles::BUSY_HINT));
         }
         for p in ps.profiles.iter().filter(|p| mine(&p.origin)) {
             let users = profiles::used_by_cascades(&ps, &p.id);

@@ -45,6 +45,21 @@ async function activate(p: ProfileView) {
   if (r?.ok) void loadEngine();
 }
 
+/** Снять с работы: движок останавливается, рабочего профиля нет — его, сервер и каскад можно удалить. */
+async function deactivate(p: ProfileView) {
+  const r = await runEngineOp({
+    title: `Снять «${p.name}» с работы`,
+    intro: (info?.net.kill_switch
+      ? "<p>Движок остановится. <b>Интернета на этом ПК не будет</b> до выбора другого рабочего профиля — kill switch не пускает трафик мимо туннеля.</p>"
+      : "<p>Движок остановится, интернет пойдёт напрямую, без VPN, пока не сделаете рабочим другой профиль.</p>")
+      + "<p>После этого профиль, его сервер и каскад можно удалить.</p>",
+    confirm: "Снять с работы", steps: ["Подтверждение прав администратора", "Остановка движка"],
+    call: () => api.profileDeactivate(), danger: true,
+  });
+  if (r) await loadProfiles();
+  if (r?.ok) void loadEngine();
+}
+
 // ─── Профили ─────────────────────────────────────────────────────
 
 async function loadProfiles() {
@@ -106,7 +121,9 @@ function renderProfiles() {
         ${vpn ? `<button class="btn" data-act="vedit" data-id="${p.id}">Изменить</button>` : ""}
         ${rt ? `<button class="btn" data-act="redit" data-id="${p.id}">Изменить</button>` : ""}
         ${vpn || c || rt ? "" : `<button class="btn" data-act="edit" data-id="${p.id}">Изменить</button>`}
-        ${p.active ? "" : `<button class="btn danger" data-act="del" data-id="${p.id}">Удалить</button>`}</span></span>
+        ${p.active
+          ? `<button class="btn" data-act="off" data-id="${p.id}" title="Остановить движок и оставить ПК без рабочего профиля — когда ни один профиль не отвечает">Снять с работы</button>`
+          : `<button class="btn danger" data-act="del" data-id="${p.id}">Удалить</button>`}</span></span>
       </div>
     </div>`;
   }).join("");
@@ -761,6 +778,7 @@ function wireProfiles() {
     if (b.dataset.act === "try") await startTrial(p);
     if (b.dataset.act === "swap") await swapCascade(p);
     if (b.dataset.act === "use") await activate(p);
+    if (b.dataset.act === "off") await deactivate(p);
     if (b.dataset.act === "del") {
       const what = p.cascade
         ? `<p>Каскад «${esc(p.name)}» будет удалён. Профили входа и выхода останутся.</p>`

@@ -37,7 +37,7 @@ pub fn profile_save(input: ProfileInput) -> Result<ProfilesState, String> {
 pub fn profile_delete(id: String) -> Result<ProfilesState, String> {
     let mut s = profiles::load();
     if s.active.as_deref() == Some(&id) {
-        return Err("Нельзя удалить профиль, который сейчас в работе".into());
+        return Err(format!("Профиль сейчас в работе — {}", profiles::BUSY_HINT));
     }
     let users = profiles::used_by_cascades(&s, &id);
     if !users.is_empty() {
@@ -103,6 +103,25 @@ async fn test_profile(p: &Profile, pass: &str) -> ProfileTest {
 pub async fn profile_test(input: ProfileInput) -> Result<ProfileTest, String> {
     let (p, pass) = resolve(&input)?;
     Ok(test_profile(&p, &pass).await)
+}
+
+/// Снять рабочий профиль с работы: движок останавливается (без kill switch —
+/// интернет напрямую), рабочего профиля нет. Нужно, когда ни один профиль не
+/// отвечает: переключиться не на что, а рабочий профиль, его сервер и каскад
+/// не удалить.
+#[tauri::command]
+pub async fn profile_deactivate(app: AppHandle, shared: tauri::State<'_, Shared>) -> Result<ApplyResult, ()> {
+    let res = if config::active().kind == EngineKind::Wpx {
+        engine_op(app, shared.inner().clone(), ops::stop).await
+    } else {
+        ApplyResult { ok: true, outcome: "applied".into(), message: "Готово".into(), info: None }
+    };
+    if res.ok {
+        let mut s = profiles::load();
+        s.active = None;
+        let _ = profiles::save(&s);
+    }
+    Ok(res)
 }
 
 /// Сделать профиль рабочим. Сначала проверяем, что основной выход отвечает
@@ -634,8 +653,22 @@ macro_rules! op_cmd {
     };
 }
 
-op_cmd!(engine_restart, ops::restart);
-op_cmd!(engine_start, ops::start);
+/// Как `op_cmd`, но только при рабочем профиле: снятый с работы профиль ещё
+/// лежит в конфиге движка — без проверки он поднялся бы снова.
+macro_rules! op_cmd_working {
+    ($name:ident, $call:expr) => {
+        #[tauri::command]
+        pub async fn $name(app: AppHandle, shared: tauri::State<'_, Shared>) -> Result<ApplyResult, ()> {
+            if profiles::load().active.is_none() {
+                return Ok(ApplyResult::fail("Нет рабочего профиля — сделайте рабочим один из профилей"));
+            }
+            Ok(engine_op(app, shared.inner().clone(), $call).await)
+        }
+    };
+}
+
+op_cmd_working!(engine_restart, ops::restart);
+op_cmd_working!(engine_start, ops::start);
 op_cmd!(engine_stop, ops::stop);
 op_cmd!(engine_uninstall, ops::uninstall);
 op_cmd!(engine_update, ops::update_engine);

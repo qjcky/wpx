@@ -30,6 +30,7 @@ export interface Api {
   profileDelete(id: string): Promise<ProfilesState>;
   profileTest(input: ProfileInput): Promise<ProfileTest>;
   profileActivate(id: string): Promise<ApplyResult>;
+  profileDeactivate(): Promise<ApplyResult>;
   linksParse(text: string): Promise<ParsedItem[]>;
   linksProbe(text: string, direct: boolean): Promise<ProbeResult[]>;
   profileImport(name: string, text: string, mode: string, order: number[]): Promise<ProfilesState>;
@@ -157,6 +158,7 @@ export async function tauriApi(): Promise<Api> {
     profileDelete: (id) => invoke<ProfilesState>("profile_delete", { id }),
     profileTest: (input) => invoke<ProfileTest>("profile_test", { input }),
     profileActivate: (id) => invoke<ApplyResult>("profile_activate", { id }),
+    profileDeactivate: () => invoke<ApplyResult>("profile_deactivate"),
     linksParse: (text) => invoke<ParsedItem[]>("links_parse", { text }),
     linksProbe: (text, direct) => invoke<ProbeResult[]>("links_probe", { text, direct }),
     profileImport: (name, text, mode, order) => invoke<ProfilesState>("profile_import", { name, text, mode, order }),

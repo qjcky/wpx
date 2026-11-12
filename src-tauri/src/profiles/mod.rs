@@ -583,6 +583,9 @@ pub fn decrypt_str(enc: &str) -> Result<String, String> {
 
 // ─── Хранилище ───────────────────────────────────────────────────
 
+/// Что делать, если мешает профиль «в работе»: ни один не отвечает — переключиться не на что.
+pub const BUSY_HINT: &str = "включите другой или снимите его с работы (Профили → ⋯ → «Снять с работы»)";
+
 pub fn load() -> Store {
     std::fs::read_to_string(config::data_dir().join("profiles.json"))
         .ok()

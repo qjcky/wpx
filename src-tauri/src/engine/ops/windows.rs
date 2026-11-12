@@ -70,7 +70,7 @@ fn alias_list(ifaces: &[String]) -> String {
 /// Команда задачи движка: домашняя папка mihomo — `home`, конфиг и exe — выше.
 fn engine_args() -> String {
     format!(
-        "/v:on /c chcp 65001 >nul & {on} & {d}\\mihomo.exe -d {d}\\home -f {d}\\config.yaml >> {d}\\engine.log 2>&1 & set rc=!errorlevel! & {off} & exit !rc!",
+        "/v:on /c (if exist {d}\\wpx-stopped exit 0) & chcp 65001 >nul & {on} & {d}\\mihomo.exe -d {d}\\home -f {d}\\config.yaml >> {d}\\engine.log 2>&1 & set rc=!errorlevel! & {off} & exit !rc!",
         d = WPX_DIR,
         on = fw_switch(true),
         off = fw_off_unless_ks(),
@@ -804,6 +804,8 @@ mod tests {
         let (on, mh, off) = (a.find("enable=yes").unwrap(), a.find("mihomo.exe").unwrap(), a.find("enable=no").unwrap());
         assert!(on < mh && mh < off, "{a}");
         assert!(a.contains("(if not exist C:\\ProgramData\\wpx\\engine\\ks-prev.json netsh") && a.ends_with("& exit !rc!"), "{a}");
+        // Остановленный вручную — не поднимается и при загрузке.
+        assert!(a.starts_with("/v:on /c (if exist C:\\ProgramData\\wpx\\engine\\wpx-stopped exit 0) & "), "{a}");
         assert!(tx_stop(&config::wpx()).mutate.contains("Disable-NetFirewallRule"));
         assert!(tx_boot(false).mutate.contains("wpx-fw-boot") && tx_boot(true).mutate.contains("Unregister-ScheduledTask -TaskName wpx-fw-boot"));
         assert!(tx_uninstall().mutate.contains("'wpx-fw-boot'"));

@@ -887,7 +887,6 @@
   "Проверка отката: новая версия будет считаться не поднявшейся": "Rollback test: the new version will be treated as failed to start",
   "нет AmneziaWG": "no AmneziaWG",
   "Рабочий профиль переехал — нажмите «Сделать рабочим» ещё раз, чтобы движок взял новый адрес.": "The active profile moved — click “Make active” again so the engine picks up the new address.",
-  "Нельзя удалить профиль, который сейчас в работе": "You can’t delete the active profile",
   "Профиль не найден": "Profile not found",
   "Нет ни одной распознанной точки подключения": "No recognized endpoints",
   "маршрут в маршруте не поддерживается": "a route inside a route isn’t supported",
@@ -1552,7 +1551,16 @@
   "не включено — «Изменить VPN» включит": "off — “Edit VPN” turns it on",
   "не включено — включит повторный «Каскад»": "off — running “Cascade” again turns it on",
   "чинить ничего не пришлось": "nothing needed fixing",
-  "включено": "on"
+  "включено": "on",
+  "включите другой или снимите его с работы (Профили → ⋯ → «Снять с работы»)": "turn on another one or take it out of use (Profiles → ⋯ → “Take out of use”)",
+  "Снять с работы": "Take out of use",
+  "Остановить движок и оставить ПК без рабочего профиля — когда ни один профиль не отвечает": "Stop the engine and leave the PC without an active profile — when no profile responds",
+  "Нет рабочего профиля — сделайте рабочим один из профилей": "No active profile — make one of the profiles active",
+  "Движок остановится.": "The engine will stop.",
+  "Интернета на этом ПК не будет": "This PC will have no internet",
+  "до выбора другого рабочего профиля — kill switch не пускает трафик мимо туннеля.": "until you make another profile active — the kill switch lets nothing bypass the tunnel.",
+  "Движок остановится, интернет пойдёт напрямую, без VPN, пока не сделаете рабочим другой профиль.": "The engine will stop and the internet will go direct, without VPN, until you make another profile active.",
+  "После этого профиль, его сервер и каскад можно удалить.": "After that the profile, its server and cascade can be deleted."
  },
  "patterns": [
   [
@@ -1658,10 +1666,6 @@
   [
    "у сервера нет нормального выхода в интернет (ответ {}, DNS {}) — вопрос к хостеру",
    "the server has no proper internet access (response {}, DNS {}) — ask your hoster"
-  ],
-  [
-   "Профиль «{}» сейчас в работе, а это его последний путь — сначала включите другой",
-   "Profile “{}” is active and this is its last path — switch to another one first"
   ],
   [
    "после включения файрвола SSH не пустил ({}) — через 90 с правила снимутся сами",
@@ -1818,10 +1822,6 @@
   [
    "{} · {} · {} ядр. · {} МБ ОЗУ · Docker · не трогаю: {}",
    "{} · {} · {} cores · {} MB RAM · Docker · leaving alone: {}"
-  ],
-  [
-   "Профиль «{}» сейчас в работе — сначала включите другой",
-   "Profile “{}” is active right now — switch to another one first"
   ],
   [
    "{}: протокол «{}» из AmneziaVPN пока не поддерживается",
@@ -3838,6 +3838,22 @@
   [
    "самовосстановление: {}",
    "self-healing: {}"
+  ],
+  [
+   "Профиль «{}» сейчас в работе — {}",
+   "Profile “{}” is in use — {}"
+  ],
+  [
+   "Профиль «{}» сейчас в работе, а это его последний путь — {}",
+   "Profile “{}” is in use and this is its last path — {}"
+  ],
+  [
+   "Профиль сейчас в работе — {}",
+   "The profile is in use — {}"
+  ],
+  [
+   "Снять «{}» с работы",
+   "Take “{}” out of use"
   ]
  ]
 }

@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Profiles: "Take out of use" for the active profile (⋯). When no profile responds there is nothing to switch to, and
+  the active profile, its server and its cascade couldn't be removed; now the engine stops, the PC is left without an
+  active profile (direct internet, or none with the kill switch) and all of them can be removed. Start and Restart ask
+  for an active profile first.
+- Windows: an engine stopped by hand stays stopped after a reboot, as the Stop dialog says (Linux already did this).
+
 ## 0.1.3
 
 - Your servers: self-healing on the server — every minute it checks wpx's services (containers, listening ports, the
