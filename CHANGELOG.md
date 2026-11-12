@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Cascades find their path. You set the first hop and the final server; before laying a pipe wpx checks from the
+  first hop that the next server answers and the path holds (TCP over IPv4 and the server's IPv6, its SSH key must
+  match, then about half a minute of steadiness — some filters let traffic through in waves). If IPv4 is filtered and
+  IPv6 holds, the pipe goes over IPv6; if the direct path doesn't hold, wpx picks a middle one among your servers and
+  says so: "PC → first hop → middle → final".
+- Adding a server this PC can't reach directly: wpx finds one of your servers the path holds from and connects
+  through it. Servers can be added by IPv6 address.
+- Where it breaks: a step "entry → server" (both addresses, steadiness), and "it answers ping, but connections reach
+  it from nowhere — looks like a block at the server's provider" with a note for the host.
+- "Profile on this PC" for a server reachable only through a jump no longer makes a direct profile that can't work.
+- Self-healing no longer reports Hysteria2 port hopping as restarted right after installation.
 - Profiles: "Take out of use" for the active profile (⋯). When no profile responds there is nothing to switch to, and
   the active profile, its server and its cascade couldn't be removed; now the engine stops, the PC is left without an
   active profile (direct internet, or none with the kill switch) and all of them can be removed. Start and Restart ask

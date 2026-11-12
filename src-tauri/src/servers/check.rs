@@ -337,6 +337,65 @@ pub(super) async fn run(id: &str) -> Result<ServerCheck, String> {
         steps.push(step("ПК → VPN (через провайдера)", if ok.is_empty() { "bad" } else if dead.is_empty() && frozen.is_empty() { "ok" } else { "warn" }, d.join(" · ")));
     }
 
+    // 6. Вход → выход: с каждого входа каскада — доходит ли до сервера и по какому адресу.
+    let mut path_bad = false;
+    for e in st.servers.iter().filter(|e| e.id != s.id && e.pipes.iter().any(|p| p.to == s.id && p.hop.is_none())) {
+        let title = format!("«{}» → сервер", e.name);
+        let (c, _, _) = reach(&st, e).await;
+        let Some(c) = c else {
+            steps.push(step(title, "skip", "не проверить — нет SSH ко входу"));
+            continue;
+        };
+        let used = e.pipes.iter().find(|p| p.to == s.id && p.hop.is_none()).map(|p| p.to_host.clone()).unwrap_or_default();
+        let r = path::probe(&c, &s).await;
+        let held = match &r {
+            Ok(r) if r.iter().any(|x| x.addr == used && x.fits(&s)) => path::steady(&c, &s, &used).await.ok(),
+            _ => None,
+        };
+        c.close().await;
+        let Ok(r) = r else { continue };
+        match held {
+            Some(n) if path::holds(n) => {
+                steps.push(step(title, "ok", format!("{} · держится: {n} из {}", path::summary(&r, &s), path::STEADY_TRIES)));
+                continue;
+            }
+            Some(n) => {
+                steps.push(step(title, "bad", format!("{} · рвётся: {n} из {} за полминуты — похоже на фильтр, что пропускает соединения волнами", path::summary(&r, &s), path::STEADY_TRIES)));
+                path_bad = true;
+                continue;
+            }
+            None => {}
+        }
+        path_bad = true;
+        match path::pick(&r, &s) {
+            Some(x) => {
+                steps.push(step(title, "bad", format!("{} — труба идёт на {used}, а проходит {}", path::summary(&r, &s), x.family())));
+                advice.push(Advice { kind: "cascade", text: format!("Пересобрать каскад «{}» → «{}»: труба пойдёт по {}", e.name, s.name, x.family()), entry: Some(e.id.clone()) });
+            }
+            None => steps.push(step(title, "bad", path::summary(&r, &s))),
+        }
+    }
+    // 7. SSH не открылся ни с ПК, ни через свои серверы — что видно с них.
+    let mut pinged = false;
+    let mut nowhere = false;
+    if state.is_none() {
+        let (mut lines, mut reached) = (vec![], false);
+        for o in st.servers.iter().filter(|o| o.id != s.id && o.via.is_none()) {
+            let (c, _, _) = reach(&st, o).await;
+            let Some(c) = c else { continue };
+            if let Ok(r) = path::probe(&c, &s).await {
+                pinged |= r.iter().any(|x| x.ping);
+                reached |= path::pick(&r, &s).is_some();
+                lines.push(format!("с «{}»: {}", o.name, path::summary(&r, &s)));
+            }
+            c.close().await;
+        }
+        if !lines.is_empty() {
+            nowhere = !reached;
+            steps.push(step("С ваших серверов", if reached { "warn" } else { "bad" }, lines.join(" · ")));
+        }
+    }
+
     // Вердикт и советы.
     let server_fine = state.is_some() && !services_bad && !net_bad;
     let unreachable = (blocked_ssh || (!probe.is_empty() && ok.is_empty())) && server_fine;
@@ -347,7 +406,9 @@ pub(super) async fn run(id: &str) -> Result<ServerCheck, String> {
         }
         advice.push(Advice { kind: "move", text: "Переехать на другой VPS: wpx перенесёт протоколы, ключи и доступы".into(), entry: None });
     }
-    let (verdict, summary) = if state.is_none() && ok.is_empty() {
+    let (verdict, summary) = if state.is_none() && ok.is_empty() && nowhere && pinged {
+        ("bad", "Сервер отвечает на ping, но соединения до него не доходят ни с ПК, ни с ваших серверов — похоже на блокировку у провайдера сервера".to_string())
+    } else if state.is_none() && ok.is_empty() {
         ("bad", "Сервер не отвечает — возможно, выключен или у хостера сбой".to_string())
     } else if services_bad {
         ("bad", "Сервер на связи, но VPN на нём не работает".to_string())
@@ -355,6 +416,8 @@ pub(super) async fn run(id: &str) -> Result<ServerCheck, String> {
         ("bad", "VPN на сервере работает, но у самого сервера нет интернета".to_string())
     } else if unreachable {
         ("bad", format!("Сервер работает, а с вашего ПК до него не доходит — похоже, провайдер блокирует {}", s.host))
+    } else if path_bad {
+        ("warn", "Сервер работает, но с входа каскада до него не доходит".to_string())
     } else if !frozen.is_empty() && ok.is_empty() {
         ("bad", "Соединение есть, но данные замерзают — похоже на ТСПУ".to_string())
     } else if !dead.is_empty() || !frozen.is_empty() {
@@ -363,7 +426,12 @@ pub(super) async fn run(id: &str) -> Result<ServerCheck, String> {
         ("ok", "Всё работает: сервер, его интернет и путь от ПК".to_string())
     };
     if state.is_none() && ok.is_empty() {
-        advice.push(Advice { kind: "hoster", text: "Проверьте сервер в панели хостера (включён ли, не закончилась ли аренда)".into(), entry: None });
+        let text = if nowhere && pinged {
+            "Написать хостеру: на адрес не доходят TCP и UDP ни откуда, а ping проходит — пусть проверят фильтрацию"
+        } else {
+            "Проверьте сервер в панели хостера (включён ли, не закончилась ли аренда)"
+        };
+        advice.push(Advice { kind: "hoster", text: text.into(), entry: None });
     }
     let mut seen = std::collections::HashSet::new();
     advice.retain(|a| seen.insert((a.kind, a.entry.clone())));

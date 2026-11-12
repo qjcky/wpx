@@ -3,7 +3,7 @@
 // из Rust (событие server-log) и показывается вживую.
 
 import type { Api } from "../core/api";
-import type { Guest, GuestInput, GuestStat, HealEvent, ProbeResult, ServerCheck, ServerLog, ServerOpResult, ServersState, ServerView, Share, ShareItem } from "../core/types";
+import type { Guest, GuestInput, GuestStat, HealEvent, HostKey, ProbeResult, ServerCheck, ServerLog, ServerOpResult, ServersState, ServerView, Share, ShareItem } from "../core/types";
 import { $, esc, modal, probeBadge, when } from "../core/ui";
 import { TYPE_ICON } from "../core/icons";
 import { lang } from "../core/i18n";
@@ -39,7 +39,7 @@ function card(s: ServerView) {
   // Выход трубы не добавлен на этом ПК (сервер настраивали с другого) — без него
   // ни профиля каскада, ни действий с трубой.
   const pipes = s.pipes.map((p) => `
-    <div class="srv-pipe"><span>каскад: <b>${esc(s.name)}</b> :${p.listen} → ${p.hop_name ? `<b>${esc(p.hop_name)}</b> → ` : ""}<b>${esc(p.to_name)}</b> :${p.to_port}${p.to ? "" : `
+    <div class="srv-pipe"><span>каскад: <b>${esc(s.name)}</b> :${p.listen} → ${p.hop_name ? `<b>${esc(p.hop_name)}</b> → ` : ""}<b>${esc(p.to_name)}</b> :${p.to_port}${p.to_host.includes(":") ? ' <span class="tag" title="Со входа до выхода по IPv4 не доходит — труба идёт по IPv6">IPv6</span>' : ""}${p.to ? "" : `
         <span class="hint">— выход не добавлен на этом ПК: «Добавить сервер» ${esc(p.to_host)} через «${esc(s.name)}», и появится профиль каскада</span>`}</span>
       ${p.to ? `<span class="acts-inline">
         <button class="btn sm" data-act="cswap" data-id="${s.id}" data-to="${p.to}" title="Поменять вход и выход местами">⇄</button>
@@ -215,8 +215,10 @@ function probeHtml(r: ServerOpResult) {
 // ─── Добавить сервер ─────────────────────────────────────────────
 
 /** Сверка ключа сервера: что он показал и где взять настоящий. */
-function fingerprintHtml(host: string, fp: string) {
-  return `<p>Сервер ${esc(host)} показал ключ:</p>
+function fingerprintHtml(host: string, fp: string, via: string | null) {
+  const jump = via ? byId(via)?.name : null;
+  return `${jump ? `<p class="note">Напрямую с этого ПК сервер не отвечает — подключусь через «${esc(jump)}».</p>` : ""}
+    <p>Сервер ${esc(host)} показал ключ:</p>
     <p><code class="mono">${esc(fp)}</code></p>
     <p>Сверьте его с настоящим — так видно, что между ПК и сервером никто не встал. Где смотреть: в панели хостинга или VNC-консоли сервера выполните
       <code class="mono">for f in /etc/ssh/ssh_host_*_key.pub; do ssh-keygen -lf "$f"; done</code> — одна из строк должна содержать этот отпечаток.</p>
@@ -259,14 +261,16 @@ async function submitAdd(ev: Event) {
   // Сначала ключ сервера — без пароля: сверить с панелью хостинга, и только
   // потом вход. Иначе пароль ушёл бы тому, кто первым ответил по адресу.
   const title = `Подключение ${input.host}`;
-  void modal(title, logHtml([{ kind: "step", text: "Запрашиваю ключ сервера — пароль пока не отправляется" }], true), null, null);
-  let fp: string;
-  try { fp = await api.serverFingerprint(input.host, input.port, input.via); }
+  void modal(title, logHtml([{ kind: "step", text: "Запрашиваю ключ сервера — пароль пока не отправляется. Напрямую не ответит — поищу путь через ваши серверы, это до минуты" }], true), null, null);
+  let key: HostKey;
+  try { key = await api.serverFingerprint(input.host, input.port, input.via); }
   catch (e) { await modal(title, `<div class="result bad">${esc(String(e))}</div>`, "Понятно", null); return; }
-  if (!(await modal("Ключ сервера", fingerprintHtml(input.host, fp), "Ключ совпадает — подключиться", "Отмена"))) return;
+  // Напрямую не открылся — wpx нашёл путь через свой сервер: так и подключаемся.
+  input.via = key.via;
+  if (!(await modal("Ключ сервера", fingerprintHtml(input.host, key.fingerprint, key.via), "Ключ совпадает — подключиться", "Отмена"))) return;
   // Пароль в поле не держим дольше нужного.
   $<HTMLInputElement>("saPass").value = "";
-  const r = await runOp(title, () => api.serverAdd({ ...input, fingerprint: fp }));
+  const r = await runOp(title, () => api.serverAdd({ ...input, fingerprint: key.fingerprint }));
   if (r) {
     st = r;
     $("srvAdd").hidden = true;
@@ -367,7 +371,7 @@ function openCascade() {
   const opt = (s: ServerView) => `<option value="${s.id}">${esc(s.name)} · ${esc(s.host)}${s.vless || s.hy2 || s.awg ? "" : " (VPN не установлен)"}</option>`;
   $("scEntry").innerHTML = st.servers.map(opt).join("");
   $("scExit").innerHTML = st.servers.map(opt).join("");
-  $("scVia").innerHTML = `<option value="">без промежуточного — вход сразу на выход</option>` + st.servers.map(opt).join("");
+  $("scVia").innerHTML = `<option value="">подобрать, если нужен</option>` + st.servers.map(opt).join("");
   // По умолчанию: вход — доступный с ПК напрямую, выход — с VPN.
   const entry = st.servers.find((s) => !s.via) ?? st.servers[0];
   const exit = st.servers.find((s) => s.id !== entry?.id && (s.vless || s.hy2 || s.awg)) ?? st.servers.find((s) => s.id !== entry?.id);
@@ -381,10 +385,10 @@ function checkCascade() {
   const e = byId($<HTMLSelectElement>("scEntry").value), x = byId($<HTMLSelectElement>("scExit").value);
   const m = $<HTMLSelectElement>("scVia").value;
   const why = !e || !x ? "Нужно два сервера"
-    : e.id === x.id ? "Вход и выход — один и тот же сервер"
-    : m && (m === e.id || m === x.id) ? "Промежуточный сервер должен отличаться от входа и выхода"
-    : !x.vless && !x.hy2 && !x.awg ? `На выходе «${x.name}» ещё не установлен VPN`
-    : e.via ? `«${e.name}» — SSH только через другой сервер; ПК должен доставать вход напрямую` : "";
+    : e.id === x.id ? "Первый прыжок и конечный — один и тот же сервер"
+    : m && (m === e.id || m === x.id) ? "Промежуточный должен отличаться от первого прыжка и конечного"
+    : !x.vless && !x.hy2 && !x.awg ? `На конечном «${x.name}» ещё не установлен VPN`
+    : e.via ? `«${e.name}» — SSH только через другой сервер; ПК должен доставать первый прыжок напрямую` : "";
   $("scErr").textContent = why;
   $("scErr").hidden = !why;
   $<HTMLButtonElement>("scGo").disabled = !!why && !why.startsWith("«");

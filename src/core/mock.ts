@@ -48,7 +48,7 @@ export function mockApi(): Api {
     facts: { os: "Debian GNU/Linux 12 (bookworm)", arch: "x86_64", cpus: 1, ram_mb: 1024, avail_mb: 600, swap_mb: 1024, disk_free_mb: 20480, country, city, org: "Hosting LLC",
       root: true, docker: true, systemd: true, containers: ["amnezia-awg2", "wpx-singbox"], tcp: [], udp: [], wpx: true, ufw: false, at: Date.now(),
       uptime_s: 363600, load: "0.00 0.01 0.00", net_rx: 1_587_000_000, net_tx: 1_300_000_000, cc: "hybla", bbr_avail: true, autoupd: false, f2b: false,
-      updates: 94, sec_updates: 38, reboot: true, sb_ver: "1.14.4", apt: true, public: [], fw: false, heal: true, heal_log: [] },
+      updates: 94, sec_updates: 38, reboot: true, sb_ver: "1.14.4", apt: true, public: [], fw: false, ipv6: "", heal: true, heal_log: [] },
   });
   let servers: ServerView[] = [
     { ...srv("s1", "Singapore", "203.0.113.10", "SG", "Singapore"), runtime: "docker", vless: { port: 443, dest: "www.apple.com", public_key: "k", short_id: "s" },
@@ -295,7 +295,7 @@ export function mockApi(): Api {
     trialBrowser: async () => "msedge.exe",
     trialSpeed: async () => { await later(null, 2500); return { at: Date.now(), ping_ms: 772, down_mbps: 29.1, up_mbps: 12.2, down_mb: 25, up_mb: 6, error: null }; },
     servers: async () => srvState(),
-    serverFingerprint: async () => later("SHA256:mockmockmockmockmockmockmockmockmockmockmoc", 900),
+    serverFingerprint: async (_h, _p, via) => later({ fingerprint: "SHA256:mockmockmockmockmockmockmockmockmockmockmoc", via: via ?? (q.has("jump") ? "s1" : null) }, 900),
     serverAdd: async (i) => {
       await steps([["step", `Подключаюсь к root@${i.host}:22 напрямую (мимо туннеля)`], ["ok", `Ключ сервера совпал: ${i.fingerprint ?? "SHA256:mock"}`], ["step", "Ставлю отдельный ключ wpx (пароль не сохраняется)"], ["ok", "Debian GNU/Linux 12 · Amsterdam, NL · 1 ядр. · 1024 МБ ОЗУ"]]);
       if (!i.password && !i.key_path) throw "Нужен пароль или файл ключа";

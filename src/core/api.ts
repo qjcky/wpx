@@ -3,7 +3,7 @@
 import type { MonitorInfo,
   ApplyResult, ChainProbe, ConnList, EngineInfo, FullState, NetSettings, ParsedItem, Prefs, ProbeResult, ProfileInput, ProfileTest,
   MemberProbe, ProfilesState, RouterCheck, RouterRule, ServerInput, ServerLog, ServerOpResult, ServersState, Snapshot, SpeedResult, TrialStatus, WidgetState,
-  GameServer, GuestInput, GuestOp, GuestStat, LeakCheck, ListItems, MovePlan, RouteRtt, PointHistory, ServerCheck, Share, UpdateInfo,
+  GameServer, GuestInput, GuestOp, GuestStat, HostKey, LeakCheck, ListItems, MovePlan, RouteRtt, PointHistory, ServerCheck, Share, UpdateInfo,
 } from "./types";
 
 export interface Api {
@@ -60,7 +60,7 @@ export interface Api {
   servers(): Promise<ServersState>;
   serverAdd(input: ServerInput): Promise<ServersState>;
   /** Отпечаток ключа нового сервера — до входа, пароль не отправляется. */
-  serverFingerprint(host: string, port: number | null, via: string | null): Promise<string>;
+  serverFingerprint(host: string, port: number | null, via: string | null): Promise<HostKey>;
   serverInspect(id: string): Promise<ServersState>;
   serverInstall(id: string, vless: boolean, hy2: boolean, awg: boolean, xhttp: boolean, mtproxy: boolean, harden: boolean, cover?: string): Promise<ServerOpResult>;
   /** Профиль этого ПК из уже настроенного сервера — сервер не меняется. */
@@ -182,7 +182,7 @@ export async function tauriApi(): Promise<Api> {
     trialSpeed: () => invoke<SpeedResult>("trial_speed"),
     servers: () => invoke<ServersState>("servers_list"),
     serverAdd: (input) => invoke<ServersState>("server_add", { input }),
-    serverFingerprint: (host, port, via) => invoke<string>("server_fingerprint", { host, port, via }),
+    serverFingerprint: (host, port, via) => invoke<HostKey>("server_fingerprint", { host, port, via }),
     serverInspect: (id) => invoke<ServersState>("server_inspect", { id }),
     serverInstall: (id, vless, hy2, awg, xhttp, mtproxy, harden, cover) => invoke<ServerOpResult>("server_install", { id, vless, hy2, awg, xhttp, mtproxy, harden, cover: cover || null }),
     serverProfile: (id) => invoke<ServerOpResult>("server_profile", { id }),

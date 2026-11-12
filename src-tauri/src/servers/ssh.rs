@@ -130,10 +130,10 @@ async fn handshake(host: &str, port: u16, route: Route<'_>, expected: Option<&st
             tokio::time::timeout(Duration::from_secs(20), client::connect_stream(config(), s, h)).await
         }
         Route::Jump(j) => {
-            let ch = j
-                .handle
-                .channel_open_direct_tcpip(host, port as u32, "127.0.0.1", 0)
+            let open = j.handle.channel_open_direct_tcpip(host, port as u32, "127.0.0.1", 0);
+            let ch = tokio::time::timeout(Duration::from_secs(15), open)
                 .await
+                .map_err(|_| format!("сервер-посредник не дождался ответа от {} за 15 с", super::host_port(host, port)))?
                 .map_err(|e| format!("сервер-посредник не открыл путь до {}: {e}", super::host_port(host, port)))?;
             tokio::time::timeout(Duration::from_secs(20), client::connect_stream(config(), ch.into_stream(), h)).await
         }

@@ -29,6 +29,7 @@ pub mod fw;
 pub mod guests;
 pub mod heal;
 pub mod moving;
+pub mod path;
 pub mod rtt;
 pub mod ssh;
 pub mod update;
@@ -266,6 +267,8 @@ pub struct Facts {
     /// Образы контейнеров wpx (сравнить с закреплёнными в wpx).
     pub sb_img: String,
     pub awg_img: String,
+    /// Глобальный IPv6-адрес сервера (пусто — нет).
+    pub ipv6: String,
     /// Включено самовосстановление (wpx-heal.timer); его последние записи.
     pub heal: bool,
     pub heal_log: Vec<heal::HealEvent>,
@@ -602,7 +605,7 @@ fn adopt(s: &mut Server, cfg: &Value, cert: &str, runtime: &str, known: &[Server
             "direct" => {
                 if let Some(to_host) = i.get("override_address").and_then(Value::as_str) {
                     s.pipes.push(Pipe {
-                        to: known.iter().find(|k| k.host == to_host).map(|k| k.id.clone()).unwrap_or_default(),
+                        to: known.iter().find(|k| path::at(k, to_host)).map(|k| k.id.clone()).unwrap_or_default(),
                         to_host: to_host.into(),
                         listen: port,
                         to_port: i.get("override_port").and_then(Value::as_u64).unwrap_or(443) as u16,
@@ -632,6 +635,7 @@ ss -tlnpH 2>/dev/null | awk '{print "tcp="$4" "$6}'
 ss -ulnpH 2>/dev/null | awk '{print "udp="$4" "$6}'
 { [ -f /opt/wpx/sing-box/config.json ] || [ -f /opt/wpx/awg/wg0.conf ]; } && echo "wpx=1"
 echo "uptime_s=$(cut -d. -f1 /proc/uptime)"
+echo "ipv6=$(ip -6 -o addr show scope global 2>/dev/null | awk '{print $4}' | cut -d/ -f1 | head -1)"
 echo "load=$(cut -d' ' -f1-3 /proc/loadavg)"
 i=$(ip route show default 2>/dev/null | awk '{print $5; exit}')
 [ -n "$i" ] && awk -v i="$i:" '$1==i{print "net_rx="$2; print "net_tx="$10}' /proc/net/dev
@@ -691,6 +695,7 @@ fn parse_facts(out: &str) -> Facts {
             "fw" => f.fw = true,
             "sb_img" => f.sb_img = v.trim().into(),
             "awg_img" => f.awg_img = v.trim().into(),
+            "ipv6" => f.ipv6 = v.trim().into(),
             "heal_on" => f.heal = true,
             "heal" => f.heal_log.extend(heal::parse(v)),
             "wpx" => f.wpx = true,
@@ -1430,24 +1435,50 @@ pub struct ServerInput {
     pub fingerprint: Option<String>,
 }
 
+/// Ключ нового сервера и через какой свой сервер к нему ходить.
+#[derive(Serialize)]
+pub struct HostKey {
+    pub fingerprint: String,
+    /// Напрямую с ПК не открылся — нашёлся путь через этот свой сервер.
+    pub via: Option<String>,
+}
+
 /// Отпечаток ключа нового сервера — до любого входа: пароль и ключ wpx не
-/// отправляются, пока пользователь его не сверит. `via` — через свой сервер.
+/// отправляются, пока пользователь его не сверит. `via` — через свой сервер;
+/// без него напрямую, а не открылся — через свой сервер, с которого путь до
+/// него держится (адрес могут резать по пути от ПК, а со своего сервера —
+/// пропускать «волнами», и тогда установка рвалась бы посередине).
 #[tauri::command]
-pub async fn server_fingerprint(host: String, port: Option<u16>, via: Option<String>) -> Result<String, String> {
+pub async fn server_fingerprint(host: String, port: Option<u16>, via: Option<String>) -> Result<HostKey, String> {
     let host = server_ip(&host)?;
     let port = port.unwrap_or(22);
-    let bind = bind_ip().await;
-    match via.as_deref().filter(|v| !v.is_empty()) {
-        None => ssh::fingerprint(&host, port, Route::Direct { bind }).await,
-        Some(v) => {
-            let st = load();
-            let j = st.servers.iter().find(|x| x.id == v).ok_or("сервер-посредник не найден")?;
-            let js = ssh::connect(&j.host, j.port, &j.user, &Auth::Key(key_of(j)?), &j.host_key, Route::Direct { bind }).await?;
-            let r = ssh::fingerprint(&host, port, Route::Jump(&js)).await;
-            js.close().await;
-            r
+    let st = load();
+    let quiet: Log = Arc::new(|_, _| {});
+    if let Some(v) = via.filter(|v| !v.is_empty()) {
+        let j = st.servers.iter().find(|x| x.id == v).ok_or("сервер-посредник не найден")?;
+        let c = open(&st, j, &quiet).await?;
+        let r = ssh::fingerprint(&host, port, Route::Jump(&c.s)).await;
+        c.close().await;
+        return Ok(HostKey { fingerprint: r?, via: Some(v) });
+    }
+    let direct = ssh::fingerprint(&host, port, Route::Direct { bind: bind_ip().await }).await;
+    if let Ok(fingerprint) = direct {
+        return Ok(HostKey { fingerprint, via: None });
+    }
+    let target = Server { host: host.clone(), port, ..Default::default() };
+    for j in st.servers.iter().filter(|j| j.via.is_none()) {
+        let Ok(c) = open(&st, j, &quiet).await else { continue };
+        let holds = match path::probe(&c, &target).await {
+            Ok(r) if path::pick(&r, &target).is_some() => path::steady(&c, &target, &host).await.is_ok_and(path::holds),
+            _ => false,
+        };
+        let fp = if holds { ssh::fingerprint(&host, port, Route::Jump(&c.s)).await.ok() } else { None };
+        c.close().await;
+        if let Some(fingerprint) = fp {
+            return Ok(HostKey { fingerprint, via: Some(j.id.clone()) });
         }
     }
+    direct.map(|fingerprint| HostKey { fingerprint, via: None })
 }
 
 #[tauri::command]
@@ -1560,7 +1591,7 @@ async fn add(input: ServerInput, log: &Log) -> Result<ServersState, String> {
     r?;
     // Трубы, найденные на входах раньше выхода, теперь знают, куда ведут.
     for p in st.servers.iter_mut().flat_map(|e| e.pipes.iter_mut()) {
-        if p.to.is_empty() && p.hop.is_none() && p.to_host == s.host {
+        if p.to.is_empty() && p.hop.is_none() && path::at(&s, &p.to_host) {
             p.to = s.id.clone();
         }
     }
@@ -2048,25 +2079,47 @@ async fn cascade(entry_id: &str, exit_id: &str, via: Option<&str>, log: &Log) ->
     if x.vless.is_none() && x.hy2.is_none() && x.awg.is_none() {
         return Err(format!("На «{}» ещё не установлен VPN — сначала «Установить VPN»", x.name));
     }
-    // Куда пересылать: (адрес, порт) и порт на самом выходе.
+    // Куда пересылает труба входа: на промежуточный или сразу на выход —
+    // (порт там, порт на самом выходе).
     let mid = match via {
         Some(m) => Some(st.servers.iter().find(|s| s.id == m).cloned().ok_or("промежуточный сервер не найден")?),
         None => None,
     };
-    let targets: Vec<(String, u16, u16)> = match &mid {
-        Some(m) => m.pipes.iter().filter(|p| p.to == x.id && p.hop.is_none()).map(|p| (m.host.clone(), p.listen, p.to_port)).collect(),
+    let target = mid.as_ref().unwrap_or(&x);
+    let ports: Vec<(u16, u16)> = match &mid {
+        Some(m) => m.pipes.iter().filter(|p| p.to == x.id && p.hop.is_none()).map(|p| (p.listen, p.to_port)).collect(),
         None => {
             let o = Ports::of(&x);
             let mut t: Vec<u16> = [o.vless, o.hy2, o.awg].into_iter().flatten().collect();
             t.sort();
             t.dedup();
-            t.into_iter().map(|p| (x.host.clone(), p, p)).collect()
+            t.into_iter().map(|p| (p, p)).collect()
         }
     };
-    if targets.is_empty() {
+    if ports.is_empty() {
         return Err("У промежуточного сервера нет труб на выход".into());
     }
     let c = open(&st, &e, log).await?;
+    let to_addr = match path::choose(&c, &e, target, log).await {
+        Ok(a) => a,
+        // Напрямую не держится, а промежуточный не задан — wpx ищет его среди своих серверов.
+        Err(why) if via.is_none() => {
+            log("warn", why.clone());
+            log("step", "Ищу промежуточный среди ваших серверов".into());
+            let m = path::middle(&st, &c, &e, &x, log).await;
+            c.close().await;
+            let Some(m) = m else {
+                return Err(format!("{why} Ни через один ваш сервер путь до «{}» тоже не держится — похоже на блокировку у его провайдера: напишите хостеру или переезжайте на другой VPS.", x.name));
+            };
+            log("ok", format!("Каскад пойдёт так: ПК → «{}» → «{}» → «{}»", e.name, m.name, x.name));
+            return Box::pin(cascade(entry_id, exit_id, Some(m.id.as_str()), log)).await;
+        }
+        Err(why) => {
+            c.close().await;
+            return Err(why);
+        }
+    };
+    let targets: Vec<(String, u16, u16)> = ports.into_iter().map(|(to, fin)| (to_addr.clone(), to, fin)).collect();
     let res = async {
         let f = inspect(&c).await?;
         s_facts(&mut e, f.clone(), log);
@@ -2398,6 +2451,7 @@ pub fn cli(args: &[String]) {
     let res: Result<String, String> = rt.block_on(async {
         match arg(0).as_str() {
             "list" => Ok(serde_json::to_string_pretty(&state(&load())).unwrap_or_default()),
+            "fingerprint" => server_fingerprint(arg(1), None, opt("--via")).await.map(|k| format!("{} через {}", k.fingerprint, k.via.as_deref().unwrap_or("—"))),
             "add" => {
                 let via = match opt("--via") { Some(v) => Some(find(&v)?), None => None };
                 let input = ServerInput { name: opt("--name").unwrap_or_default(), host: arg(1), port: None, user: "root".into(), password: None, key_path: opt("--key"), via, fingerprint: opt("--fingerprint") };
@@ -2449,7 +2503,7 @@ pub fn cli(args: &[String]) {
                     t
                 })
             }
-            _ => Err("wpx --server list|add|inspect|install|harden|cascade|uncascade|uninstall|forget|guests|share|unshare …".into()),
+            _ => Err("wpx --server list|fingerprint|add|inspect|install|harden|cascade|uncascade|uninstall|forget|guests|share|unshare …".into()),
         }
     });
     match res {

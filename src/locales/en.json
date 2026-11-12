@@ -1561,7 +1561,23 @@
   "Движок остановится, интернет пойдёт напрямую, без VPN, пока не сделаете рабочим другой профиль.": "The engine will stop and the internet will go direct, without VPN, until you make another profile active.",
   "После этого профиль, его сервер и каскад можно удалить.": "After that the profile, its server and cascade can be deleted.",
   "IP-адрес (IPv4 или IPv6)": "IP address (IPv4 or IPv6)",
-  "Адрес сервера — IP вида 203.0.113.10 или 2001:db8::10": "Server address — an IP like 203.0.113.10 or 2001:db8::10"
+  "Адрес сервера — IP вида 203.0.113.10 или 2001:db8::10": "Server address — an IP like 203.0.113.10 or 2001:db8::10",
+  "не проверить — нет SSH ко входу": "can’t check — no SSH to the entry",
+  "С ваших серверов": "From your servers",
+  "Сервер отвечает на ping, но соединения до него не доходят ни с ПК, ни с ваших серверов — похоже на блокировку у провайдера сервера": "The server answers ping, but connections reach it neither from the PC nor from your servers — looks like a block at the server’s provider",
+  "Сервер работает, но с входа каскада до него не доходит": "The server works, but the cascade entry can’t reach it",
+  "Написать хостеру: на адрес не доходят TCP и UDP ни откуда, а ping проходит — пусть проверят фильтрацию": "Write to the host: TCP and UDP reach the address from nowhere while ping passes — ask them to check filtering",
+  "Со входа до выхода по IPv4 не доходит — труба идёт по IPv6": "IPv4 from the entry doesn’t reach the exit — the pipe goes over IPv6",
+  "Проверяю, что путь держится, — около полуминуты": "Checking that the path holds — about half a minute",
+  "Запрашиваю ключ сервера — пароль пока не отправляется. Напрямую не ответит — поищу путь через ваши серверы, это до минуты": "Asking for the server key — the password isn’t sent yet. If it doesn’t answer directly, I’ll look for a path through your servers — up to a minute",
+  "Первый прыжок — к нему подключается ПК": "First hop — the PC connects to it",
+  "Поменять первый прыжок и конечный местами": "Swap the first hop and the final one",
+  "Промежуточный — если напрямую не держится, wpx подберёт сам": "Middle — if the direct path doesn’t hold, wpx picks one itself",
+  "Конечный — его IP увидят сайты": "Final — sites will see its IP",
+  "подобрать, если нужен": "pick one if needed",
+  "Первый прыжок и конечный — один и тот же сервер": "The first hop and the final one are the same server",
+  "Промежуточный должен отличаться от первого прыжка и конечного": "The middle server must differ from the first hop and the final one",
+  "Ищу промежуточный среди ваших серверов": "Looking for a middle server among yours"
  },
  "patterns": [
   [
@@ -3871,6 +3887,94 @@
   [
    "сервер-посредник не открыл путь до {}: {}",
    "the jump server couldn’t open a path to {}: {}"
+  ],
+  [
+   "{} {}: TCP {} из {}, ping проходит",
+   "{} {}: TCP {} of {}, ping passes"
+  ],
+  [
+   "{} {}: TCP {} из {}, отвечает чужой сервер (другой ключ SSH)",
+   "{} {}: TCP {} of {}, a different server answers (another SSH key)"
+  ],
+  [
+   "{} {}: TCP {} из {}",
+   "{} {}: TCP {} of {}"
+  ],
+  [
+   "Проверяю путь «{}» → «{}»",
+   "Checking the path “{}” → “{}”"
+  ],
+  [
+   "{} — труба пойдёт по {}",
+   "{} — the pipe goes over {}"
+  ],
+  [
+   "С «{}» до «{}» соединения не доходят ({}) — ping проходит, значит, соединения режут по пути или у провайдера. {}",
+   "Connections from “{}” don’t reach “{}” ({}) — ping passes, so they’re cut on the way or at the provider. {}"
+  ],
+  [
+   "С «{}» до «{}» соединения не доходят ({}). {}",
+   "Connections from “{}” don’t reach “{}” ({}). {}"
+  ],
+  [
+   "«{}» → сервер",
+   "“{}” → server"
+  ],
+  [
+   "{} — труба идёт на {}, а проходит {}",
+   "{} — the pipe goes to {}, but {} passes"
+  ],
+  [
+   "Пересобрать каскад «{}» → «{}»: труба пойдёт по {}",
+   "Rebuild the cascade “{}” → “{}”: the pipe will go over {}"
+  ],
+  [
+   "с «{}»: {}",
+   "from “{}”: {}"
+  ],
+  [
+   "сервер-посредник не дождался ответа от {} за 15 с",
+   "the jump server got no answer from {} in 15 s"
+  ],
+  [
+   "Напрямую с этого ПК сервер не отвечает — подключусь через «{}».",
+   "The server doesn’t answer this PC directly — I’ll connect through “{}”."
+  ],
+  [
+   "{} · держится: {} из {} — труба пойдёт по {}",
+   "{} · holds: {} of {} — the pipe goes over {}"
+  ],
+  [
+   "{} · держится: {} из {}",
+   "{} · holds: {} of {}"
+  ],
+  [
+   "{} · рвётся: {} из {} за полминуты — похоже на фильтр, что пропускает соединения волнами",
+   "{} · drops: {} of {} in half a minute — looks like a filter that lets connections through in waves"
+  ],
+  [
+   "С «{}» до «{}» соединения проходят рывками ({} за полминуты) — похоже на фильтр, что пропускает их волнами: VPN по такому пути будет обрываться.",
+   "Connections from “{}” to “{}” get through in bursts ({} in half a minute) — looks like a filter that lets them through in waves: VPN over this path would keep dropping."
+  ],
+  [
+   "На конечном «{}» ещё не установлен VPN",
+   "VPN isn’t installed on the final “{}” yet"
+  ],
+  [
+   "«{}» — SSH только через другой сервер; ПК должен доставать первый прыжок напрямую",
+   "“{}” — SSH only through another server; the PC must reach the first hop directly"
+  ],
+  [
+   "Пробую через «{}» — около минуты",
+   "Trying through “{}” — about a minute"
+  ],
+  [
+   "Каскад пойдёт так: ПК → «{}» → «{}» → «{}»",
+   "The cascade goes: PC → “{}” → “{}” → “{}”"
+  ],
+  [
+   "{} Ни через один ваш сервер путь до «{}» тоже не держится — похоже на блокировку у его провайдера: напишите хостеру или переезжайте на другой VPS.",
+   "{} The path to “{}” doesn’t hold through any of your servers either — looks like a block at its provider: write to the host or move to another VPS."
   ]
  ]
 }

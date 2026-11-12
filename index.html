@@ -417,10 +417,10 @@
         <div class="card-head"><h2>Путь к выходу через вход</h2><span class="hint">ПК → вход → выход → интернет</span></div>
         <div class="ca-chain">
           <span class="ca-node">ПК</span><span class="ca-arr">→</span>
-          <label class="field"><span>Вход — к нему подключается ПК</span><select id="scEntry"></select></label>
-          <button type="button" class="btn ca-swap" id="scSwap" title="Поменять вход и выход местами" aria-label="Поменять вход и выход местами">⇄</button>
-          <label class="field"><span>Промежуточный — необязательно</span><select id="scVia"></select></label>
-          <label class="field"><span>Выход — его IP увидят сайты</span><select id="scExit"></select></label>
+          <label class="field"><span>Первый прыжок — к нему подключается ПК</span><select id="scEntry"></select></label>
+          <button type="button" class="btn ca-swap" id="scSwap" title="Поменять первый прыжок и конечный местами" aria-label="Поменять первый прыжок и конечный местами">⇄</button>
+          <label class="field"><span>Промежуточный — если напрямую не держится, wpx подберёт сам</span><select id="scVia"></select></label>
+          <label class="field"><span>Конечный — его IP увидят сайты</span><select id="scExit"></select></label>
           <span class="ca-arr">→</span><span class="ca-node">интернет</span>
         </div>
         <p class="form-err" id="scErr" hidden></p>

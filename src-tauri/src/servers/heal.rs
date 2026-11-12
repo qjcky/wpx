@@ -50,7 +50,6 @@ awg_ok() {
   elif command -v iptables >/dev/null && [ "$(iptables -t nat -S 2>/dev/null | grep -c -- "--dport $p -j DNAT")" = 0 ]; then echo nat
   fi
 }
-hop_ok() { nft list table inet wpx_hop >/dev/null 2>&1 || echo table; }
 
 # Docker сам перезапустил контейнер (упал процесс) — тоже в журнал, с причиной.
 restarts() {
@@ -90,7 +89,11 @@ if command -v docker >/dev/null 2>&1; then
   mv $W/heal.seen.new $W/heal.seen
 fi
 unit wpx-singbox sing-box singbox_ok
-unit wpx-hop hop hop_ok
+# Смена портов Hysteria2: правила ставит wpx, служба — только для загрузки,
+# поэтому смотрим на таблицу, а не на то, запущена ли служба.
+if systemctl is-enabled --quiet wpx-hop 2>/dev/null && ! nft list table inet wpx_hop >/dev/null 2>&1; then
+  fix hop table systemctl restart wpx-hop
+fi
 
 # Журнал не растёт без конца.
 if [ "$(wc -l < "$LOG" 2>/dev/null || echo 0)" -gt 500 ]; then tail -n 300 "$LOG" > "$LOG.new" && mv "$LOG.new" "$LOG"; fi
